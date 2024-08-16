@@ -1,0 +1,121 @@
+/*========== GOOGLE FONTS ==========*/
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: block;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Container que envolve Sidebar, Navbar e Conteúdo Principal */
+.layout-container {
+    display: flex;
+    width: 100%;
+}
+
+/* Estilo do Sidebar */
+.sidebar {
+    width: 80px;
+    height: 100vh;
+    background-color: #fff;
+    padding: 20px 0;
+    position: fixed;
+    transition: width 0.3s ease;
+    overflow: hidden;
+    box-shadow: 0px 1px 50px rgba(0, 0, 0, 0.08);
+    border: 1px solid #E8E7E7;
+    border-radius: 0 10px 10px 0;
+    z-index: 1000;
+}
+
+.sidebar:hover {
+    width: 250px;
+}
+.sidebar:hover .sidebar-menu li {
+    display: flex !important;
+    justify-content: flex-start !important;
+}
+
+.sidebar .sidebar-menu {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.sidebar .sidebar-menu li {
+    padding: 15px;
+    text-align: center;
+    transition: background 0.3s ease;
+    display: flex;
+    justify-content: center;
+}
+
+.sidebar .sidebar-menu li a span:hover {
+    color: #6BC785;
+}
+
+.sidebar .sidebar-menu li a {
+    color: #707070;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.sidebar .sidebar-menu li a i {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.sidebar .sidebar-menu li a span {
+    display: none;
+    font-size: 18px;
+    white-space: nowrap;
+}
+
+.sidebar:hover .sidebar-menu li a span {
+    display: inline;
+    margin-left: 10px;
+}
+
+/* Estilo do Navbar */
+nav {
+    width: calc(100% - 80px);
+    height: 100px;
+    padding: 10px 80px;
+    position: fixed;
+    top: 0;
+    left: 80px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    z-index: 999;
+}
+
+.logo {
+    width: 200px;
+}
+
+/* Main Layout - Ocupa o espaço restante */
+.container.container-geral {
+    width: calc(100% - 80px);
+    height: calc(100% - 100px);
+    margin-left: 80px;
+    padding-top: 100px;
+}
+
+/* Estilo do Footer */
+#footer-stayfit{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
