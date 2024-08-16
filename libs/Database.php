@@ -8,13 +8,9 @@ class Database extends PDO
     {
         $DB_TYPE="mysql";
         $DB_HOST="localhost:3306";
-        $DB_NAME="devsonagencia";
+        $DB_NAME="stayfit";
         $DB_USER="root";
-        $DB_PASS="root";
-        // $DB_HOST="ftp.devsonagencia.com.br";
-        // $DB_NAME="devsonagencia";
-        // $DB_USER="devsonagencia";
-        // $DB_PASS="devson12";
+        $DB_PASS="1234";
         try{
             $dsn= "$DB_TYPE:host=$DB_HOST;dbname=$DB_NAME";
 
