@@ -10,7 +10,7 @@ class Database extends PDO
         $DB_HOST="localhost:3306";
         $DB_NAME="stayfit";
         $DB_USER="root";
-        $DB_PASS="1234";
+        $DB_PASS="";
         try{
             $dsn= "$DB_TYPE:host=$DB_HOST;dbname=$DB_NAME";
 
