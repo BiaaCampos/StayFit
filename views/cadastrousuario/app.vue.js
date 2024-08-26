@@ -1,36 +1,70 @@
 const newLocal = `
-<div class="bg_cadastro">
+<div class="bg_cadastros">
     <div class="lado_esquerdo" style="background-image:url('public/images/back-green.svg')">
         <div class="img_lado_esquerdo">
-            <img src="public/images/images-cadastros/salada.svg" alt="salada" />
+            <img src="public/images/images-cadastros/Images.svg" alt="salada" />
         </div>
     </div>
     <div class="lado_direito">
         <div class="div_direita">
             <div class="titulo_lado_direito">
                 <h1>
-                    Bem-vindo à 
+                    Preencha os     seus dados 
                 </h1>
-                <img src="public/images/images-cadastros/stayfit_preta.svg" alt="logo" class="logo_stayfit" />
             </div>
             <form>
                 <div class="form-group">
-                    <label for="nome">Nome:</label>
-                    <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo">
+                    <div>
+                        <label for="q1">
+                            Nome completo:
+                        </label>
+                        <input type="text" id="q1" name="q1">
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="celular">Celular:</label>
-                    <input type="tel" id="celular" name="celular" placeholder="Digite seu número de celular">
+                    <div>
+                        <label for="q1">
+                            Gênero:
+                        </label>
+                        <div class="inputs-generos">
+                            <label for="q1">
+                                Feminino:
+                            </label>
+                            <input type="radio">
+                            <label for="q1">
+                                Masculino:
+                            </label>
+                            <input type="radio" id="q1" name="q1">
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="email">E-mail:</label>
-                    <input type="email" id="email" name="email" placeholder="Digite seu e-mail">
-                </div>
+                    <div>
+                        <label for="q1">
+                            Data de nascimento:
+                        </label>
+                        <input type="date" id="q1" name="q1">
+                    </div>
+                    <div>
+                        <label for="q1">
+                            Altura:
+                        </label>
+                        <input type="number" id="q1" name="q1">
+                    </div>
+                </div> 
                 <div class="form-group">
-                    <label for="senha">Senha:</label>
-                    <input type="password" id="senha" name="senha" placeholder="Digite sua senha">
-                </div>
-                <button class="button_cadastronutricional" type="submit">Próximo</button>
+                    <div>
+                        <label for="q1">
+                            Peso atual:
+                        </label>
+                        <input type="number" id="q1" name="q1">
+                    </div>
+                        <label for="q1">
+                            Peso desejado:
+                        </label>
+                        <input type="number" id="q1" name="q1">
+                    </div>
+                <button class="button_cadastronutricional" type="submit">Criar meu plano</button>
             </form>
         </div>
     </div>

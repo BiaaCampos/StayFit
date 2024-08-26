@@ -15,8 +15,8 @@ class Cadastrousuario extends Controller
     {
         $this->view->title = "Home";
         /*Os array push devem ser feitos antes de instanciar o header e footer.*/
-        array_push($this->view->js, "views/cadastronutricional/app.vue.js");
-        array_push($this->view->css, "views/cadastronutricional/app.vue.css");
+        array_push($this->view->js, "views/cadastrousuario/app.vue.js");
+        array_push($this->view->css, "views/cadastrousuario/app.vue.css");
         $this->view->render('header');
         $this->view->render('footer');
     }
