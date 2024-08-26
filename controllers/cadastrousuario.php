@@ -1,6 +1,6 @@
 <?php
 
-class Index extends Controller
+class Cadastrousuario extends Controller
 {
 
     function __construct()
@@ -15,10 +15,10 @@ class Index extends Controller
     {
         $this->view->title = "Home";
         /*Os array push devem ser feitos antes de instanciar o header e footer.*/
-        array_push($this->view->js, "views/index/app.vue.js");
-        array_push($this->view->css, "views/index/app.vue.css");
+        array_push($this->view->js, "views/cadastronutricional/app.vue.js");
+        array_push($this->view->css, "views/cadastronutricional/app.vue.css");
         $this->view->render('header');
         $this->view->render('footer');
     }
 
-} 
+}
