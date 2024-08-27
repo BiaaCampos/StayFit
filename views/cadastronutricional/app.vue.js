@@ -1,4 +1,4 @@
-const newLocal = `
+const AppTemplate = `
 <div class="bg_cadastros">
     <div class="lado_esquerdo" style="background-image:url('public/images/back-green.svg')">
         <div class="img_lado_esquerdo">
@@ -13,40 +13,54 @@ const newLocal = `
                 </h1>
                 <img src="public/images/images-cadastros/stayfit_preta.svg" alt="logo" class="logo_stayfit" />
             </div>
-            <form>
-                <div class="form-group">
-                    <div class="number">
-                        1
+            <div class="button-container">
+
+                <component :is="currentComponent" @next="nextStep"></component>
+                <div class="around-arrow">
+                    <div class="around-arrow-prev">
+                        <button v-if="currentStep !== 'historicomedico'" class="button_cadastronutricional" @click="prevStep">
+                            <img src="public/images/images-cadastros/arrow.svg" alt="seta" class="arrow-left" />
+                        </button>
                     </div>
-                    <div>
-                        <label for="q1">
-                            Qual é o seu nome?
-                        </label>
-                        <input type="text" id="q1" name="q1">
-                    </div>
-                    <div>
-                        <span class="help-icon">
-                            <img src="public/images/images-cadastros/question.svg" alt="logo" />
-                            <span class="tooltip">Digite seu nome completo.</span>
-                        </span>
+                    <div class="around-arrow-next">
+                        <button v-if="currentStep !== 'finalStep'" class="button_cadastronutricional" @click="nextStep">
+                            <img src="public/images/images-cadastros/arrow.svg" alt="seta" class="arrow-right" />
+                        </button>
                     </div>
                 </div>
-                <button class="button_cadastronutricional" type="submit">Próximo</button>
-            </form>
+                
+            </div>
         </div>
     </div>
 </div>
 `;
-const AppTemplate = newLocal;
+
 Vue.component('AppVue', {
     template: AppTemplate,
-    data: function() {
+    data() {
         return {
+            steps: ['historicomedico', 'habitos_alimentares'],
+            currentIndex: 0
+        };
+    },
+    computed: {
+        currentStep() {
+            return this.steps[this.currentIndex];
+        },
+        currentComponent() {
+            return this.currentStep;
         }
     },
     methods: {
-    },
-    mounted: function() {
+        nextStep() {
+            if (this.currentIndex < this.steps.length - 1) {
+                this.currentIndex++;
+            }
+        },
+        prevStep() {
+            if (this.currentIndex > 0) {
+                this.currentIndex--;
+            }
+        }
     }
-
-})
+});
