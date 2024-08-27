@@ -3,12 +3,12 @@ nav, footer, .sidebar{
     visibility: hidden;
 }
 
-.bg_cadastros {
+.bg_cadastros2 {
     display: flex;
 }
 
 /* LADO ESQUERDO */
-.lado_esquerdo{
+.lado_esquerdo2{
     background-image: url('public/images/back-green.svg');
     background-size: contain;
     width: 100%;
@@ -19,18 +19,20 @@ nav, footer, .sidebar{
     align-items: center;
 }
 
-.img_lado_esquerdo{
+.img_lado_esquerdo2{
     width: 580px;
     height: auto;
+    position: fixed;
+    margin-right: 35em;
 }
 
-.img_lado_esquerdo img{
-    width: 100%;
+.img_lado_esquerdo2 img{
+    width: 150%;
 }
 
 /* LADO DIREITO */
 
-.lado_direito {
+.lado_direito2 {
     width: 970px;
     display: flex;
     flex-direction: column;
@@ -38,9 +40,8 @@ nav, footer, .sidebar{
     align-items: flex-start;
 }
 
-.titulo_lado_direito{
+.titulo_lado_direito2{
     display: flex;
-    align-items: flex-end;
 }
 
 .lado_direito h1{
@@ -55,51 +56,69 @@ nav, footer, .sidebar{
 
 /* FORMULÁRIO */
 
-.form-group {
+.form-group2 {
     margin-bottom: 20px;
     display: flex;
-    align-items: center;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between; /* Distribui os elementos horizontalmente */
+    width: 100%; /* Garante que o grupo ocupe toda a largura disponível */
 }
-.form-group label {
+
+.label-cad {
     font-weight: 700;
+    margin-bottom: 5px;
+    display: block;
 }
-.form-group input {
+
+/* Estilos para inputs */
+
+.input-data-nascimento,
+.input-altura,
+.input-peso-atual,
+.input-peso-desejado {
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    width: calc(100% - 60px);
+    width: 100%; 
+    max-width: 200px;
+    box-sizing: border-box;
+    margin-right: 10px;
 }
-.help-icon {
-    font-size: 18px;
-    margin-left: 10px;
-    cursor: pointer;
-    position: relative;
-}
-.tooltip {
-    display: none;
-    position: absolute;
-    background: #333;
-    color: #fff;
+
+.input-nome-form{
     padding: 5px;
+    border: 1px solid #ccc;
     border-radius: 4px;
-    top: 100%;
-    left: 0;
-    width: 200px;
-    z-index: 10;
+    width: 26em; 
+    box-sizing: border-box;
+    margin-right: 10px;
 }
-.help-icon:hover .tooltip {
-    display: block;
-}
-.number{
-    width: 50px;
-    height: 50px;
+
+/* Ajustes específicos para pares de inputs */
+
+.div-data-altura,
+.div-peso {
     display: flex;
-    justify-content: center;
+    flex-direction: row;
     align-items: center;
-    background: #F8DEBD;
-    border-radius: 10px;
-    margin-right: 2em;
+    justify-content: space-between; 
+    width: 100%;
 }
+
+.radio-input {
+    margin: 10px;
+    margin-left: 5px; /* Espaço entre o label e o input */
+    cursor: pointer; /* Muda o cursor para indicar que é clicável */
+}
+
+.inputs-generos {
+    display: flex;
+    align-items: center; /* Alinha verticalmente os inputs e os labels */
+    gap: 10px; /* Espaçamento entre os inputs */
+    justify-content: center;
+}
+
 .button_cadastronutricional {
     width: 100%;
     background-color: #32794F;
@@ -109,13 +128,4 @@ nav, footer, .sidebar{
     color: white;
     font-size: 20px;
     font-weight: 400;
-}
-
-/***** CADASTRO USUARIO PART2 *******/
-
-.inputs-generos{
-    display: flex;
-    align-items: baseline;
-    justify-content: center;
-    padding-left: 2em;
 }
