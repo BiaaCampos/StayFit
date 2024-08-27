@@ -22,7 +22,7 @@ nav, footer, .sidebar {
 }
 
 .img_lado_esquerdo {
-    width: 580px;
+    width: 65%;
     height: auto;
 }
 
@@ -151,6 +151,7 @@ nav, footer, .sidebar {
         background: white;
         border-radius: 10px;
         height: 70%;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     }
 
     .div_direita{
@@ -167,7 +168,6 @@ nav, footer, .sidebar {
         justify-content: center;
         align-items: center;
         height: 100vh;
-        background-color: #32794F;
         padding: 20px;
     }
 
@@ -181,10 +181,5 @@ nav, footer, .sidebar {
 
     .button-container{
         width: 100%;
-    }
-
-    .button_cadastronutricional {
-        width: 100%;
-        margin-top: 10px;
     }
 }
