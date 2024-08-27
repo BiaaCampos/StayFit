@@ -1,0 +1,131 @@
+nav, footer, .sidebar{
+    display: none;
+    visibility: hidden;
+}
+
+.bg_cadastros2 {
+    display: flex;
+}
+
+/* LADO ESQUERDO */
+.lado_esquerdo2{
+    background-image: url('public/images/back-green.svg');
+    background-size: contain;
+    width: 100%;
+    height: 100vh;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.img_lado_esquerdo2{
+    width: 580px;
+    height: auto;
+    position: fixed;
+    margin-right: 35em;
+}
+
+.img_lado_esquerdo2 img{
+    width: 150%;
+}
+
+/* LADO DIREITO */
+
+.lado_direito2 {
+    width: 970px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.titulo_lado_direito2{
+    display: flex;
+}
+
+.lado_direito h1{
+    color: #32794F;
+}
+
+.logo_stayfit{
+    width: 170px;
+    margin-bottom: 8px;
+    margin-left: 5px;
+}
+
+/* FORMULÁRIO */
+
+.form-group2 {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between; /* Distribui os elementos horizontalmente */
+    width: 100%; /* Garante que o grupo ocupe toda a largura disponível */
+}
+
+.label-cad {
+    font-weight: 700;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* Estilos para inputs */
+
+.input-data-nascimento,
+.input-altura,
+.input-peso-atual,
+.input-peso-desejado {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%; 
+    max-width: 200px;
+    box-sizing: border-box;
+    margin-right: 10px;
+}
+
+.input-nome-form{
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 26em; 
+    box-sizing: border-box;
+    margin-right: 10px;
+}
+
+/* Ajustes específicos para pares de inputs */
+
+.div-data-altura,
+.div-peso {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between; 
+    width: 100%;
+}
+
+.radio-input {
+    margin: 10px;
+    margin-left: 5px; /* Espaço entre o label e o input */
+    cursor: pointer; /* Muda o cursor para indicar que é clicável */
+}
+
+.inputs-generos {
+    display: flex;
+    align-items: center; /* Alinha verticalmente os inputs e os labels */
+    gap: 10px; /* Espaçamento entre os inputs */
+    justify-content: center;
+}
+
+.button_cadastronutricional {
+    width: 100%;
+    background-color: #32794F;
+    border: 0;
+    height: 50px;
+    border-radius: 10px;
+    color: white;
+    font-size: 20px;
+    font-weight: 400;
+}

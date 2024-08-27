@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="<?= URL ?>public/css/main.css">
 
     <!-- Essentail JS2 for Vue  (All components Styles) -->
-    <link href="https://cdn.syncfusion.com/ej2/20.1.55/material.css" rel="stylesheet" type="text/css" />
     <link href="<?= URL ?>public/plugins/essentialui/styles/material.min.css" rel="stylesheet">
     <link href="<?= URL ?>public/plugins/fontawesome-free/css/all.css" rel="stylesheet">
     <link href="<?= URL ?>public/mdb/mdb.min.css" rel="stylesheet">
@@ -32,7 +31,6 @@
     <!-- Vue library file-->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.min.js" type="text/javascript"></script>
     <!-- Essential JS 2 for Vue  global script -->
-    <script src="https://cdn.syncfusion.com/ej2/20.1.55/ej2-vue-es5/dist/ej2-vue.min.js" type="text/javascript">
     </script>
     <script src="<?= URL ?>public/plugins/essentialui/scripts/internationalization/traducaoComponentes.js" type="text/javascript"></script>
     <script src="<?= URL ?>public/plugins/essentialui/scripts/internationalization/currencyData.js" type="text/javascript"></script>
@@ -44,7 +42,6 @@
     <script src="<?= URL ?>public/plugins/essentialui/scripts/internationalization/timeZoneNames.js" type="text/javascript"></script>
     <script src="<?= URL ?>public/plugins/essentialui/scripts/internationalization/numberingSystems.js" type="text/javascript"></script>
     <script src="<?= URL ?>public/plugins/essentialui/scripts/internationalization/caGregorian.js" type="text/javascript"></script>
-    <script src="<?= URL ?>public/plugins/essentialui/scripts/ej2-vue.min.js" type="text/javascript"></script>
     <script src="<?= URL ?>public/plugins/axios/axios.min.js" type="text/javascript"></script>
     <script src="<?= URL ?>public/dist/js/common.js" type="text/javascript"></script>
     <script src="<?= URL ?>public/mdb/js/mdb.min.js"></script>

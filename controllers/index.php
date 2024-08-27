@@ -21,4 +21,4 @@ class Index extends Controller
         $this->view->render('footer');
     }
 
-}
+} 

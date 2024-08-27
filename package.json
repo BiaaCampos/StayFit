@@ -2,8 +2,6 @@
   "name": "VUE",
   "version": "1.0.0",
   "dependencies": {
-    "@syncfusion/ej2-vue-charts": "^20.1.56",
-    "mdb-ui-kit": "^7.3.2",
     "vue": "^3.2.34"
   }
 }

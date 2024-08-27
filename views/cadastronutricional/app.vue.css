@@ -1,4 +1,5 @@
-nav, footer, .sidebar{
+/* Regras gerais para tela maior que dispositivos móveis */
+nav, footer, .sidebar {
     display: none;
     visibility: hidden;
 }
@@ -8,10 +9,11 @@ nav, footer, .sidebar{
 }
 
 /* LADO ESQUERDO */
-.lado_esquerdo{
+.lado_esquerdo {
     background-image: url('public/images/back-green.svg');
     background-size: contain;
     width: 100%;
+    margin-right: 122px;
     height: 100vh;
     background-repeat: no-repeat;
     display: flex;
@@ -19,17 +21,16 @@ nav, footer, .sidebar{
     align-items: center;
 }
 
-.img_lado_esquerdo{
+.img_lado_esquerdo {
     width: 580px;
     height: auto;
 }
 
-.img_lado_esquerdo img{
+.img_lado_esquerdo img {
     width: 100%;
 }
 
 /* LADO DIREITO */
-
 .lado_direito {
     width: 970px;
     display: flex;
@@ -38,43 +39,46 @@ nav, footer, .sidebar{
     align-items: flex-start;
 }
 
-.titulo_lado_direito{
+.titulo_lado_direito {
     display: flex;
     align-items: flex-end;
 }
 
-.lado_direito h1{
+.lado_direito h1 {
     color: #32794F;
 }
 
-.logo_stayfit{
+.logo_stayfit {
     width: 170px;
     margin-bottom: 8px;
     margin-left: 5px;
 }
 
 /* FORMULÁRIO */
-
 .form-group {
     margin-bottom: 20px;
     display: flex;
     align-items: center;
 }
+
 .form-group label {
     font-weight: 700;
 }
+
 .form-group input {
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
     width: calc(100% - 60px);
 }
+
 .help-icon {
     font-size: 18px;
     margin-left: 10px;
     cursor: pointer;
     position: relative;
 }
+
 .tooltip {
     display: none;
     position: absolute;
@@ -87,10 +91,12 @@ nav, footer, .sidebar{
     width: 200px;
     z-index: 10;
 }
+
 .help-icon:hover .tooltip {
     display: block;
 }
-.number{
+
+.number {
     width: 50px;
     height: 50px;
     display: flex;
@@ -100,8 +106,23 @@ nav, footer, .sidebar{
     border-radius: 10px;
     margin-right: 2em;
 }
-.button_cadastronutricional {
+
+.around-arrow {
+    display: flex;
+}
+
+.around-arrow-prev, .around-arrow-next {
     width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.lado_direito form{
+    margin: 4em 0px;
+}
+
+.button_cadastronutricional {
+    width: 95%;
     background-color: #32794F;
     border: 0;
     height: 50px;
@@ -109,4 +130,61 @@ nav, footer, .sidebar{
     color: white;
     font-size: 20px;
     font-weight: 400;
+}
+
+.arrow-left {
+    rotate: -90deg;
+}
+
+.arrow-right {
+    rotate: 90deg;
+}
+
+@media (max-width: 768px) {
+    .lado_esquerdo {
+        display: none;
+    }
+
+    .lado_direito {
+        width: 100%;
+        padding: 30px 20px;
+        background: white;
+        border-radius: 10px;
+        height: 70%;
+    }
+
+    .div_direita{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+    }
+
+    .bg_cadastros {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #32794F;
+        padding: 20px;
+    }
+
+    .lado_esquerdo, .lado_direito {
+        margin: 0;
+    }
+
+    .titulo_lado_direito {
+        margin-bottom: 3em;
+    }
+
+    .button-container{
+        width: 100%;
+    }
+
+    .button_cadastronutricional {
+        width: 100%;
+        margin-top: 10px;
+    }
 }
