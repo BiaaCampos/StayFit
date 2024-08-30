@@ -4,6 +4,7 @@ const newLocal = `
     <p>
         Olá
     </p>
+    <ejs-textbox floatLabelType="Auto" cssClass="e-outline" placeholder="Outlined"></ejs-textbox>
  </div>
 `;
 const AppTemplate = newLocal;

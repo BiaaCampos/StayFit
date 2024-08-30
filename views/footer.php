@@ -3,7 +3,7 @@
   <!-- Copyright -->
   <div class="text-center">
     <div class="text-center">
-        <p>
+        <p class="direitos">
             Todos os direitos reservados para a stayfit
         </p>
     </div>

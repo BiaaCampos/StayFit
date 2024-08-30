@@ -1,5 +1,6 @@
 /*========== GOOGLE FONTS ==========*/
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -8,7 +9,7 @@
 }
 
 body {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Mulish', sans-serif;
     margin: 0;
     padding: 0;
     display: block;
@@ -90,15 +91,28 @@ body {
 /* Estilo do Navbar */
 nav {
     width: calc(100% - 80px);
-    height: 100px;
-    padding: 10px 80px;
+    height: 110px;
+    padding: 10px 37px;
     position: fixed;
     top: 0;
     left: 80px;
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
+    justify-content: space-between;
+    align-items: end;
     z-index: 999;
+}
+
+.pessoa_nav .nome_nav, .pessoa_nav .cidade_nav {
+    font-weight: 500;
+    color: #303030;
+}
+
+.pessoa_nav .nome_nav {
+    font-size: 20px;
+}
+
+.pessoa_nav .cidade_nav {
+    font-size: 15px;
 }
 
 .logo {
@@ -108,9 +122,9 @@ nav {
 /* Main Layout - Ocupa o espaço restante */
 .container.container-geral {
     width: calc(100% - 80px);
-    height: calc(100% - 100px);
+    height: calc(100vh - 30px);
     margin-left: 80px;
-    padding-top: 100px;
+    padding: 120px 37px 20px;
 }
 
 /* Estilo do Footer */
@@ -118,4 +132,26 @@ nav {
     width: 100%;
     position: absolute;
     bottom: 0;
+}
+
+@media (max-width: 1000px) {
+    nav {
+        height: 180px;
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .pessoa_nav {
+        text-align: center;
+    }
+
+    .container.container-geral {
+        padding: 120px 10px 0px;
+        display: flex;
+        align-items: center;    
+    }
+
+    footer .direitos{
+        margin-left: 80px;
+    }
 }

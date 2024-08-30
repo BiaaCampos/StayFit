@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="<?= URL ?>public/css/main.css">
 
     <!-- Essentail JS2 for Vue  (All components Styles) -->
+    <link href="https://cdn.syncfusion.com/ej2/20.1.55/material.css" rel="stylesheet" type="text/css" />
     <link href="<?= URL ?>public/plugins/essentialui/styles/material.min.css" rel="stylesheet">
     <link href="<?= URL ?>public/plugins/fontawesome-free/css/all.css" rel="stylesheet">
     <link href="<?= URL ?>public/mdb/mdb.min.css" rel="stylesheet">
@@ -32,6 +33,8 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.min.js" type="text/javascript"></script>
     <!-- Essential JS 2 for Vue  global script -->
     </script>
+    <script src="https://cdn.syncfusion.com/ej2/20.1.55/ej2-vue-es5/dist/ej2-vue.min.js" type="text/javascript">
+    <script src="<?= URL ?>public/plugins/essentialui/scripts/ej2-vue.min.js" type="text/javascript"></script>
     <script src="<?= URL ?>public/plugins/essentialui/scripts/internationalization/traducaoComponentes.js" type="text/javascript"></script>
     <script src="<?= URL ?>public/plugins/essentialui/scripts/internationalization/currencyData.js" type="text/javascript"></script>
     <script src="<?= URL ?>public/plugins/essentialui/scripts/internationalization/currencies.js" type="text/javascript"></script>
@@ -69,7 +72,11 @@
         </ul>
     </div>
     <nav>
-        <img src="public/images/icons-menu/logopreta.svg" alt="" srcset="" class="icones-sidebar" width="200">
+        <div class="pessoa_nav">
+            <div class="nome_nav">Nome teste</div>
+            <div class="cidade_nav">Marília-SP</div>
+        </div>
+        <img src="public/images/icons-menu/logopreta.svg" alt="" srcset="" class="icones-sidebar" width="200"/>
     </nav>
     <div id="mainLayout"></div>
     <script>

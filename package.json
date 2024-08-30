@@ -2,6 +2,7 @@
   "name": "VUE",
   "version": "1.0.0",
   "dependencies": {
+    "@syncfusion/ej2-vue-base": "^26.2.10",
     "vue": "^3.2.34"
   }
 }
