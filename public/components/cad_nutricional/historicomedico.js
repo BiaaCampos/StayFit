@@ -11,7 +11,7 @@ Vue.component("historicomedico", {
                 <label for="q1">
                     Qual é o seu nome?
                 </label>
-                <input type="text" id="q1" name="q1">
+                <ejs-textbox floatLabelType="Auto" placeholder=""></ejs-textbox>
             </div>
             <div>
                 <span class="help-icon">
