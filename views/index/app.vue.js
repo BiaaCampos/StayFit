@@ -1,99 +1,127 @@
 const newLocal = `
-    <div class="container container_home">
-        <header_home :tipoheaderhome="tipoheaderhome"></header_home>        
-        <section class="first_section">
-            <div class="right">
-                <h1>
-                    Nutrição sob medida 
-                    <p class="p_h1">
-                        Para cada estilo de vida
+    <div class="">
+        <div class="container container_home">
+            <header_home :tipoheaderhome="tipoheaderhome"></header_home>        
+            <section class="first_section">
+                <div class="right">
+                    <h1>
+                        Nutrição sob medida 
+                        <p class="p_h1">
+                            Para cada estilo de vida
+                        </p>
+                    </h1>
+                    <p class="p_first_section">
+                        Nossa função é te orientar para o melhor estado físico e mental
+                        a partir da nutrição.
                     </p>
-                </h1>
-                <p class="p_first_section">
-                    Nossa função é te orientar para o melhor estado físico e mental
-                    a partir da nutrição.
-                </p>
-                <div class="div_button_first_section">
-                    <a href="#" class="button_first_section">
-                        Veja nossos planos
-                    </a>
+                    <div class="div_button_first_section">
+                        <a href="#" class="button_first_section">
+                            Veja nossos planos
+                        </a>
+                    </div>
+                    
                 </div>
-                
-            </div>
-            <div class="left">
-                <img src="public/images/gif_morangos.gif" alt="" srcset="" class="gif_morangos"/>
-            </div>
-        </section>        
-        <section class="second_section" data-aos="fade-in">
-            <div class="top">
-                <h1>
-                    Nossos Serviços
-                </h1>
-                <p class="p_second_section">
-                    Nós dedicamos a servir o melhores serviços nutricionais
-                </p>
-            </div>
-            <div class="bottom">
-                <div class="cards">
-                    <div class="card">
-                        <div class="icon_card">
-                            <img src="public/images/home/doctor.svg" alt="" srcset="" class="icon_card_svg"/>
+                <div class="left">
+                    <img src="public/images/gif_morangos.gif" alt="" srcset="" class="gif_morangos"/>
+                </div>
+            </section>        
+            <section class="second_section" data-aos="fade-in">
+                <div class="top">
+                    <h1>
+                        Nossos Serviços
+                    </h1>
+                    <p class="p_second_section">
+                        Confira
+                    </p>
+                </div>
+                <div class="bottom">
+                    <div class="cards">
+                        <div class="card">
+                            <div class="icon_card">
+                                <img src="public/images/home/doctor.svg" alt="" srcset="" class="icon_card_svg"/>
+                            </div>
+                            Melhores nutricionistas
                         </div>
-                        Melhores nutricionistas
-                    </div>
-                    <div class="card">
-                        <div class="icon_card">
-                            <img src="public/images/home/chat.svg" alt="" srcset="" class="icon_card_svg"/>
+                        <div class="card">
+                            <div class="icon_card">
+                                <img src="public/images/home/chat.svg" alt="" srcset="" class="icon_card_svg"/>
+                            </div>
+                            Agende sua consulta online
                         </div>
-                        Agende sua consulta online
-                    </div>
-                    <div class="card">
-                        <div class="icon_card">
-                            <img src="public/images/home/suporte.svg" alt="" srcset="" class="icon_card_svg"/>
+                        <div class="card">
+                            <div class="icon_card">
+                                <img src="public/images/home/suporte.svg" alt="" srcset="" class="icon_card_svg"/>
+                            </div>
+                            Suporte
                         </div>
-                        Suporte
                     </div>
                 </div>
-            </div>
-        </section>
-        <section class="third_section" data-aos="fade-left">
-            <div class="top">
-                <h1>
-                    Conheça nossos Nutricionistas
-                </h1>
-            </div>
-            <div class="bottom_third">
-                <div class="row cards cards-row">
-                    <div class="card col-md-6">
-                        <div class="icon_card">
-                            <img src="public/images/home/doctor.svg" alt="" srcset="" class="icon_card_svg"/>
+            </section>
+            <section class="third_section" data-aos="fade-left">
+                <div class="top">
+                    <h1>
+                        Conheça nossos Nutricionistas
+                    </h1>
+                </div>
+                <div class="bottom_third">
+                    <div class="row cards cards-row">
+                        <div class="card col-md-6">
+                            <div class="nutri_card">
+                                <p>
+                                    Dr(a) Lívia de Andrade
+                                </p>
+                            </div>
+                            <p>
+                                CRN: 00000 - RQE N°
+                            </p>
                         </div>
-                        Melhores nutricionistas
+                        <div class="card col-md-6">
+                            <div class="nutri_card">
+                                <p>
+                                    Dr(a) Lívia de Andrade
+                                </p>
+                            </div>
+                            <p>
+                                CRN: 00000 - RQE N°
+                            </p>
+                        </div>
                     </div>
-                    <div class="card col-md-6">
-                        <div class="icon_card">
-                            <img src="public/images/home/chat.svg" alt="" srcset="" class="icon_card_svg"/>
+                    <div class="row cards cards-row">
+                        <div class="card col-md-6">
+                            <div class="nutri_card">
+                                <p>
+                                    Dr(a) Lívia de Andrade
+                                </p>
+                            </div>
+                            <p>
+                                CRN: 00000 - RQE N°
+                            </p>
                         </div>
-                        Agende sua consulta online
+                        <div class="card col-md-6">
+                            <div class="nutri_card">
+                                <p>
+                                    Dr(a) Lívia de Andrade
+                                </p>
+                            </div>
+                            <p>
+                                CRN: 00000 - RQE N°
+                            </p>
+                        </div>
                     </div>
                 </div>
-                <div class="row cards cards-row">
-                    <div class="card col-md-6">
-                        <div class="icon_card">
-                            <img src="public/images/home/doctor.svg" alt="" srcset="" class="icon_card_svg"/>
-                        </div>
-                        Melhores nutricionistas
-                    </div>
-                    <div class="card col-md-6">
-                        <div class="icon_card">
-                            <img src="public/images/home/chat.svg" alt="" srcset="" class="icon_card_svg"/>
-                        </div>
-                        Agende sua consulta online
-                    </div>
+            </section>        
+            <section class="second_section" data-aos="fade-in">
+                <div class="top">
+                    <h1>
+                        Oferecemos apenas o melhor para você
+                    </h1>
+                    <p class="p_second_section">
+                        Desenvolvido a partir de suas necessidades
+                    </p>
                 </div>
-            </div>
-        </section>
-
+            </section>   
+        </div>
+        <footer_home :tipofooterhome="tipofooterhome"></footer_home> 
     </div>
 `;
 
@@ -103,7 +131,8 @@ Vue.component('AppVue', {
     template: AppTemplate,
     data() {
         return {
-            tipoheaderhome: null
+            tipoheaderhome: null,
+            tipofooterhome: null,
         };
     },
 });
