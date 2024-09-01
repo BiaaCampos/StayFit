@@ -11,9 +11,14 @@ body {
     padding-top: 1em;
 }
 
-nav, footer, .sidebar{
+nav, #footer-stayfit, .sidebar{
     display: none;
     visibility: hidden;
+}
+
+.footer_home {
+    background: #F0F0F0;
+    padding: 40px;
 }
 
 .navbar_home {
@@ -74,7 +79,7 @@ header .navbar_home ul li a:hover {
 .close-icon {
     position: absolute;
     top: 10px;
-    right: 20px;
+    right: 5em;
     font-size: 24px;
     color: white;
     cursor: pointer;
@@ -265,7 +270,7 @@ header .navbar_home ul li a:hover {
     align-items: center;
     justify-content: center;
     width: 270px;
-    height: 251px;
+    height: 120px;
     text-align: center;
     color: #404040;
     font-weight: 500;
@@ -342,7 +347,7 @@ header .navbar_home ul li a:hover {
     }
     .bottom_third .cards .card{
         width: 190px;
-        height: 240px;
+        height: 140px;
         padding: 40px 10px;
         font-size: 12px;
     }

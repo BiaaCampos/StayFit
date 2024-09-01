@@ -56,15 +56,18 @@ const newLocal = `
                     <div class="col-md-3">
                         <ejs-dropdownlist :popupHeight='height' :placeholder='blood'></ejs-dropdownlist>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-8">
                         <ejs-textbox floatLabelType="Auto" placeholder="Observações"></ejs-textbox>
+                    </div>
+                    <div class="col-md-1">
+                        <modal_atendimento :tipomodalatendimento="tipomodalatendimento"></modal_atendimento> 
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
                     </div>
                     <div class="col-md-4 div_botao_atendimento">
-                        <ejs-button class="botao_atendimento">Salvar</ejs-button>
+                        <ejs-button class="botao_atendimento" >Salvar</ejs-button>
                     </div>
                     <div class="col-md-4">
                     </div>
@@ -83,6 +86,7 @@ Vue.component('AppVue', {
             blood: 'Tipo sanguíneo*',
             civil: 'Estado civil*',
             height: '220px',
+            tipomodalatendimento: null,
         }
     },
     methods: {

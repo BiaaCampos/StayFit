@@ -39,6 +39,83 @@
     height: 45px;
     color: white;
 }
+.modal-header, .modal-footer{
+    border: 0;
+}
+.modal-title{
+    text-align: center;
+    width: 100%;
+    font-size: 30px;
+}
+.button_modal_atendimento,.button_modal_atendimento:hover {
+    background: transparent;
+    box-shadow: none;
+    border: none;
+}
+
+.modal-dialog {
+    max-width: 70%;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.e-tab-wrap {
+    padding: 0 !important;
+}
+.e-tab-header{
+    display: flex;
+    justify-content: center;
+}
+.e-tab .e-tab-header .e-toolbar-items {
+    background: #F2F5FC;
+    padding: 15px 10px;
+    border-radius: 14px;
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+}
+.e-tab-text{
+    text-transform: capitalize !important;
+}
+
+.e-tab .e-tab-header .e-toolbar-item.e-active .e-tab-text {
+    color: white;
+    background: linear-gradient(to right, #9FE860, #50CE3B);
+    padding: 15px;
+    border-radius:12px;
+    font-weight: 700;
+}
+
+.e-tab .e-tab-header .e-toolbar-item .e-tab-wrap:hover {
+    color: white !important;
+}
+
+.e-tab .e-tab-header .e-toolbar-item.e-active .e-tab-wrap:hover .e-tab-text{
+    color: white;
+    opacity: 0.9;
+}
+
+.e-tab .e-tab-header .e-indicator{
+    background-color: transparent !important;
+}
+
+.radial {
+    animation: blink 1s infinite;
+    border-radius: 50%;
+    width: 40px;
+}
+
+@keyframes blink {
+    0%, 100% {
+        box-shadow: 0 0 10px #25D366;
+    }
+    50% {
+        box-shadow: 0 0 20px #25D366;
+    }
+  }
+
 @media (max-width: 1000px) {
     .fundo_atendimento{
         height: 80%;
@@ -51,5 +128,8 @@
     .form_atendimento{
         overflow-y: scroll;
         overflow-x: hidden;
+    }
+    .e-tab .e-tab-header .e-toolbar-items {
+        overflow-x: auto;
     }
 }
