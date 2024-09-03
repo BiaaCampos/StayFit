@@ -26,16 +26,19 @@ Vue.component("footer_home", {
                         Institucional
                     </h6>
                     <p>
-                        <a href="#!" class="text-reset">Pricing</a>
+                        <a href="#!" class="text-reset">Home</a>
                     </p>
                     <p>
-                        <a href="#!" class="text-reset">Settings</a>
+                        <a href="#!" class="text-reset">Serviços</a>
                     </p>
                     <p>
-                        <a href="#!" class="text-reset">Orders</a>
+                        <a href="#!" class="text-reset">Nutricionistas</a>
                     </p>
                     <p>
-                        <a href="#!" class="text-reset">Help</a>
+                        <a href="#!" class="text-reset">Sobre</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="text-reset">Fale conosco</a>
                     </p>
                     </div>
                     <!-- Grid column -->
@@ -49,8 +52,7 @@ Vue.component("footer_home", {
                         <i class="fas fa-envelope me-3"></i>
                         stayfit@gmail.com
                     </p>
-                    <p><i class="fas fa-phone me-3"></i> + 55 234 567 88</p>
-                    <p><i class="fas fa-print me-3"></i> + 55 234 567 89</p>
+                    <p><i class="fas fa-phone me-3"></i> + 55 14 99999-9999</p>
                     </div>
                     <!-- Grid column -->
                 </div>

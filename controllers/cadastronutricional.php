@@ -13,7 +13,7 @@ class Cadastronutricional extends Controller
 
     function index()
     {
-        $this->view->title = "Home";
+        $this->view->title = "Cadastro Nutricional";
         /*Os array push devem ser feitos antes de instanciar o header e footer.*/
         array_push($this->view->js, "public/components/cad_nutricional/historicomedico.js");
         array_push($this->view->js, "public/components/cad_nutricional/habitos_alimentares.js");
