@@ -354,4 +354,8 @@ header .navbar_home ul li a:hover {
     .cards-row .card{
         margin: 8px;
     }
+    .button_first_section {
+        width: 70%;
+    
+    }
 }

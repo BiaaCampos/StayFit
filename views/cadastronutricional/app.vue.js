@@ -14,21 +14,19 @@ const AppTemplate = `
                 <img src="public/images/images-cadastros/stayfit_preta.svg" alt="logo" class="logo_stayfit" />
             </div>
             <div class="button-container">
-
-                <component :is="currentComponent" @next="nextStep"></component>
+                <component :is="currentComponent" @submit-form="handleSubmitForm"></component>
                 <div class="around-arrow">
                     <div class="around-arrow-prev">
-                        <button v-if="currentStep !== 'historicomedico'" class="button_cadastronutricional" @click="prevStep">
+                        <button v-if="currentIndex > 0" class="button_cadastronutricional" @click="prevStep">
                             <img src="public/images/images-cadastros/arrow.svg" alt="seta" class="arrow-left" />
                         </button>
                     </div>
                     <div class="around-arrow-next">
-                        <button v-if="currentStep !== 'finalStep'" class="button_cadastronutricional" @click="nextStep">
+                        <button v-if="currentIndex < steps.length - 1" class="button_cadastronutricional" @click="nextStep">
                             <img src="public/images/images-cadastros/arrow.svg" alt="seta" class="arrow-right" />
                         </button>
                     </div>
                 </div>
-                
             </div>
         </div>
     </div>
@@ -61,6 +59,9 @@ Vue.component('AppVue', {
             if (this.currentIndex > 0) {
                 this.currentIndex--;
             }
+        },
+        handleSubmitForm() {
+            this.nextStep();
         }
     }
 });

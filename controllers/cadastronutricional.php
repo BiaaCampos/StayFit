@@ -24,4 +24,13 @@ class Cadastronutricional extends Controller
         $this->view->render('footer');
     }
 
+    function listaPerguntasHistorico()
+    {
+        $this->model->listaPerguntasHistorico();
+    }
+
+    function salvarRespostas()
+    {
+        $this->model->salvarRespostas();
+    }
 }
