@@ -1,0 +1,177 @@
+/* Estilos globais e layout */
+nav, footer, .sidebar {
+    display: none;
+    visibility: hidden;
+}
+
+.bg_cadastros2 {
+    display: flex;
+}
+
+/* LADO ESQUERDO */
+.lado_esquerdo2 {
+    background-image: url('public/images/back-green.svg');
+    background-size: contain;
+    width: 100%;
+    height: 100vh;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.img_lado_esquerdo2 {
+    width: 580px;
+    height: auto;
+    position: fixed;
+    margin-right: 35em;
+}
+
+.detalhesCartao {
+    border: 0;
+    padding-top: 2em;
+}
+
+.inputs-cartao {
+    font-weight: 600;
+    padding-top: 1em;
+}
+
+.img_lado_esquerdo2 img {
+    width: 150%;
+}
+
+.input {
+    padding: 0.3em;
+}
+
+.input-nome-cartao {
+    text-transform: uppercase;
+}
+
+/* LADO DIREITO */
+.lado_direito2 {
+    width: 970px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.lado_direito2 h1 {
+    color: #32794F;
+}
+
+/* FORMULÁRIO */
+.form-group {
+    margin-bottom: 20px;
+    width: 100%; 
+    display: flex;
+    flex-direction: column; 
+}
+
+.form-control {
+    width: 100%; 
+    box-sizing: border-box; 
+}
+
+.button_cadastronutricional {
+    width: 50%;
+    background-color: #32794F;
+    border: 0;
+    height: 50px;
+    border-radius: 10px;
+    color: white;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.input-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5em;
+}
+
+.forma-pagamento {
+    cursor: pointer;
+    padding-right: 2.5em; 
+    position: relative;
+}
+
+.forma-pagamento + .fa-chevron-down {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .lado_esquerdo2 {
+        display: none;
+    }
+
+    .lado_direito2 {
+        width: 100%;
+        padding: 30px 20px;
+        background: white;
+        border-radius: 10px;
+        height: auto;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    }
+
+    .div_direita2 {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        height: auto; 
+        width: 100%;
+    }
+
+    .bg_cadastros2 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        padding: 20px;
+    }
+
+    .lado_esquerdo2, .lado_direito2 {
+        margin: 0;
+    }
+
+    .titulo_lado_direito2 {
+        margin-bottom: 3em;
+    }
+
+    .form-group {
+        width: 100%;
+        margin-bottom: 1em;
+    }
+
+    .form-group input, .form-group select {
+        width: 100%; 
+    }
+
+    .form-group select {
+        padding-right: 2.5em; 
+    }
+
+    .form-group label {
+        font-size: 0.9em; 
+    }
+
+    .form-group select {
+        position: relative;
+    }
+
+    .form-group select + .fa-chevron-down {
+        position: absolute;
+        right: 1px;
+        top: 50%;
+        transform: translateY(-70%);
+        pointer-events: none;
+    }
+}
