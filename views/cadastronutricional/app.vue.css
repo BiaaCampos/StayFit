@@ -1,4 +1,3 @@
-/* Regras gerais para tela maior que dispositivos móveis */
 nav, footer, .sidebar {
     display: none;
     visibility: hidden;
@@ -140,7 +139,13 @@ nav, footer, .sidebar {
     rotate: 90deg;
 }
 
-@media (max-width: 768px) {
+.button-container .form-group {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+@media (max-width: 1000px) {
     .lado_esquerdo {
         display: none;
     }
@@ -150,7 +155,8 @@ nav, footer, .sidebar {
         padding: 30px 20px;
         background: white;
         border-radius: 10px;
-        height: 70%;
+        height: 80%;
+        overflow-y: scroll;
         box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     }
 
