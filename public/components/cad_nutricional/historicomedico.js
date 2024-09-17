@@ -12,7 +12,9 @@ Vue.component("historicomedico", {
                     placeholder="Resposta"
                 ></ejs-textbox>
             </div>
-            <button type="submit">Submit</button>
+            <div class="around-arrow-next">
+                <button class="button_cadastronutricional" type="submit">Salvar</button>
+            </div>
         </form>
     </div>`,
     data() {
