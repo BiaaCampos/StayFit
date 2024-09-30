@@ -15,8 +15,7 @@ class Cadastronutricional extends Controller
     {
         $this->view->title = "Cadastro Nutricional";
         /*Os array push devem ser feitos antes de instanciar o header e footer.*/
-        array_push($this->view->js, "public/components/cad_nutricional/historicomedico.js");
-        array_push($this->view->js, "public/components/cad_nutricional/habitos_alimentares.js");
+        array_push($this->view->js, "public/components/cad_nutricional/pre_anamnese.js");
 
         array_push($this->view->js, "views/cadastronutricional/app.vue.js");
         array_push($this->view->css, "views/cadastronutricional/app.vue.css");
@@ -24,13 +23,23 @@ class Cadastronutricional extends Controller
         $this->view->render('footer');
     }
 
-    function listaPerguntasHistorico()
+    function listaMultiselectObjetivos()
     {
-        $this->model->listaPerguntasHistorico();
+        $this->model->listaMultiselectObjetivos();
     }
 
-    function salvarRespostas()
+    function listaMultiselectFrequencia()
     {
-        $this->model->salvarRespostas();
+        $this->model->listaMultiselectFrequencia();
+    }
+
+    function listaMultiselectRefeicao()
+    {
+        $this->model->listaMultiselectRefeicao();
+    }
+
+    function cadastrarPreAnamnese()
+    {
+        $this->model->cadastrarPreAnamnese();
     }
 }

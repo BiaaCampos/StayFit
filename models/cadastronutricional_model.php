@@ -9,53 +9,95 @@ class CadastroNutricional_Model extends Model
         parent::__construct();
     }
 
-    public function listaPerguntasHistorico()
+    public function listaMultiselectObjetivos()
     {
         $post = json_decode(file_get_contents('php://input'));
-        $tipo_id = $post->tipo_id;
 
-        $sql = "SELECT p.id, p.texto_pergunta 
-                FROM perguntas p
-                WHERE p.id_tipo_pergunta = :tipo_id";
+        $sql = "SELECT 
+                    id,
+                    descricao
+                FROM 
+                    stayfit.objetivos_nutricionais";
 
-        $params = array(":tipo_id" => $tipo_id);
-        $result = $this->db->select($sql, $params);
+        $result = $this->db->select($sql);
         echo(json_encode($result));
     }    
 
-    public function salvarRespostas()
+    public function listaMultiselectFrequencia()
     {
         $post = json_decode(file_get_contents('php://input'));
-        if (!$post || !isset($post->id_paciente) || !isset($post->id_usuario_modificacao) || !isset($post->respostas)) {
-            echo json_encode(["code" => 0, "msg" => "Dados inválidos."]);
-            return;
-        }
+
+        $sql = "SELECT 
+                    a.id, 
+                    a.descricao
+                FROM questao q
+                JOIN 
+                    alternativa a ON q.id = a.id_questao
+                WHERE q.id = 3";
+
+        $result = $this->db->select($sql);
+        echo(json_encode($result));
+    } 
+    
+    public function listaMultiselectRefeicao()
+    {
+        $post = json_decode(file_get_contents('php://input'));
+
+        $sql = "SELECT 
+                    a.id, 
+                    a.descricao
+                FROM questao q
+                JOIN alternativa a ON q.id = a.id_questao
+                WHERE q.id = 10";
+
+        $result = $this->db->select($sql);
+        echo(json_encode($result));
+    } 
+
+    public function cadastrarPreAnamnese() {
+        $post = json_decode(file_get_contents('php://input'));
     
         $id_paciente = $post->id_paciente;
         $id_usuario_modificacao = $post->id_usuario_modificacao;
         $respostas = $post->respostas;
     
+        // Validação básica
+        if (!$id_paciente || !$id_usuario_modificacao || empty($respostas)) {
+            echo json_encode(['code' => 0, 'msg' => 'Campos obrigatórios estão faltando!']);
+            return;
+        }
+
         foreach ($respostas as $resposta) {
-            $sql = "INSERT INTO cadastro_nutricional (id_paciente, id_pergunta, resposta, id_usuario_modificacao)
-                    VALUES (:id_paciente, :id_pergunta, :resposta, :id_usuario_modificacao)
-                    ON DUPLICATE KEY UPDATE resposta = VALUES(resposta), id_usuario_modificacao = VALUES(id_usuario_modificacao)";
-            
-            $params = array(
-                ":id_paciente" => $id_paciente,
-                ":id_pergunta" => $resposta->id_pergunta,
-                ":resposta" => $resposta->resposta,
-                ":id_usuario_modificacao" => $id_usuario_modificacao
-            );
+            $id_pergunta = $resposta->id_pergunta;
+            $resposta_texto = $resposta->resposta;
+
+            if (is_array($resposta_texto)) {
+                $resposta_texto = implode(', ', $resposta_texto);
+            }
     
-            $stmt = $this->db->prepare($sql);
+            // Verifica se a resposta é válida
+            if (strlen(trim($resposta_texto)) == 0) {
+                echo json_encode(['code' => 0, 'msg' => 'Preencha todas as respostas corretamente!']);
+                return;
+            }
+
+            $insert = $this->db->insert('stayfit.resposta', array(
+                'id_anamnese' => 1,
+                'id_questao' => $id_pergunta,
+                'texto_resposta' => $resposta_texto,
+                'id_usuario' => $id_paciente,
+                'id_nutricionista' => $id_usuario_modificacao
+            ));
     
-            if (!$stmt->execute($params)) {
-                echo json_encode(["code" => 0, "msg" => "Erro ao salvar resposta."]);
+            if (!$insert) {
+                echo json_encode(['code' => 0, 'msg' => 'Erro ao salvar as respostas no banco de dados!']);
                 return;
             }
         }
     
-        echo json_encode(["code" => 1, "msg" => "Respostas salvas com sucesso!"]);
-    }    
-
+        // Resposta de sucesso
+        echo json_encode(['code' => 1, 'msg' => 'Respostas salvas com sucesso!']);
+    }
+    
+    
 }
