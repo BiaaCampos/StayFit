@@ -53,6 +53,12 @@ nav, footer, .sidebar {
     margin-left: 5px;
 }
 
+.div_direita {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 500px;height: 500px;
+}
+
 /* FORMULÁRIO */
 .form-group {
     margin-bottom: 20px;
@@ -116,10 +122,6 @@ nav, footer, .sidebar {
     justify-content: center;
 }
 
-.lado_direito form{
-    margin: 4em 0px;
-}
-
 .button_cadastronutricional {
     width: 95%;
     background-color: #32794F;
@@ -143,6 +145,23 @@ nav, footer, .sidebar {
     display: flex;
     align-items: flex-start;
     flex-direction: column;
+}
+
+.e-filled.e-float-input, .e-filled.e-float-input.e-control-wrapper{
+    padding: 0 10px 0 0 !important;
+}
+
+.e-filled label.e-float-text, 
+.e-filled.e-float-input label.e-float-text, 
+.e-filled.e-float-input.e-control-wrapper label.e-float-text, 
+.e-filled.e-float-input:not(.e-input-focus) input:not(:focus):valid~label.e-float-text.e-label-bottom, 
+.e-filled.e-float-input.e-control-wrapper:not(.e-input-focus) input:not(:focus):valid~label.e-float-text.e-label-bottom{
+    left: 0 !important;
+    font-size: 13px !important;
+}
+
+.label-size {
+    font-size: 13px;
 }
 
 @media (max-width: 1000px) {
