@@ -65,6 +65,77 @@
     font-weight: 600;
 }
 
+.btn-selecionar{
+    border-radius: 15px;
+    color: aqua;
+}
+
+html,
+body,    
+#container {
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    min-height: 400px;
+}
+
+.text {
+    text-transform: capitalize;
+}
+        
+#customization {
+    display: inline-block;
+    margin: 0 auto;
+}
+
+.animate {
+    display: inline-block;
+    padding: 10px;
+}
+.control-wrapper{
+    text-align: center;
+}
+
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+    text-align: center;
+}
+
+.close {
+    cursor: pointer;
+    float: right;
+    font-size: 18px;
+}
+
+.e-card-actions {
+    display: flex; /* Para alinhar itens lado a lado */
+    justify-content: center; /* Centraliza o botão */
+    margin-top: 10px; /* Espaço acima do botão */
+}
+
+.e-btn {
+    padding: 10px 20px; /* Ajuste o padding para melhorar a aparência */
+    cursor: pointer; /* Muda o cursor para indicar que é clicável */
+}
+
+
 /* Responsividade */
 @media (max-width: 1000px) {
     .fundo_agendarConsulta {
