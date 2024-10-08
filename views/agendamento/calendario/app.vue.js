@@ -26,7 +26,6 @@ const newLocal = `
         </div>
     </div>
 </div>
-
 `;
 
 const AppTemplate = newLocal;
@@ -35,7 +34,6 @@ Vue.component('AppVue', {
     template: AppTemplate,
     data: function() {
         return {
-
         }
     },
     mounted: function() {
