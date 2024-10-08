@@ -1,46 +1,36 @@
 Vue.component("modal_info", {
     props: ['tipomodalinfo'],
     template: `
-    <div id="target" class="col-lg-8 control-section" style="height:350px;">
-    <div style="position:relative; top:10px; left:10px;">
-        <!-- Button to open the modal Dialog -->
-        <button id="dialogBtn" type="button">Open</button>
-    </div>
-    <!-- Initialize modal Dialog -->
-    <div id="modalDialog">
-    </div>
-    </div>
+    <div>
+        <button type="button" class="btn" data-mdb-toggle="modal" data-mdb-target="#modalInfo" style="background-color: #32794F; color: white;">
+            Selecionar
+        </button>
 
+        <div class="modal fade" id="modalInfo" tabindex="-1" aria-labelledby="modalInfoLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg"> <!-- Adicionado modal-lg para tamanhos maiores -->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-danger text-center w-100" id="modalInfoLabel" style="text-transform: uppercase;">Aviso</h5>
+                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                    </div>
 
-    <div class="col-lg-4 property-section">
-        <table id="property" title="Properties">
-            <tr>
-                <td style="width:60%;">
-                    <div style="font-size: 13px;">Close on overlay click</div>
-                </td>
-                <td>
-                    <!-- Checkbox to enable / disable the overlay click -->
-                    <input type="checkbox" id="checkbox" class="checkbox" />
-                </td>
-            </tr>
-        </table>
+                    <div class="modal-body text-center" style="font-size: 18px; color: black; line-height: 1.2;">
+                        <p>{{ tipomodalinfo }}</p>
+                        <p>A StayFit é uma plataforma de consulta feita de forma totalmente online.</p>
+                        <p>Para se consultar, escolha a melhor data e horário para marcar a consulta, que será realizada por chamada de vídeo!</p>
+                    </div>
+
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" style="background-color: #32794F; color: white;">Continuar agendamento</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>`,
     data() {
         return {
             isModal: true,
-            animationSettings: { effect: 'Zoom' },
-            headerText0: { text: "Café da manhã" },
-            headerText1: { text: "Almoço" }, 
-            headerText2: { text: "Café da tarde" },
-            headerText3: { text: "jantar" },
-            headerText4: { text: "Café da noite" },
-            content0: ' teste 1 ',
-            content1: ' teste 2',            
-            content2: ' teste 3',
-            content3: ' teste 4',
-            content4: ' teste 5',
-            }
+        }
     },
-    methods: {
-    }
+    methods: {}
 });

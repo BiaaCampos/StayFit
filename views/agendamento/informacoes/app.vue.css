@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+* {
+    max-width: 100%;
+    box-sizing: border-box; /* Garante que padding e bordas não aumentem o tamanho total do elemento */
+}
+
+.fundo_agendarConsulta {
+    box-shadow: 0px 4px 15.3px 0px rgba(0, 0, 0, 0.25);
+    height: 100%;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: auto; 
+    padding: 10px;
+}
+
+.fundo_agendarConsulta div, h1, h6 {
+    color: #32794F;
+    text-align: center;
+}
+
+.infos_consulta {
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;             
+}
+
+.list-group {
+    max-width: 600px;
+    width: 100%; 
+}
+
+.list-group-item {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+}
+
+.highlight {
+    background-color: #e6e6e65e; 
+
+}
+
+.color-text{
+    color: #32794F;
+}
+
+.h6-info-consulta{
+    color: #32794F;
+    font-size: 20px;
+}
+
+
+html, body, #container {
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    min-height: 400px;
+}
+
+#linearsegment {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+}
+
+::-webkit-scrollbar {
+    width: 4px; 
+}
+
+::-webkit-scrollbar-track {
+    background: #32794F; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 10px; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Responsividade */
+@media (max-width: 1000px) {
+    .fundo_agendarConsulta {
+        height: 80%;
+        padding: 50px 15px;
+    }
+}
