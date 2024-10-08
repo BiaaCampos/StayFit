@@ -21,7 +21,6 @@ const newLocal = `
             </div>
             <div class="col-md-3 mb-3">
             </div>
-
         </div>
         <div id="linearsegment" style="margin: 20px auto; width: 50%;">
         </div>
