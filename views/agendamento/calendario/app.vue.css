@@ -16,9 +16,30 @@
     padding: 10px;
 }
 
-.fundo_agendarConsulta div, h1, h6 {
+.fundo_agendarConsulta{
     color: #32794F;
     text-align: center;
+}
+
+.dias-dispo{    
+    text-align: center;
+    color: rgb(0, 0, 0);
+}
+
+.p-div{    
+    text-align: center;
+    padding-left: 60px;
+}
+
+.div-agendar{
+    padding-top: 50px;
+}
+
+.div-calendario{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
 }
 
 .card-profissionais-container {
@@ -98,7 +119,7 @@ html, body, #container {
 }
 
 ::-webkit-scrollbar-track {
-    background: #32794F; 
+    background: #888; 
 }
 
 ::-webkit-scrollbar-thumb {
@@ -117,3 +138,6 @@ html, body, #container {
     }
 }
 }
+
+
+

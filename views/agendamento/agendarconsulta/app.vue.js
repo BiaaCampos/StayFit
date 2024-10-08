@@ -7,8 +7,8 @@ const newLocal = `
         </div>
 
         <!-- Card Section -->
-        <div class="row"> <!-- Usar a row do Bootstrap -->
-            <div class="col-md-6 mb-3"> <!-- Card 1 -->
+        <div class="row">
+            <div class="col-md-6 mb-3">
                 <div class="card-profissionais-container">
                     <div tabindex="0" class="e-card card-profissionais" id="basic_card" role="button">
                         <div class="e-card-header">
@@ -76,6 +76,7 @@ const newLocal = `
                     </div>
                 </div>
             </div>
+            
         </div>
         <!-- Linear Progress Bar -->
         <div id="linearsegment" style="margin: 20px auto; width: 50%;">
