@@ -1,6 +1,6 @@
 <?php
 
-class AgendarConsulta extends Controller
+class Calendario extends Controller
 {
 
     function __construct()
@@ -15,9 +15,8 @@ class AgendarConsulta extends Controller
     {
         $this->view->title = "Agendar Consulta";
         /*Os array push devem ser feitos antes de instanciar o header e footer.*/
-        array_push($this->view->js, "views/agendamento/agendarconsulta/app.vue.js");
-        array_push($this->view->css, "views/agendamento/agendarconsulta/app.vue.css");
-        array_push($this->view->js, "public/components/agendarconsulta/modal_info.js");
+        array_push($this->view->js, "views/agendamento/calendario/app.vue.js");
+        array_push($this->view->css, "views/agendamento/calendario/app.vue.css");
         $this->view->render('header');
         $this->view->render('footer');
     }
