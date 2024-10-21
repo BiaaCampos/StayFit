@@ -1,6 +1,6 @@
 <?php
 
-class Login extends Controller
+class Perfil_nutricionista extends Controller
 {
 
     function __construct()
@@ -15,19 +15,10 @@ class Login extends Controller
     {
         $this->view->title = "Login";
         /*Os array push devem ser feitos antes de instanciar o header e footer.*/
-        array_push($this->view->js, "views/Login/app.vue.js");
-        array_push($this->view->css, "views/Login/app.vue.css");
+        array_push($this->view->js, "views/telaperfil/perfil_nutricionista/app.vue.js");
+        array_push($this->view->css, "views/telaperfil/perfil_nutricionista/app.vue.css");
         $this->view->render('header');
         $this->view->render('footer');
     }
 
-    function getInfos()
-    {
-        $this->model->getInfos();
-    }
-
-    function Cadastrar_usuario()
-    {
-        $this->model->Cadastrar_usuario();
-    }
 }

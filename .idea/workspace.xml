@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ceeb3e9d-4d27-4846-a336-a942714728e6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Login_Model.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/login_Model.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/Login/app.vue.css" beforeDir="false" afterPath="$PROJECT_DIR$/views/Login/app.vue.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -17,6 +18,11 @@
     <execution />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="TelaPerfil" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -32,7 +38,9 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/controllers/perfil_usuario.php" root0="SKIP_INSPECTION" root1="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/views/Login/app.vue.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/views/telaperfil/perfil_usuario/app.vue.js" root0="SKIP_INSPECTION" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\tools\php82\php.exe" />
   <component name="ProjectColorInfo">{
@@ -49,9 +57,9 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Luis---Login&&cad",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/xampp/htdocs/StayFit/public/assets",
+    "last_opened_file_path": "C:/xampp/htdocs/StayFit/public/images",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -62,18 +70,22 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\StayFit\public\images" />
+      <recent name="C:\xampp\htdocs\StayFit\views\telaperfil\usuario" />
+      <recent name="C:\xampp\htdocs\StayFit\views\telaperfil\nutricionista" />
       <recent name="C:\xampp\htdocs\StayFit\public\assets" />
       <recent name="C:\xampp\htdocs\StayFit\views\Login" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\StayFit\public\images" />
+      <recent name="C:\xampp\htdocs\StayFit\banco-dump" />
     </key>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-PS-242.20224.427" />
-        <option value="bundled-php-predefined-a98d8de5180a-d6acee4cb394-com.jetbrains.php.sharedIndexes-PS-242.20224.427" />
+        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-PS-242.21829.154" />
+        <option value="bundled-php-predefined-a98d8de5180a-4d9f4c849d09-com.jetbrains.php.sharedIndexes-PS-242.21829.154" />
       </set>
     </attachedChunks>
   </component>
@@ -90,6 +102,7 @@
       <workItem from="1724443523826" duration="343000" />
       <workItem from="1724507067087" duration="10289000" />
       <workItem from="1724798461773" duration="1614000" />
+      <workItem from="1726169409438" duration="15649000" />
     </task>
     <servers />
   </component>

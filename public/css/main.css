@@ -155,3 +155,7 @@ nav {
         margin-left: 80px;
     }
 }
+.error-input-msg{
+    color: red;
+    font-size: 13px;
+}

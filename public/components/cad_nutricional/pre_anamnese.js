@@ -190,7 +190,6 @@ Vue.component("pre_anamnese", {
                 <div class="col-md-2">
                 </div>
             </div>
-
         </form>
     </div>`,
     data() {
@@ -274,6 +273,9 @@ Vue.component("pre_anamnese", {
             .then((res) => {
                 if (res.data.code === 1) {
                     alert('Respostas salvas com sucesso!');
+                    setTimeout(() => {
+                        window.location.href="/stayfit/Perfil_usuario"
+                    },200)
                 } else {
                     console.log('Erro ao salvar respostas: ' + res.data.msg);
                 }
