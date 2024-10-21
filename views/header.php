@@ -87,16 +87,44 @@
             el: '#mainLayout',
             template: `
             <div>
+                <ejs-toast ref='toastRef' title='' content='' :position='position'></ejs-toast>
                 <AppVue ref="AppVue"></AppVue>
             </div>
         `,
             data: function() {
                 return {
+                    position: {
+                        X: 'Center',
+                        Y: 'Top'
+                    },
                 }
             },
             computed: {
             },
             methods: {
+                sToast: function (titleMsg, contentMsg, type = 'danger') {
+                    types = {
+                    danger: {
+                        css: 'e-toast-danger',
+                        icon: 'fas fa-exclamation-triangle'
+                    },
+                    warning: {
+                        css: 'e-toast-warning',
+                        icon: 'fas fa-exclamation-triangle'
+                    },
+                    success: {
+                        css: 'e-toast-success',
+                        icon: 'fas fa-check'
+                    },
+                    }
+
+                    this.$refs.toastRef.show({
+                    title: titleMsg,
+                    content: contentMsg,
+                    cssClass: types[type].css,
+                    icon: types[type].icon
+                    });
+                },
             },
             mounted() {
             },

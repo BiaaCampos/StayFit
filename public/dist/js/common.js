@@ -179,3 +179,64 @@ function formatarBytes (bytes, decimals = 2) {
   const i = Math.floor(Math.log(bytes) / Math.log(k));
   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }
+
+function validarInput(inputModel, inputRef, tipoValidacao = null, quandidadeDeCaracteres = null, mensagem = null) {
+  if (!inputRef) {
+      inputRef.focusIn();
+      return false;
+  }
+
+  if ((!inputModel && inputModel != 0) || inputModel.toString().trim().length == 0) {
+      inputRef.focusIn();
+      inputRef.cssClass += ' e-error';
+      inputRef.$el.parentNode.parentNode.querySelector('.error-input-msg').textContent = 'Campo obrigatório.';
+      return false;
+  }
+
+  if (quandidadeDeCaracteres && tipoValidacao === null) {
+      if (inputModel.length !== quandidadeDeCaracteres) {
+          inputRef.focusIn();
+          inputRef.cssClass += ' e-error';
+          inputRef.$el.parentNode.parentNode.querySelector('.error-input-msg').textContent = `Esse campo deve ter ${quandidadeDeCaracteres} caracteres.`;
+          return false;
+      }
+  }
+
+  if (tipoValidacao === 'custom') {
+      inputRef.focusIn();
+      inputRef.cssClass += ' e-error';
+      inputRef.$el.parentNode.parentNode.querySelector('.error-input-msg').textContent = mensagem;
+      return false;
+  }
+
+  inputRef.$el.classList.remove('e-error')
+  inputRef.$el.parentNode.parentNode.querySelector('.error-input-msg').textContent = '';
+  return true;
+}
+
+function verificaSenha(senhaModel, confirmaModel, senhaRef, confirmaRef){
+  if(senhaModel != confirmaModel){
+    mainLayout.sToast(`As senhas não são as mesmas`, "","danger");
+    senhaRef.cssClass += ' e-error';
+    confirmaRef.cssClass += ' e-error';
+    return false;
+  }
+
+  senhaRef.$el.classList.remove('e-error');
+  confirmaRef.$el.classList.remove('e-error');
+  return true;
+}
+
+function validaTermos(model){
+    if(model === false){
+      mainLayout.sToast(`Você precisa aceitar os termos de uso`, "", "danger");
+      return false;
+    }
+
+    return true;
+}
+
+function LimpaInput(inputRef, inputModel){
+  inputRef.$el.value = "";
+  inputModel = "";
+}
