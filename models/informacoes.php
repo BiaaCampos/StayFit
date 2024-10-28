@@ -8,5 +8,4 @@ class Informacoes_Model extends Model
     {
         parent::__construct();
     }
-
 }

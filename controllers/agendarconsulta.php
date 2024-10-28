@@ -18,8 +18,26 @@ class AgendarConsulta extends Controller
         array_push($this->view->js, "views/agendamento/agendarconsulta/app.vue.js");
         array_push($this->view->css, "views/agendamento/agendarconsulta/app.vue.css");
         array_push($this->view->js, "public/components/agendarconsulta/modal_info.js");
+        array_push($this->view->js, "public/components/agendarconsulta/lista_nutricionista.js");
+        array_push($this->view->js, "public/components/agendarconsulta/lista_calendario.js");
+        array_push($this->view->js, "public/components/agendarconsulta/lista_informacoes.js");
+        array_push($this->view->js, "public/components/agendarconsulta/modal_concluir.js");
         $this->view->render('header');
         $this->view->render('footer');
     }
+    
+    function listaNutricionista() 
+    {  
+        $this->model->listaNutricionista();
+    }
 
+    function horariosDisponiveis($idNutricionista, $data) 
+    {
+        $this->model->horariosDisponiveis($idNutricionista, $data);
+    }
+    
+    function agendarConsulta($idNutricionista, $data) 
+    {
+        $this->model->agendarConsulta($idNutricionista, $data);
+    }
 }

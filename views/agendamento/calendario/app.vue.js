@@ -25,17 +25,8 @@ const newLocal = `
                     <div class="col-lg-12 control-section">
                         <div class="card col-md-12 horario-card">
                             <div class="horarios-container d-flex flex-wrap justify-content-center">
-                                <div class="horario-item m-2">
-                                    <button class="button_horario" type="submit">13:00</button>
-                                </div>
-                                <div class="horario-item m-2">
-                                    <button class="button_horario" type="submit">14:00</button>
-                                </div>
-                                <div class="horario-item m-2">
-                                    <button class="button_horario" type="submit">15:00</button>
-                                </div>
-                                <div class="horario-item m-2">
-                                    <button class="button_horario" type="submit">16:00</button>
+                                <div class="horario-item m-2" v-for="horario in horariosDisponiveis" :key="horario">
+                                    <button class="button_horario" @click="agendarConsulta(horario)">{{ horario }}</button>
                                 </div>
                             </div>
                         </div>
@@ -54,7 +45,8 @@ Vue.component('AppVue', {
     template: AppTemplate,
     data: function() {
         return {
-        }
+            horariosDisponiveis: [] // Array para armazenar os horários disponíveis
+        };
     },
     mounted: function() {
         this.errorProgress = new ej.progressbar.ProgressBar({
@@ -70,11 +62,24 @@ Vue.component('AppVue', {
         });
         this.errorProgress.appendTo('#linearsegment');
     },
-
     methods: {
         onValueChange: function(args) {
-          document.getElementById("date_label").textContent =
-            "Selected Value: " + args.value.toLocaleDateString();
+            const selectedDate = args.value.toISOString().split('T')[0]; // Formata a data
+            this.fetchHorariosDisponiveis(selectedDate);
+        },
+        fetchHorariosDisponiveis: function(date) {
+            const idNutricionista = this.selectedNutricionistaId; // Supondo que você tenha essa variável
+            axios.get(`/calendario/getDisponibilidade/${idNutricionista}?date=${date}`)
+                .then(response => {
+                    this.horariosDisponiveis = response.data; // Ajuste conforme a estrutura da resposta
+                })
+                .catch(error => {
+                    console.error("Erro ao buscar horários disponíveis:", error);
+                });
+        },        
+        agendarConsulta: function(horario) {
+            // Implementar a lógica para agendar a consulta com o horário selecionado
+            console.log(`Consulta agendada para: ${horario}`);
         }
-      } 
+    }
 });

@@ -1,13 +1,13 @@
 Vue.component("modal_info", {
-    props: ['tipomodalinfo'],
+    props: ['tipomodalinfo', 'nutricionista'],
     template: `
     <div>
-        <button type="button" class="btn" data-mdb-toggle="modal" data-mdb-target="#modalInfo" style="background-color: #32794F; color: white;">
+        <button type="button" class="btn" data-mdb-toggle="modal" :data-mdb-target="'#modalInfo' + nutricionista.id" style="background-color: #32794F; color: white;">
             Selecionar
         </button>
 
-        <div class="modal fade" id="modalInfo" tabindex="-1" aria-labelledby="modalInfoLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg"> <!-- Adicionado modal-lg para tamanhos maiores -->
+        <div class="modal fade" :id="'modalInfo' + nutricionista.id" tabindex="-1" aria-labelledby="modalInfoLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title text-danger text-center w-100" id="modalInfoLabel" style="text-transform: uppercase;">Aviso</h5>
@@ -21,16 +21,15 @@ Vue.component("modal_info", {
                     </div>
 
                     <div class="modal-footer d-flex justify-content-center">
-                        <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" style="background-color: #32794F; color: white;">Continuar agendamento</button>
+                        <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" @click="goToCalendar" style="background-color: #32794F; color: white;">Continuar agendamento</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>`,
-    data() {
-        return {
-            isModal: true,
+    methods: {
+        goToCalendar() {
+            this.$emit('continuar-agendamento', this.nutricionista);
         }
-    },
-    methods: {}
+    }
 });

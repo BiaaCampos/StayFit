@@ -5,6 +5,14 @@
     box-sizing: border-box; /* Garante que padding e bordas não aumentem o tamanho total do elemento */
 }
 
+html, body, #container {
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    min-height: 400px;
+}
+
 .fundo_agendarConsulta {
     box-shadow: 0px 4px 15.3px 0px rgba(0, 0, 0, 0.25);
     height: 100%;
@@ -63,14 +71,6 @@
     gap: 20px;
 }
 
-html, body, #container {
-    height: 100%;
-    overflow: hidden;
-    width: 100%;
-    position: relative;
-    min-height: 400px;
-}
-
 .text {
     text-transform: capitalize;
 }
@@ -116,4 +116,121 @@ html, body, #container {
         padding: 50px 15px;
     }
 }
+}
+
+/* CALENDARIO */
+.dias-dispo {
+    color: rgb(0, 0, 0);
+}
+
+.horario-card {
+    width: 18em;
+    height: 19em;
+}
+
+.horarios-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 1em;
+}
+
+.horario-item {
+    flex: 1 1 30%;
+    max-width: 30%;
+}
+
+.button_horario {
+    width: 100%;
+    padding: 8px;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    box-shadow: 0px 4px 15.3px 0px rgba(0, 0, 0, 0.25);
+}
+
+.button_horario:hover {
+    background-color: #32794F;
+    color: white;
+}
+
+.p-div {
+    text-align: center;
+}
+
+.div-agendar {
+    margin-top: 0;
+}
+
+.div-calendario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+
+.e-card-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#linearsegment {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    padding-top: 135px;
+}
+
+.div-cards{
+    margin-top: 3em;
+}
+.selected {
+    background-color: #007bff; /* Cor do botão selecionado */
+    color: white; /* Cor do texto do botão selecionado */
+}
+
+/* LISTA INFORMAÇÕES */
+.infos_consulta {
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;             
+}
+
+.list-group {
+    max-width: 600px;
+    width: 100%; 
+}
+
+.list-group-item {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+}
+
+.highlight {
+    background-color: #e6e6e65e; 
+
+}
+
+.color-text{
+    color: #32794F;
+}
+
+.h6-info-consulta{
+    color: #32794F;
+    font-size: 20px;
+}
+
+#linearsegment {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
 }

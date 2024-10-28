@@ -72,13 +72,6 @@
     gap: 20px;
 }
 
-html, body, #container {
-    height: 100%;
-    overflow: hidden;
-    width: 100%;
-    position: relative;
-    min-height: 400px;
-}
 
 .e-card-actions {
     display: flex;
