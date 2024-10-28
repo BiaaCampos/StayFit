@@ -21,4 +21,12 @@ class Calendario extends Controller
         $this->view->render('footer');
     }
 
+    function getDisponibilidade($id_nutricionista)
+    {
+        $data = $_GET['date']; // Obtenha a data da query string
+        $calendarioModel = new Calendario_Model();
+        $calendarioModel->getDisponibilidade($data, $id_nutricionista);
+    }
+    
+
 }

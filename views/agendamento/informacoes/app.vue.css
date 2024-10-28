@@ -52,15 +52,6 @@
     font-size: 20px;
 }
 
-
-html, body, #container {
-    height: 100%;
-    overflow: hidden;
-    width: 100%;
-    position: relative;
-    min-height: 400px;
-}
-
 #linearsegment {
     position: fixed;
     bottom: 20px;
