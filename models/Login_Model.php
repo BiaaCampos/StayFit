@@ -76,11 +76,18 @@ class login_Model extends Model
         if(filter_var($email, FILTER_VALIDATE_EMAIL)){
             true;
         } else{
-            $msg = json_encode(array("code" => "0", "msg" => "Opss!! E-mail está inválido!!"));
+            $msg = json_encode(array("code" => "0", "msg" => "O E-mail está inválido!!"));
         }
 
+        /* VALIDAR CPF */
+        $valid_cpf = validaCPF($cpf);
+        if($valid_cpf == false){
+            exit(json_encode(array("code" => "0", "msg" => "O CPF é inválido!!")));
+        }
+
+        /* VALIDAR SENHA */
         if($senha != $confirma_senha){
-            $msg = json_encode(array("code" => "0", "msg" => "Senha diferentes!!.Por favor, digite novamente."));
+            $msg = json_encode(array("code" => "0", "msg" => "Senha diferentes, Por favor, digite novamente."));
         }
 
         /* DECODIFICAÇAO DA SENHA */
@@ -259,32 +266,31 @@ class login_Model extends Model
         }
         echo(json_encode($msg));
     }
-
-    function validaCPF($cpf) {
-        // Extrai somente os números
-        $cpf = preg_replace( '/[^0-9]/is', '', $cpf );
-         
-        // Verifica se foi informado todos os digitos corretamente
-        if (strlen($cpf) != 11) {
-            return false;
-        }
+}
     
-        // Verifica se foi informada uma sequência de digitos repetidos. Ex: 111.111.111-11
-        if (preg_match('/(\d)\1{10}/', $cpf)) {
-            return false;
-        }
-    
-        // Faz o calculo para validar o CPF
-        for ($t = 9; $t < 11; $t++) {
-            for ($d = 0, $c = 0; $c < $t; $c++) {
-                $d += $cpf[$c] * (($t + 1) - $c);
-            }
-            $d = ((10 * $d) % 11) % 10;
-            if ($cpf[$c] != $d) {
-                return false;
-            }
-        }
-        return true;
+function validaCPF($cpf) {
+    // Extrai somente os números
+    $cpf = preg_replace( '/[^0-9]/is', '', $cpf );
+        
+    // Verifica se foi informado todos os digitos corretamente
+    if (strlen($cpf) != 11) {
+        return false;
     }
 
+    // Verifica se foi informada uma sequência de digitos repetidos. Ex: 111.111.111-11
+    if (preg_match('/(\d)\1{10}/', $cpf)) {
+        return false;
+    }
+
+    // Faz o calculo para validar o CPF
+    for ($t = 9; $t < 11; $t++) {
+        for ($d = 0, $c = 0; $c < $t; $c++) {
+            $d += $cpf[$c] * (($t + 1) - $c);
+        }
+        $d = ((10 * $d) % 11) % 10;
+        if ($cpf[$c] != $d) {
+            return false;
+        }
+    }
+    return true;
 }
