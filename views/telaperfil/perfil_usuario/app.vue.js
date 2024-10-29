@@ -207,16 +207,16 @@ const newLocal = `
         </div>
         <div>
           <h5>NOME</h5>
-          <p>fulano</p>
+          <p>{{ userData[0].NOME }}</p>
         </div>
         <div class="divisor">
           <div>
             <h5>CELULAR</h5>
-            <p>1845+78+6198465</p>
+            <p>{{ userData[0].TELEFONE }}</p>
           </div>
           <div style="display: flex; right: 88px; position: relative; flex-direction: column;">
             <h5>EMAIL</h5>
-            <p>fulano@gmail.com</p>
+            <p>{{ userData[0].EMAIL }}</p>
           </div>
         </div>
         <div class="divisor">
@@ -226,31 +226,32 @@ const newLocal = `
           </div>
           <div style="display: flex; right: 144px; position: relative; flex-direction: column;">
             <h5>GÊNERO</h5>
-            <p>fulano</p>
+            <p>{{ userData[0].GENERO }}</p>
           </div>
         </div>
         <div class="divisor">
           <div>
             <h5>PESO ATUAL</h5>
-            <p>97.5Kg</p>
+            <p>{{ userData[0].PESO_ATUAL }}</p>
           </div>
           <div style="display: flex; right: 68px; position: relative; flex-direction: column;">
             <h5>PESO DESEJADO</h5>
-            <p>54KG</p>
+            <p>{{ userData[0].PESO_IDEAL }}</p>
           </div>
         </div>
         <div class="divisor">
           <div>
             <h5>ALTURA</h5>
-            <p>1.70</p>
+            <p>{{ userData[0].ALTURA }}</p>
           </div>
           <div style="display: flex; right: 77px; position: relative; flex-direction: column;">
             <h5>IDENTIFICAÇÃO</h5>
-            <p>26471189</p>
+            <p>{{ userData[0].ID }}</p>
           </div>
         </div>
         <div>
           <h5>METAS</h5>
+          <p>{{ userData[0].OBJETIVO }}</p>
         </div>
       </div>
     </div>
@@ -310,6 +311,7 @@ Vue.component('AppVue', {
       step: 0.1,
       value: 0,
       header: '',
+      userData: [],
       headerText0: { text: "Recomendado" },
       headerText1: { text: "Favoritos" },
       headerText2: { text: "Substituições" },
@@ -325,6 +327,12 @@ Vue.component('AppVue', {
     }
   },
   methods: {
+    getInfos(){
+      axios.get(BASE + "/perfil_usuario/getInfos").then((res) => {
+        this.userData = res.data.data;
+        console.log(this.userData)
+      })
+    },
     AbrirModal(args) {
       this.header = args
       this.$refs.RefeicaoDialog.show();
@@ -338,6 +346,7 @@ Vue.component('AppVue', {
     }
   },
   mounted: function() {
+    this.getInfos()
   }
 
 })

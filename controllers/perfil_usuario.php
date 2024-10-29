@@ -6,7 +6,7 @@ class Perfil_usuario extends Controller
     function __construct()
     {
         parent::__construct();
-        // Auth::autentica();
+        Auth::autentica();
         $this->view->js = array();
         $this->view->css = array();
     }
@@ -20,5 +20,9 @@ class Perfil_usuario extends Controller
         $this->view->render('header');
         $this->view->render('footer');
     }
-
+    
+    function getInfos()
+    {
+        $this->model->getInfos();
+    }
 }

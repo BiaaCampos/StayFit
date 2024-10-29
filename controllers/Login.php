@@ -30,4 +30,9 @@ class Login extends Controller
     {
         $this->model->Cadastrar_usuario();
     }
+
+    function login()
+    {
+        $this->model->login();
+    }
 }

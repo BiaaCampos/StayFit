@@ -236,7 +236,13 @@ function validaTermos(model){
     return true;
 }
 
-function LimpaInput(inputRef, inputModel){
+function LimpaInput(inputModel, inputRef){
   inputRef.$el.value = "";
   inputModel = "";
+}
+
+function logout(){
+  axios.post(BASE + "/Logout/logout").then((res) => {
+    window.location.href = BASE + '/'
+  })
 }

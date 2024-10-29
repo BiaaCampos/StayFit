@@ -139,6 +139,8 @@ header .navbar_home ul li a:hover {
     border: 1px solid #32794F;
     color: #32794F;
     background-color: transparent;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .auth-buttons .register:hover, .button_first_section:hover {

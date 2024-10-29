@@ -30,28 +30,29 @@ const newLocal = `
         <div id="login" style="width: 40rem;">
           <div class="input-group mb-3">
             <ejs-dropdownlist 
-              id='tipoLogin' 
+              id='tipoLogin'
+              ref='tipoLogin'
               floatLabelType="Auto"
               cssClass="e-outline"
               :dataSource='listaTipo'
               :fields='Fields'
-              placeholder='Você é usuário ou nutricionista?'
+              @change='LimpaInput()'
+              placeholder='Você é usuário ou nutricionista? *'
               v-model='login.tipo'>
             </ejs-dropdownlist>
             <span class='error-input-msg'></span>
           </div>
           <div class="input-group mb-3" v-show='login.tipo != "1"'>
-            <ejs-textbox 
+            <ejs-maskedtextbox
+                ref="loginCPF"
+                id="loginCPF"
+                mask="000.000.000-00"
                 floatLabelType="Auto"
-                ref="email"
-                id="email"
-                v-model="login.email"
-                type="email"
-                style="text-transform: unset;"
-                maxlength="100"
                 cssClass="e-outline"
-                placeholder="Email *">
-            </ejs-textbox>
+                maxlength="11"
+                placeholder='CPF *'
+                v-model="login.cpf">
+            </ejs-maskedtextbox>
             <span class='error-input-msg'></span>
           </div>
           <div class="input-group mb-3" v-show='login.tipo == "1"'>
@@ -63,7 +64,7 @@ const newLocal = `
                 cssClass="e-outline"
                 maxlength="11"
                 placeholder='CRN *'
-                v-model="cadastro.crn">
+                v-model="login.crn">
             </ejs-maskedtextbox>
             <span class='error-input-msg'></span>
           </div>
@@ -267,7 +268,7 @@ Vue.component('AppVue', {
       Fields: { text: 'DESCRICAO', value: 'ID' },
       login: {
         tipo: "",
-        email: "",
+        cpf: "",
         crn: "",
         senha: ""
       },
@@ -319,6 +320,7 @@ Vue.component('AppVue', {
       this.$refs.nutriInfos.hide();
     },
     selectBtn(args) {
+      
       this.selectedForm = args;
 
       if (args === 'login'){
@@ -334,17 +336,41 @@ Vue.component('AppVue', {
     },
     enviaForm(args){
       const spinner = document.getElementById('spinner');
-      spinner.style.display = 'flex'
+      spinner.style.display = 'flex';
+      // console.log(args)
 
-      // if (args === 'login'){
-      //   if (
-      //     !validarInput(this.login.email, this.$refs.email) ||
-      //     !validarInput(this.login.senha, this.$refs.senha)
-      //   ){
-      //     mainLayout.sToast(`Preencha os campos obricatórios(*)`, "","danger");
-      //     console.log(this.$refs.email)
-      //   } else {}
-      // }
+      if (args === 'login'){
+        if (
+          validarInput(this.login.tipo, this.$refs.tipoLogin) &&
+          (validarInput(this.login.cpf, this.$refs.loginCPF) || validarInput(this.login.crn, this.$refs.loginCRN)) &&
+          validarInput(this.login.senha, this.$refs.senha) 
+        ){
+          var crn = this.login.crn.substring(1)
+          this.login.crn = crn
+
+          axios.post(BASE + "/Login/login", this.login).then((res) => {
+            if (res.data.code == 1) {
+              setTimeout(() => {
+                spinner.style.display = 'none';
+                if (res.data.TIPO_USUARIO == 1) {
+                  window.location.href = BASE + '/perfil_nutricionista'
+                } else {
+                  window.location.href = BASE + '/perfil_usuario'
+                }
+              }, 5000);
+            } else {
+              setTimeout(() => {
+                mainLayout.sToast(res.data.msg, "","danger");
+                spinner.style.display = 'none';
+              }, 5000);
+            }
+          })
+
+        } else {
+          mainLayout.sToast(`Preencha os campos obricatórios(*)`, "","warning");
+          spinner.style.display = 'none';
+        }
+      }
 
       if (args = 'cadastro'){
         if (
@@ -359,16 +385,37 @@ Vue.component('AppVue', {
           verificaSenha(this.cadastro.senha, this.cadastro.confirmaSenha, this.$refs.cadSenha, this.$refs.cadConfirmaSenha) &&
           validaTermos(this.cadastro.conf)
         ){
+          if (this.cadastro.tipo == "1") {
+            var crn = this.cadastro.crn.substring(1)
+            this.cadastro.crn = crn
+          }
           axios.post(BASE + "/Login/Cadastrar_usuario", this.cadastro).then((res) => {
             if(res.data.code === 1) {
               setTimeout(() => {
-                this.$refs.SENHA.focusIn();
+                mainLayout.sToast(res.data.msg, "", "success");
+                spinner.style.display = 'none';
+              }, 5000);
+            }else{
+              setTimeout(() => {
+                mainLayout.sToast(res.data.msg, "","danger");
+                spinner.style.display = 'none';
               }, 5000);
             }
-            console.log(res.data.code)
           })
         }
       }
+    },
+    LimpaInput(){
+      LimpaInput(this.cadastro.nome, this.$refs.nome);
+      LimpaInput(this.cadastro.cel, this.$refs.celular);
+      LimpaInput(this.cadastro.email, this.$refs.cadEmail);
+      LimpaInput(this.cadastro.cpf, this.$refs.CPF);
+      LimpaInput(this.cadastro.crn, this.$refs.CRN);
+      LimpaInput(this.cadastro.senha, this.$refs.cadSenha);
+      LimpaInput(this.cadastro.confirmaSenha, this.$refs.cadConfirmaSenha);
+      LimpaInput(this.login.cpf, this.$refs.loginCPF);
+      LimpaInput(this.login.crn, this.$refs.loginCRN);
+      LimpaInput(this.login.senha, this.$refs.senha);
     }
   },
   mounted: function() {
