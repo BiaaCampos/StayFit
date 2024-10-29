@@ -12,6 +12,7 @@ class login_Model extends Model
 
     public function getInfos(){
         $post = json_decode(file_get_contents('php://input'));
+        
         $result = $this->db->select("
             SELECT
                 TU.ID,
@@ -59,8 +60,8 @@ class login_Model extends Model
 
     public function Cadastrar_usuario(){
         $post = json_decode(file_get_contents('php://input'));
-        // var_dump($post); die;
 
+        
         $nome = $post->nome;
         $cell = $post->cel;
         $email = $post->email;
@@ -105,11 +106,13 @@ class login_Model extends Model
         $email = strtolower($email);
 
         if($tipo == "1"){
+            $seq = $this->db->select("CALL stayfit.PROC_GETSEQUENCIA('nutricionistas')");
             // ESPECIALIDADE*
             $result = $this->db->insert(
                 'stayfit.nutricionistas', 
                 array(
-                    'NOME' =>$nome, 
+                    'ID' => $seq[0]->SEQ,
+                    'NOME' => $nome, 
                     'EMAIL' => $email, 
                     'SENHA' => $senha_hash, 
                     'CRN' => $crn, 
@@ -118,34 +121,143 @@ class login_Model extends Model
                 )
             );
 
-            if ($result){
-                $msg = json_encode(array("code" => "1", "msg" => "Cadastro realizado com sucesso."));
+            $dados = array(':par_id' => $seq[0]->SEQ);
+            $res = $this->db->select("SELECT
+                *
+            FROM
+                STAYFIT.nutricionistas n
+            where
+                n.id = :par_id", $dados);
+
+            if ($res > 0){
+                $msg = json_encode(array("code" => "1", "msg" => "Cadastro realizado com sucesso.", "SEQ" => $seq));
             } else{
                 $msg = json_encode(array("code" => "0", "msg" => "Erro ao inserir."));
             }
         } else {
+
+            $seq = $this->db->select("CALL stayfit.PROC_GETSEQUENCIA('usuarios')");
             // ALTURA*    PESO_ATUAL*    PESO_IDEAL*    ID_OBJETIVO    ID_PLANO*
             $result = $this->db->insert(
                 'stayfit.usuarios', 
                 array(
+                    'ID' => $seq[0]->SEQ,
                     'NOME' =>$nome, 
                     'SENHA' => $senha_hash, 
                     'ID_GENERO' => $genero,
                     'CPF' => $cpf, 
                     'EMAIL' => $email, 
                     'TELEFONE' => $cell,
-                    'ID_TIPO_USUARIO' => $tipo
+                    'TIPO_USUARIO' => $tipo
                 )
             );
 
-            if ($result){
-                $msg = json_encode(array("code" => "1", "msg" => "Cadastro realizado com sucesso."));
+            $dados = array(':par_id' => $seq[0]->SEQ);
+            $res = $this->db->select("SELECT
+                *
+            FROM
+                STAYFIT.usuarios u
+            where
+                u.id = :par_id", $dados);
+
+            if ($res > 0){
+                $msg = json_encode(array("code" => "1", "msg" => "Cadastro realizado com sucesso.", "SEQ" => $seq));
             } else{
                 $msg = json_encode(array("code" => "0", "msg" => "Erro ao inserir."));
             }
         }
-
         echo($msg);
+    }
+
+    public function login(){
+        $post = json_decode(file_get_contents('php://input'));
+        // var_dump($post);exit;
+        $cpf = $post->cpf;
+        $crn = $post->crn;
+        $senha = $post->senha;
+        $tipo = $post->tipo;
+
+		if ($tipo == 1) {
+            $dados=array(
+                ':CRN' => $crn,
+                ':SENHA' => $senha
+            );
+            
+            $result = $this->db->select("
+                SELECT
+                    N.ID,
+                    N.NOME,
+                    N.EMAIL,
+                    N.SENHA,
+                    N.CRN,
+                    N.TELEFONE,
+                    N.TIPO_USUARIO
+                FROM
+                    STAYFIT.nutricionistas n
+                WHERE 
+                    N.CRN = :CRN
+                    AND N.SENHA = SHA2(:SENHA, 256)
+                    AND N.ATIVO = 'S';", $dados
+            );
+
+            if (count($result) > 0) {
+                // login
+                Session::init();
+                Session::set('ID', $result[0]->ID);
+                Session::set('NOME', $result[0]->NOME);
+                Session::set('CRN', $result[0]->CRN);
+                Session::set('TELEFONE', $result[0]->TELEFONE);
+                Session::set('EMAIL', $result[0]->EMAIL);
+                Session::set('TIPO_USUARIO', $result[0]->TIPO_USUARIO);
+                Session::set('logado', true);
+                
+                $msg = array("code" => 1,"msg" => "success", "TIPO_USUARIO" => $result[0]->TIPO_USUARIO);
+            }
+            else{
+                $msg = array("code" => "0", "msg" => "Usuário não encontrado, reveja seus dados e tente novamente");
+            }
+        } elseif ($tipo == 2){
+            $dados=array(
+                ':CPF' => $cpf,
+                ':SENHA' => $senha
+            );
+
+            $result = $this->db->select("
+                SELECT
+                    U.ID,
+                    U.NOME,
+                    U.SENHA,
+                    U.TIPO_USUARIO,
+                    U.CPF,
+                    U.EMAIL,
+                    U.TELEFONE,
+                    U.ATIVO
+                FROM
+                    STAYFIT.USUARIOS U
+                WHERE 
+                    U.CPF = :CPF
+                    AND U.SENHA = SHA2(:SENHA, 256)
+                    AND U.ATIVO = 'S';", $dados
+            );
+            
+            if (count($result) > 0) {
+                // login
+                Session::init();
+                Session::set('ID', $result[0]->ID);
+                Session::set('NOME', $result[0]->NOME);
+                Session::set('CPF', $result[0]->CPF);
+                Session::set('TIPO_USUARIO', $result[0]->TIPO_USUARIO);
+                Session::set('EMAIL', $result[0]->EMAIL);
+                Session::set('TELEFONE', $result[0]->TELEFONE);
+                Session::set('logado', true);
+
+                $msg = array("code" => 1,"msg" => "success", "TIPO_USUARIO" => $result[0]->TIPO_USUARIO);
+            }
+            else{
+                $msg = array("code" => "0", "msg" => "Usuário não encontrado, reveja seus dados e tente novamente");
+            }
+        }
+        echo(json_encode($msg));
     }
 
     function validaCPF($cpf) {
@@ -174,4 +286,5 @@ class login_Model extends Model
         }
         return true;
     }
+
 }

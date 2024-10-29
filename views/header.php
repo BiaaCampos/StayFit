@@ -71,7 +71,7 @@
             <li><a href="<?= URL ?>"><img src="public/images/icons-menu/calendario.svg" alt="" srcset="" class="icones-sidebar"><span>Agendar consulta</span></a></li>
             <li><a href="<?= URL ?>"><img src="public/images/icons-menu/chat.svg" alt="" srcset="" class="icones-sidebar"><span>Chat</span></a></li>
             <li><a href="<?= URL ?>"><img src="public/images/icons-menu/dashboard.svg" alt="" srcset="" class="icones-sidebar"><span>Dashboard</span></a></li>
-            <li><a href="<?= URL ?>"><img src="public/images/icons-menu/sair.svg" alt="" srcset="" class="icones-sidebar"><span>Sair</span></a></li>
+            <li><a onclick="logout()"><img src="public/images/icons-menu/sair.svg" alt="" srcset="" class="icones-sidebar" onclick="logout()"><span>Sair</span></a></li>
         </ul>
     </div>
     <nav>
@@ -102,7 +102,7 @@
             computed: {
             },
             methods: {
-                sToast: function (titleMsg, contentMsg, type = 'danger') {
+                sToast: function (titleMsg, contentMsg = '', type = 'success') {
                     types = {
                     danger: {
                         css: 'e-toast-danger',

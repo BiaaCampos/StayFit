@@ -14,8 +14,7 @@ Vue.component("header_home", {
                     <li><a href="#faleconosco">Fale conosco</a></li>
                 </ul>
                 <div class="auth-buttons">
-                    <button class="login">Entrar</button>
-                    <button class="register">Cadastrar</button>
+                    <a href="login" class="register">Entrar/Cadastrar</a>
                 </div>
                 <div class="menu-toggle" @click="toggleMenu">
                     <img src="public/images/icons-menu/menu_icon.svg" alt="" srcset="" class="icones-sidebar" width="35">
@@ -32,8 +31,8 @@ Vue.component("header_home", {
                     <li><a href="#faleconosco">Fale conosco</a></li>
                 </ul>
                 <div class="mobile-auth-buttons">
-                    <button class="login">Entrar</button>
-                    <button class="register">Cadastre-se</button>
+                    <button class="login" @click="toggleMenu">Entrar</button>
+                    <button class="register" @click="toggleMenu">Cadastre-se</button>
                 </div>
             </div>
         </header>`,
@@ -47,9 +46,18 @@ Vue.component("header_home", {
             this.menuVisible = !this.menuVisible;
             const menu = document.getElementById('mobileMenu');
             menu.style.display = this.menuVisible ? 'flex' : 'none';
+        },
+        redirect(args){
+            console.log(args)
+            // if (args == 'login') {
+            //     window.location.href = BASE + '/login'
+            // } else {
+                
+            // }
         }
     },
     mounted() {
+        console.log('oi')
         const menu = document.getElementById('mobileMenu');
         menu.style.display = 'none';
     }
