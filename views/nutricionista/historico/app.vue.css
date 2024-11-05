@@ -15,9 +15,47 @@
 .fundo_historico .grid_historico {
     margin-top: 3em;
 }
+
+/* Responsividade */
 @media (max-width: 1000px) {
-    .fundo_historico{
+    .fundo_historico {
         height: 80%;
         padding: 50px 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .fundo_historico {
+        padding: 30px 10px; /* Ajustando o padding para smartphones */
+    }
+
+    .fundo_historico div h1 {
+        font-size: 24px; /* Reduzindo o tamanho da fonte do título */
+    }
+
+    .fundo_historico .grid_historico {
+        margin-top: 2em; /* Ajustando a margem superior */
+        display: flex; /* Usando flexbox para facilitar o layout */
+        flex-direction: column; /* Mudando a direção para coluna */
+        align-items: center; /* Centralizando os itens */
+    }
+}
+
+@media (max-width: 480px) {
+    .fundo_historico {
+        padding: 20px 5px; /* Reduzindo o padding para telas muito pequenas */
+    }
+
+    .fundo_historico div h1 {
+        font-size: 20px; /* Aumentando ainda mais a responsividade da fonte */
+    }
+
+    .fundo_historico .grid_historico {
+        margin-top: 1.5em; /* Ajustando a margem superior para telas pequenas */
+    }
+
+    .grid_historico > div { /* Ajustes nos itens da grid para celulares */
+        width: 100%; /* Fazendo com que cada item ocupe toda a largura disponível */
+        margin-bottom: 10px; /* Espaçamento entre os itens */
     }
 }

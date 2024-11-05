@@ -86,13 +86,6 @@ html, body, #container {
     cursor: pointer;
 }
 
-#linearsegment {
-    position: fixed;
-    bottom: 20px;
-    left: 0;
-    width: 100%;
-}
-
 ::-webkit-scrollbar {
     width: 4px; 
 }
@@ -109,14 +102,7 @@ html, body, #container {
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 
-/* Responsividade */
-@media (max-width: 1000px) {
-    .fundo_agendarConsulta {
-        height: 80%;
-        padding: 50px 15px;
-    }
-}
-}
+
 
 /* CALENDARIO */
 .dias-dispo {
@@ -185,7 +171,6 @@ html, body, #container {
     bottom: 20px;
     left: 0;
     width: 100%;
-    padding-top: 135px;
 }
 
 .div-cards{
@@ -233,4 +218,68 @@ html, body, #container {
     bottom: 20px;
     left: 0;
     width: 100%;
+}
+
+/* Responsividade */
+@media (max-width: 1000px) {
+    .fundo_agendarConsulta {
+        height: 80%;
+        padding: 50px 15px;
+    }
+}
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+    .fundo_agendarConsulta {
+        height: 80%;
+        padding: 50px 15px;
+    }
+    
+    .card-profissionais-container {
+        padding-top: 3em; /* Reduzindo o espaço superior em tablets */
+    }
+
+    .title-agendar {
+        font-size: 24px; /* Ajustando o tamanho da fonte */
+    }
+
+    .card-layout {
+        flex-direction: column; /* Mudando para coluna em tablets */
+        align-items: center; /* Centralizando os itens */
+    }
+
+    .horario-card {
+        width: 100%; /* Ajustando a largura dos cartões para ocupar 100% */
+        height: auto; /* Permitindo altura automática */
+    }
+
+    .horarios-container {
+        justify-content: center; /* Centralizando os horários */
+    }
+
+    .button_horario {
+        padding: 12px; /* Aumentando o padding do botão para melhor acessibilidade */
+        font-size: 16px; /* Aumentando o tamanho da fonte do botão */
+    }
+
+    .list-group-item {
+        flex-direction: column; /* Mudando a direção da lista para coluna */
+        align-items: flex-start; /* Alinhando os itens à esquerda */
+    }
+    
+    .selected {
+        font-weight: bold; /* Destacando o botão selecionado em tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    /* Você pode adicionar mais ajustes específicos para tablets menores aqui */
+    .horarios-container {
+        flex-direction: column; /* Mudando para coluna em dispositivos menores */
+    }
+
+    .button_horario {
+        width: 100%; /* Aumentando o botão para ocupar toda a largura */
+    }
 }
