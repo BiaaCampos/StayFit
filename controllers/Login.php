@@ -31,6 +31,11 @@ class Login extends Controller
         $this->model->Cadastrar_usuario();
     }
 
+    function confirmaSession()
+    {
+        $this->model->confirmaSession();
+    }
+
     function login()
     {
         $this->model->login();

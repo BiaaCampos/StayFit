@@ -187,6 +187,19 @@ const newLocal = `
             <span class='error-input-msg'></span>
           </div>
           <div class="input-group mb-3">
+            <ejs-datepicker 
+              floatLabelType="Auto"
+              id="nascimento" 
+              ref="nascimento"
+              v-model="cadastro.dataNascimento"
+              cssClass="e-outline"
+              format="dd/MM/yyyy"
+              :openOnFocus="true"
+              placeholder="Data de nascimento*">
+            </ejs-datepicker>
+            <span class='error-input-msg'></span>
+          </div>     
+          <div class="input-group mb-3">
             <ejs-textbox 
                 floatLabelType="Auto"
                 ref="cadSenha"
@@ -282,7 +295,8 @@ Vue.component('AppVue', {
         conf: false,
         tipo: "",
         genero: "",
-        cpf: ""
+        cpf: "",
+        dataNascimento: ""
       },
       header: 'Nos conte mais sobre você!',
       dlgButtons: [
@@ -337,7 +351,6 @@ Vue.component('AppVue', {
     enviaForm(args){
       const spinner = document.getElementById('spinner');
       spinner.style.display = 'flex';
-      // console.log(args)
 
       if (args === 'login'){
         if (
@@ -378,6 +391,7 @@ Vue.component('AppVue', {
           validarInput(this.cadastro.cel, this.$refs.celular) &&
           validarInput(this.cadastro.tipo, this.$refs.cadTipo) &&
           validarInput(this.cadastro.email, this.$refs.cadEmail) &&
+          validarInput(this.cadastro.dataNascimento, this.$refs.nascimento) &&
           (validarInput(this.cadastro.cpf, this.$refs.CPF) ||
           validarInput(this.cadastro.crn, this.$refs.CRN)) &&
           validarInput(this.cadastro.senha, this.$refs.cadSenha) &&
@@ -389,10 +403,12 @@ Vue.component('AppVue', {
             var crn = this.cadastro.crn.substring(1)
             this.cadastro.crn = crn
           }
+          console.log(this.cadastro)
           axios.post(BASE + "/Login/Cadastrar_usuario", this.cadastro).then((res) => {
             if(res.data.code === 1) {
               setTimeout(() => {
-                mainLayout.sToast(res.data.msg, "", "success");
+                mainLayout.sToast(res.data.msg);
+                // this.selectedForm = 'login';
                 spinner.style.display = 'none';
               }, 5000);
             }else{
@@ -416,11 +432,31 @@ Vue.component('AppVue', {
       LimpaInput(this.login.cpf, this.$refs.loginCPF);
       LimpaInput(this.login.crn, this.$refs.loginCRN);
       LimpaInput(this.login.senha, this.$refs.senha);
+    },
+    confirmaSession() {
+      const spinner = document.getElementById('spinner');
+      spinner.style.display = 'flex';
+      
+      axios.get(BASE + "/Login/confirmaSession").then((res) => {
+        if(res.data.code == 1) {
+          setTimeout(() => {
+            if (res.data.TIPO_USUARIO == 1) {
+              window.location.href = BASE + '/perfil_nutricionista'
+            } else {
+              window.location.href = BASE + '/perfil_usuario'
+            }
+            spinner.style.display = 'none';
+          }, 3000);
+        } else {
+          spinner.style.display = 'none';
+        }
+      })
     }
   },
   mounted: function() {
     this.selectBtn("login");
     this.getInfos();
+    this.confirmaSession();
   }
 
 })

@@ -10,7 +10,8 @@ class login_Model extends Model
         parent::__construct();
     }
 
-    public function getInfos(){
+    public function getInfos()
+    {
         $post = json_decode(file_get_contents('php://input'));
         
         $result = $this->db->select("
@@ -58,10 +59,10 @@ class login_Model extends Model
         echo($msg);
     }
 
-    public function Cadastrar_usuario(){
+    public function Cadastrar_usuario()
+    {
         $post = json_decode(file_get_contents('php://input'));
 
-        
         $nome = $post->nome;
         $cell = $post->cel;
         $email = $post->email;
@@ -71,6 +72,7 @@ class login_Model extends Model
         $crn = $post->crn;
         $cpf = $post->cpf;
         $genero = $post->genero;
+        $nascimento = date_format(new DateTimeImmutable($post->dataNascimento), 'Y/m/d');
 
         /* VALIDAR E-MAIL */
         if(filter_var($email, FILTER_VALIDATE_EMAIL)){
@@ -80,10 +82,10 @@ class login_Model extends Model
         }
 
         /* VALIDAR CPF */
-        $valid_cpf = validaCPF($cpf);
+        if ($tipo == "2"){$valid_cpf = validaCPF($cpf);
         if($valid_cpf == false){
             exit(json_encode(array("code" => "0", "msg" => "O CPF é inválido!!")));
-        }
+        }}
 
         /* VALIDAR SENHA */
         if($senha != $confirma_senha){
@@ -111,72 +113,67 @@ class login_Model extends Model
 
         $nome = strtoupper($nome);
         $email = strtolower($email);
-
-        if($tipo == "1"){
-            $seq = $this->db->select("CALL stayfit.PROC_GETSEQUENCIA('nutricionistas')");
-            // ESPECIALIDADE*
-            $result = $this->db->insert(
-                'stayfit.nutricionistas', 
-                array(
-                    'ID' => $seq[0]->SEQ,
-                    'NOME' => $nome, 
-                    'EMAIL' => $email, 
-                    'SENHA' => $senha_hash, 
-                    'CRN' => $crn, 
-                    'TIPO_USUARIO' => $tipo,
-                    'TELEFONE' => $cell
-                )
-            );
-
+        
+        try {
+            if ($tipo == "1") {
+                $seq = $this->db->select("CALL stayfit.PROC_GETSEQUENCIA('nutricionistas')");
+                $result = $this->db->insert(
+                    'stayfit.nutricionistas', 
+                    array(
+                        'ID' => $seq[0]->SEQ,
+                        'NOME' => $nome, 
+                        'EMAIL' => $email, 
+                        'SENHA' => $senha_hash, 
+                        'CRN' => $crn, 
+                        'TIPO_USUARIO' => $tipo,
+                        'TELEFONE' => $cell,
+                        'DATA_NASCIMENTO' => $nascimento
+                    )
+                );
+            } else {
+                $seq = $this->db->select("CALL stayfit.PROC_GETSEQUENCIA('usuarios')");
+                $result = $this->db->insert(
+                    'stayfit.usuarios', 
+                    array(
+                        'ID' => $seq[0]->SEQ,
+                        'NOME' => $nome, 
+                        'SENHA' => $senha_hash, 
+                        'ID_GENERO' => $genero,
+                        'CPF' => $cpf, 
+                        'EMAIL' => $email, 
+                        'TELEFONE' => $cell,
+                        'TIPO_USUARIO' => $tipo,
+                        'DATA_NASCIMENTO' => $nascimento
+                    )
+                );
+            }
+    
+            // Consultar usuário cadastrado para verificar sucesso
             $dados = array(':par_id' => $seq[0]->SEQ);
-            $res = $this->db->select("SELECT
-                *
-            FROM
-                STAYFIT.nutricionistas n
-            where
-                n.id = :par_id", $dados);
-
-            if ($res > 0){
-                $msg = json_encode(array("code" => "1", "msg" => "Cadastro realizado com sucesso.", "SEQ" => $seq));
-            } else{
+            $res = $this->db->select("SELECT * FROM " . ($tipo == "1" ? "STAYFIT.nutricionistas" : "STAYFIT.usuarios") . " WHERE id = :par_id", $dados);
+    
+            if ($res > 0) {
+                $msg = json_encode(array("code" => "1", "msg" => "Cadastro realizado com sucesso.", "SEQ" => $seq[0]->SEQ));
+            } else {
                 $msg = json_encode(array("code" => "0", "msg" => "Erro ao inserir."));
             }
-        } else {
-
-            $seq = $this->db->select("CALL stayfit.PROC_GETSEQUENCIA('usuarios')");
-            // ALTURA*    PESO_ATUAL*    PESO_IDEAL*    ID_OBJETIVO    ID_PLANO*
-            $result = $this->db->insert(
-                'stayfit.usuarios', 
-                array(
-                    'ID' => $seq[0]->SEQ,
-                    'NOME' =>$nome, 
-                    'SENHA' => $senha_hash, 
-                    'ID_GENERO' => $genero,
-                    'CPF' => $cpf, 
-                    'EMAIL' => $email, 
-                    'TELEFONE' => $cell,
-                    'TIPO_USUARIO' => $tipo
-                )
-            );
-
-            $dados = array(':par_id' => $seq[0]->SEQ);
-            $res = $this->db->select("SELECT
-                *
-            FROM
-                STAYFIT.usuarios u
-            where
-                u.id = :par_id", $dados);
-
-            if ($res > 0){
-                $msg = json_encode(array("code" => "1", "msg" => "Cadastro realizado com sucesso.", "SEQ" => $seq));
-            } else{
-                $msg = json_encode(array("code" => "0", "msg" => "Erro ao inserir."));
+        } catch (PDOException $e) {
+            // Captura do código de erro SQLSTATE e mensagem de erro
+            $sqlState = $e->getCode();
+            $errorMsg = $e->getMessage();
+            $pos = strpos($errorMsg, ' ERRO:');
+            if ($pos !== false) {
+                $errorMsg = substr($errorMsg, $pos + 7);
             }
+
+            $msg = json_encode(array("code" => "0", "sqlstate" => $sqlState, "msg" => "Erro ao inserir: $errorMsg"));
         }
+
         echo($msg);
     }
 
-    public function login(){
+    public function login()
+    {
         $post = json_decode(file_get_contents('php://input'));
         // var_dump($post);exit;
         $cpf = $post->cpf;
@@ -266,22 +263,36 @@ class login_Model extends Model
         }
         echo(json_encode($msg));
     }
+
+    public function confirmaSession()
+    {
+        @session_start();
+        // var_dump($_SESSION); die;
+        if(isset($_SESSION) && !empty($_SESSION)){
+            $user = session::get("TIPO_USUARIO");
+            $msg = json_encode(array("code" => "1", "msg" => "Sessão encontrada", 'TIPO_USUARIO' => $user));
+        } else {
+            $msg = json_encode(array("code" => "0", "msg" => "sem sessão"));
+        }
+
+        echo($msg);
+    }
 }
     
 function validaCPF($cpf) {
     // Extrai somente os números
     $cpf = preg_replace( '/[^0-9]/is', '', $cpf );
-        
+    
     // Verifica se foi informado todos os digitos corretamente
     if (strlen($cpf) != 11) {
         return false;
     }
-
+    
     // Verifica se foi informada uma sequência de digitos repetidos. Ex: 111.111.111-11
     if (preg_match('/(\d)\1{10}/', $cpf)) {
         return false;
     }
-
+    
     // Faz o calculo para validar o CPF
     for ($t = 9; $t < 11; $t++) {
         for ($d = 0, $c = 0; $c < $t; $c++) {

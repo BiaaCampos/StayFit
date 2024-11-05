@@ -47,14 +47,6 @@ Vue.component("header_home", {
             const menu = document.getElementById('mobileMenu');
             menu.style.display = this.menuVisible ? 'flex' : 'none';
         },
-        redirect(args){
-            console.log(args)
-            // if (args == 'login') {
-            //     window.location.href = BASE + '/login'
-            // } else {
-                
-            // }
-        }
     },
     mounted() {
         console.log('oi')

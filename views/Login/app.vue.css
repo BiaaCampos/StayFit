@@ -79,6 +79,9 @@ a{
 }
 #forgot{
     cursor: pointer;
+    &:hover, &:focus {
+        color: #32794f;
+    }
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

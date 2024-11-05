@@ -243,6 +243,6 @@ function LimpaInput(inputModel, inputRef){
 
 function logout(){
   axios.post(BASE + "/Logout/logout").then((res) => {
-    window.location.href = BASE + '/'
+    window.location.href = BASE + '/login'
   })
 }
