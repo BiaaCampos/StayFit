@@ -76,7 +76,7 @@
     </div>
     <nav>
         <div class="pessoa_nav">
-            <div class="nome_nav">Nome teste</div>
+            <div class="nome_nav">Bem-Vindo, <?= $_SESSION['NOME']?></div>
             <div class="cidade_nav">Marília-SP</div>
         </div>
         <img src="public/images/icons-menu/logopreta.svg" alt="" srcset="" class="icones-sidebar" width="200"/>

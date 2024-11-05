@@ -16,6 +16,18 @@ class Auth
         }
     }
     
+    public static function verificaNivel($nivelNecessario){
+        @session_start();
+        $nivel = $_SESSION["TIPO_USUARIO"];
+
+        if ($nivel != $nivelNecessario) {
+            header('Location: telaErro/');
+            die;
+        } else {
+            return true;
+        }
+    }
+
     public static function logout()
     {
         @session_start();
