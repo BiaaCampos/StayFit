@@ -46,7 +46,7 @@ Vue.component('AppVue', {
             tipocalendario: '',
             tipoinformacoes: '',
             nutricionistaSelecionado: null,
-            errorProgress: null, // Mova a declaração do progress para o data
+            errorProgress: null, 
         };
     },
     

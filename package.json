@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "dependencies": {
     "@syncfusion/ej2-vue-base": "^26.2.10",
-    "vue": "^3.2.34"
+    "chart.js": "^4.4.6",
+    "vue": "^3.2.34",
+    "vue-chartjs": "^5.3.2"
   }
 }

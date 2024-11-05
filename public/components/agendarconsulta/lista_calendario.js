@@ -38,7 +38,6 @@ Vue.component("lista_calendario", {
               </div>
           </div>
       <div class="row mt-2 div-cards">
-          <!-- Seu código existente -->
           <div class="text-center mt-3">
                 <button 
                 class="btn btn-primary" 
@@ -54,13 +53,14 @@ Vue.component("lista_calendario", {
       return {
         horariosDisponiveis: [],
         mensagem: '',
-        horarioSelecionado: null // Adiciona esta linha
+        horarioSelecionado: null,
+        selectedDate: null 
       };
     },
     methods: {
         onValueChange: function(args) {
             const selectedDate = args.value.toISOString().split('T')[0];
-            this.selectedDate = selectedDate; // Armazena a data selecionada
+            this.selectedDate = selectedDate;
             this.fetchHorariosDisponiveis(selectedDate);
         },
         
@@ -84,13 +84,16 @@ Vue.component("lista_calendario", {
             this.mensagem = 'Selecione um nutricionista antes de escolher a data.';
         }
       },
+
       selecionarHorario(horario) {
-        this.horarioSelecionado = horario; // Armazena o horário selecionado
+        this.horarioSelecionado = horario; 
       },
+      
       proximaEtapa() {
         this.$emit('continuar-para-informacoes', {
             horario: this.horarioSelecionado,
-            nutricionista: this.nutricionistaSelecionado
+            nutricionista: this.nutricionistaSelecionado,
+            data: this.selectedDate // Adiciona a data selecionada
         });
     }
     }

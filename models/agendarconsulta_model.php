@@ -18,7 +18,7 @@ class AgendarConsulta_model extends Model
 
     public function horariosDisponiveis($idNutricionista, $data)
     {
-        $sql = "SELECT horario FROM disponibilidade_nutricionistas 
+        $sql = "SELECT horario FROM stayfit.disponibilidade_nutricionistas 
                 WHERE id_nutricionista = :idNutricionista 
                 AND data = :data 
                 AND id_status_disponibilidade = 1";
@@ -35,36 +35,37 @@ class AgendarConsulta_model extends Model
     public function agendarConsulta() 
     {
         $post = json_decode(file_get_contents('php://input'));
-        
-        $id_usuario = $post->id_usuario;
-        $id_nutricionista = $post->id_nutricionista;
-        $data_consulta = $post->data_consulta;
+        $id_usuario = $post->id_usuario ?? null;
+        $id_nutricionista = $post->id_nutricionista ?? null;
+        $data_consulta = $post->data_consulta ?? null;
         $descricao = $post->descricao ?? null;
-        $id_status = $post->id_status;
+        $id_status = $post->id_status ?? null;
     
         if (empty($id_usuario) || empty($id_nutricionista) || empty($data_consulta) || empty($id_status)) {
-            echo json_encode(["error" => "Todos os campos são obrigatórios."]);
-            return;
+            exit(json_encode(["code" => "0", "msg" => "Todos os campos são obrigatórios."]));
         }
     
-        $sql = "INSERT INTO consultas (id_usuario, id_nutricionista, data_consulta, descricao, id_status) VALUES (:id_usuario, :id_nutricionista, :data_consulta, :descricao, :id_status)";
-        
-        $params = [
-            ':id_usuario' => $id_usuario,
-            ':id_nutricionista' => $id_nutricionista,
-            ':data_consulta' => $data_consulta,
-            ':descricao' => $descricao,
-            ':id_status' => $id_status
+        if (!DateTime::createFromFormat('Y-m-d', $data_consulta)) {
+            exit(json_encode(["code" => "0", "msg" => "Data da consulta inválida."]));
+        }
+    
+        $dadosConsulta = [
+            'id_usuario' => $id_usuario,
+            'id_nutricionista' => $id_nutricionista,
+            'data_consulta' => $data_consulta,
+            'descricao' => $descricao,
+            'id_status' => $id_status
         ];
     
-        $result = $this->db->insert($sql, $params);
-        
+        $result = $this->db->insert('stayfit.consultas', $dadosConsulta);
+    
         if ($result) {
-            echo json_encode(["success" => "Consulta agendada com sucesso."]);
+            exit(json_encode(["code" => "1", "msg" => "Consulta agendada com sucesso."]));
         } else {
-            echo json_encode(["error" => "Erro ao agendar a consulta."]);
+            exit(json_encode(["code" => "0", "msg" => "Erro ao agendar a consulta."]));
         }
     }
+    
     
 
     
