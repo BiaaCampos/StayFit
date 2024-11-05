@@ -52,7 +52,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-chartjs@5.3.2/dist/vue-chartjs.umd.js"></script>
 
     <script src="https://unpkg.com/vue-slick-carousel@1.0.6"></script>
     <?php
@@ -66,11 +67,11 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <ul class="sidebar-menu">
-            <li><a href="<?= URL ?>"><img src="public/images/icons-menu/home.svg" alt="" srcset="" class="icones-sidebar"><span>Home</span></a></li>
-            <li><a href="<?= URL ?>"><img src="public/images/icons-menu/person.svg" alt="" srcset="" class="icones-sidebar"><span>Perfil</span></a></li>
-            <li><a href="<?= URL ?>"><img src="public/images/icons-menu/calendario.svg" alt="" srcset="" class="icones-sidebar"><span>Agendar consulta</span></a></li>
-            <li><a href="<?= URL ?>"><img src="public/images/icons-menu/chat.svg" alt="" srcset="" class="icones-sidebar"><span>Chat</span></a></li>
-            <li><a href="<?= URL ?>"><img src="public/images/icons-menu/dashboard.svg" alt="" srcset="" class="icones-sidebar"><span>Dashboard</span></a></li>
+            <li><a href="<?= URL ?>atendimento"><img src="public/images/icons-menu/home.svg" alt="" srcset="" class="icones-sidebar"><span>Home</span></a></li>
+            <li><a href="<?= URL ?>perfil_usuario"><img src="public/images/icons-menu/person.svg" alt="" srcset="" class="icones-sidebar"><span>Perfil</span></a></li>
+            <li><a href="<?= URL ?>agendarconsulta"><img src="public/images/icons-menu/calendario.svg" alt="" srcset="" class="icones-sidebar"><span>Agendar consulta</span></a></li>
+            <li><a href="<?= URL ?>relatorio"><img src="public/images/icons-menu/dashboard.svg" alt="" srcset="" class="icones-sidebar"><span>Dashboard</span></a></li>
+            <li><a href="<?= URL ?>marmitarias"><img src="public/images/icons-menu/dashboard.svg" alt="" srcset="" class="icones-sidebar"><span>Dashboard</span></a></li>
             <li><a onclick="logout()"><img src="public/images/icons-menu/sair.svg" alt="" srcset="" class="icones-sidebar" onclick="logout()"><span>Sair</span></a></li>
         </ul>
     </div>

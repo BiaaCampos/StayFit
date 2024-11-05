@@ -55,15 +55,16 @@ Vue.component("lista_informacoes", {
     methods: {
         agendarConsulta() {
             const data = {
-                id_usuario: 1, // Substitua pelo ID do usuário logado
-                id_nutricionista: this.nutricionistaSelecionado.id,
-                data_consulta: this.tipoinformacoes.data,
-                descricao: "Consulta nutricional",
-                id_status: 1
+                'id_usuario': 1, // Substitua pelo ID do usuário logado
+                'id_nutricionista': this.nutricionistaSelecionado.id,
+                'data_consulta': this.tipoinformacoes.data ? new Date(this.tipoinformacoes.data).toISOString().split('T')[0] : null,
+                'descricao': "Consulta nutricional",
+                'id_status': 1
             };
     
             axios.post(BASE + '/agendarconsulta/agendarConsulta', data)
                 .then((res) => {
+                    console.log(res)
                     this.resetInput();
                     alert('Agendamento realizado com sucesso!'); // Mensagem para o usuário
                 })
