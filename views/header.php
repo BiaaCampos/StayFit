@@ -64,13 +64,12 @@
     } ?>
 </head>
 <body>
-    <!-- Sidebar -->
     <div class="sidebar">
         <ul class="sidebar-menu">
             <li><a href="<?= URL ?>atendimento"><img src="public/images/icons-menu/home.svg" alt="" srcset="" class="icones-sidebar"><span>Home</span></a></li>
             <li><a href="<?= URL ?>perfil_usuario"><img src="public/images/icons-menu/person.svg" alt="" srcset="" class="icones-sidebar"><span>Perfil</span></a></li>
             <li><a href="<?= URL ?>agendarconsulta"><img src="public/images/icons-menu/calendario.svg" alt="" srcset="" class="icones-sidebar"><span>Agendar consulta</span></a></li>
-            <li><a href="<?= URL ?>relatorio"><img src="public/images/icons-menu/dashboard.svg" alt="" srcset="" class="icones-sidebar"><span>Dashboard</span></a></li>
+            <li><a href="<?= URL ?>relatorio"><img src="public/images/icons-menu/dashboard.svg" alt="" srcset="" class="icones-sidebar"><span>Relatório</span></a></li>
             <li><a href="<?= URL ?>marmitarias"><img src="public/images/icons-menu/dashboard.svg" alt="" srcset="" class="icones-sidebar"><span>Dashboard</span></a></li>
             <li><a onclick="logout()"><img src="public/images/icons-menu/sair.svg" alt="" srcset="" class="icones-sidebar" onclick="logout()"><span>Sair</span></a></li>
         </ul>

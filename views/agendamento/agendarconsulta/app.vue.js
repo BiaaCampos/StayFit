@@ -3,18 +3,24 @@ const newLocal = `
     <div class="fundo_agendarConsulta">
         <div>
             <h1>Agendar Consulta</h1>
-            <!--<h6>Confira os profissionais</h6>-->
+        </div>
+
+        <!-- Botão para voltar à etapa anterior -->
+        <div v-if="etapaAtual > 1" style="margin-bottom: 20px;">
+            <button @click="etapaAnterior" class="btn btn-outline-secondary" style="display: flex; align-items: center;">
+                <span style="margin-right: 8px;">⬅</span> Voltar
+            </button>
         </div>
 
         <!-- Card Section -->
-        <div class="row" v-if="etapaAtual === 1">
+        <div style="display: flex;align-items: center;justify-content: center;" v-if="etapaAtual === 1">
             <lista_nutricionista 
                 :tiponutricionista="tiponutricionista" 
                 @continuar-agendamento="setNutricionistaId">
             </lista_nutricionista>
         </div>
 
-        <div class="row" v-if="etapaAtual === 2">
+        <div v-if="etapaAtual === 2">
             <lista_calendario 
                 :tipocalendario="tipocalendario" 
                 :nutricionista-selecionado="nutricionistaSelecionado" 
@@ -22,7 +28,7 @@ const newLocal = `
             </lista_calendario>
         </div>
         
-        <div class="row" v-if="etapaAtual === 3">
+        <div v-if="etapaAtual === 3">
             <lista_informacoes 
                 :tipoinformacoes="tipoinformacoes" 
                 :nutricionistaSelecionado="nutricionistaSelecionado">
@@ -67,7 +73,7 @@ Vue.component('AppVue', {
 
     watch: {
         etapaAtual(newValue) {
-            this.errorProgress.value = newValue * 33.3; // Atualiza o valor da barra de progresso
+            this.errorProgress.value = newValue * 33.3;
         }
     },
     
