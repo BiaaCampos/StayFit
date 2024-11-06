@@ -57,6 +57,7 @@
 
     <script src="https://unpkg.com/vue-slick-carousel@1.0.6"></script>
     <?php
+    @session_start();
     if (isset($this->js)) {
         foreach ($this->js as $j) {
             echo ("<script src='" . URL . "$j' type='text/javascript'></script>\n");

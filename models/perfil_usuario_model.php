@@ -16,37 +16,37 @@ class Perfil_usuario_model extends Model
         $dados = array(
             ':PAR_ID' => $id
         );
-        $result = $this->db->select("
+        $result = $this->db->select('
             SELECT
                 U.ID,
                 U.NOME,
                 CASE
-                    WHEN U.ALTURA IS NULL THEN 'NÃO INFORMADO'
+                    WHEN U.ALTURA IS NULL THEN "NÃO INFORMADO"
                     ELSE U.ALTURA
                 END AS ALTURA,
                 CASE
-                    WHEN U.PESO_ATUAL IS NULL THEN 'NÃO INFORMADO'
+                    WHEN U.PESO_ATUAL IS NULL THEN "NÃO INFORMADO"
                     ELSE U.PESO_ATUAL
                 END AS PESO_ATUAL,
                 CASE
-                    WHEN U.PESO_IDEAL IS NULL THEN 'NÃO INFORMADO'
+                    WHEN U.PESO_IDEAL IS NULL THEN "NÃO INFORMADO"
                     ELSE U.PESO_IDEAL
                 END AS PESO_IDEAL,
                 CASE
-                    WHEN UO.ID_OBJETIVO IS NULL THEN 'NÃO INFORMADO'
-                    ELSE GROUP_CONCAT( DISTINCT O.DESCRICAO ORDER BY O.DESCRICAO DESC SEPARATOR ', ')
+                    WHEN UO.ID_OBJETIVO IS NULL THEN "NÃO INFORMADO"
+                    ELSE GROUP_CONCAT( DISTINCT O.DESCRICAO ORDER BY O.DESCRICAO DESC SEPARATOR ", ")
                 END AS OBJETIVO,
                 CASE
-                    WHEN U.EMAIL IS NULL THEN 'NÃO INFORMADO'
+                    WHEN U.EMAIL IS NULL THEN "NÃO INFORMADO"
                     ELSE U.EMAIL
                 END AS EMAIL,
                 CASE 
-                    WHEN U.DATA_NASCIMENTO IS NULL THEN 'NÃO INFORMADO'
+                    WHEN DATE_FORMAT(U.DATA_NASCIMENTO, "%d/%m/%Y") IS NULL THEN "NÃO INFORMADO"
                     ELSE U.DATA_NASCIMENTO
                 END AS NASCIMENTO,
                 G.DESCRICAO AS GENERO,
                 CASE
-                    WHEN U.TELEFONE IS NULL THEN 'NÃO INFORMADO'
+                    WHEN U.TELEFONE IS NULL THEN "NÃO INFORMADO"
                     ELSE U.TELEFONE
                 END AS TELEFONE
             FROM
@@ -64,12 +64,66 @@ class Perfil_usuario_model extends Model
                 ON
                 UO.ID_OBJETIVO = O.ID
             WHERE
-                U.ID = :PAR_ID;", $dados);
+                U.ID = :PAR_ID;', $dados);
         if (count($result) > 0) {
             $msg = json_encode(array("code" => "1", "msg" => "seleção concluida", 'data' => $result));
         } else{
             $msg = json_encode(array("code" => "0", "msg" => "Não foi possivel fazer a seleção"));
         }
+        echo($msg);
+    }
+
+    public function getInfoAlimentos(){
+        $post = json_decode(file_get_contents('php://input'));
+        $id = session::get('ID');
+        var_dump($post); die;
+        
+        $dados = array(
+            ':PAR_ID' => $id,
+            // ':PAR_REFEICAO' => 
+        );
+
+        $result = $this->db->select("
+            SELECT
+                A.NOME AS ALIMENTO,
+                R.NOME AS REFEICAO,
+                CONCAT(RU.QUANTIDADE, 'g') AS QUANTIDADE,
+                A.CALORIAS,
+                A.PROTEINAS,
+                A.CARBOIDRATOS,
+                A.GORDURAS,
+                A.FIBRAS,
+                GA.NOME AS 'GRUPO_ALIMENTAR'
+            FROM
+                STAYFIT.USUARIOS U
+            JOIN
+                STAYFIT.REGIME_USUARIO RU
+                ON U.ID = RU.ID_USUARIO
+            JOIN 
+                STAYFIT.ALIMENTOS A 
+                ON RU.ID_ALIMENTO = A.ID
+            JOIN 
+                STAYFIT.ALIMENTOS_REFEICOES AR 
+                ON A.ID = AR.ID_ALIMENTO
+            JOIN 
+                STAYFIT.REFEICOES R 
+                ON AR.ID_REFEICAO = R.ID
+            JOIN 
+                STAYFIT.GRUPOS_ALIMENTARES GA 
+                ON A.ID_GRUPO = GA.ID
+            WHERE 
+                U.ID = :PAR_ID
+                AND R.ID = :PAR_REFEICAO
+            ORDER BY 
+                r.id;", $dados);
+        
+
+        if(empty($cardapio)) {
+            $msg = json_encode(array("code" => "0", "msg" => "Não foi possivel fazer a seleção"));
+        } else {
+            $msg = json_encode(array("code" => "1", "msg" => "Seleção concluida", 'data' => $cardapio));
+        }
+
         echo($msg);
     }
 
@@ -172,8 +226,13 @@ class Perfil_usuario_model extends Model
         );
         $result = $this->db->select("
             SELECT 
-                ROUND(SUM(IA.QUANTIDADE_ML) / 1000, 2) AS TOTAL_CONSUMIDO,
-                concat(ROUND((SUM(IA.QUANTIDADE_ML) / 3000) * 100, 2), '%') AS PORCENTAGEM_CONSUMO
+                COALESCE (CASE 
+                    WHEN FLOOR(SUM(IA.QUANTIDADE_ML) / 1000) % 10 = 0 THEN 
+                        ROUND(SUM(IA.QUANTIDADE_ML) / 1000, 2)  -- Se for uma dezena, apresenta em litros
+                    ELSE 
+                        SUM(IA.QUANTIDADE_ML)                   -- Caso contrário, apresenta em mililitros
+                END, 0) AS TOTAL_CONSUMIDO,
+                CONCAT(COALESCE(ROUND((SUM(IA.QUANTIDADE_ML) / 3000) * 100, 2), 0), '%') AS PORCENTAGEM_CONSUMO
             FROM
                 STAYFIT.USUARIOS U
             JOIN

@@ -37,6 +37,11 @@ class Perfil_usuario extends Controller
         $this->model->getRefeicoes();
     }
     
+    function getInfoAlimentos()
+    {
+        $this->model->getInfoAlimentos();
+    }
+    
     function getAgua()
     {
         $this->model->getAgua();

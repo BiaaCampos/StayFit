@@ -328,23 +328,9 @@ const newLocal = `
       </div>
     </div>
   </div>
-  <ejs-dialog 
-    ref="RefeicaoDialog"
-    :buttons='dlgButtons'
-    :header='header'
-    isModal='true'
-    v-bind:visible="false"
-    :animarionSettings="{ effect: 'None' }"
-    :showCloseIcon='true'
-    :closeOnEscape='false'
-    target="body"
-    width="60vw"
-    height="30vw"
-    >
-    <alimento_tab :data="tabData"></alimento_tab>
-  </ejs-dialog>
 
-  
+  <alimento_tab ref="alimento_tab" :data="tabData" :header="header" :refeicao="typeRefeicao"></alimento_tab>
+
   <ejs-dialog 
     ref="RelatorioDialog"
     :buttons='dlgButtons'
@@ -375,6 +361,7 @@ Vue.component('AppVue', {
       userData: [],
       consumoAgua: [],
       tabData: [],
+      typeRefeicao: '',
       itemCardapio: {
         CafeDaManha: [],
         Almoco: [],
@@ -425,39 +412,57 @@ Vue.component('AppVue', {
       axios.get(BASE + "/perfil_usuario/getRefeicoes").then((res) => {
         const data = res.data.data;
         
-        data.forEach(item => {
-          switch (item.refeicao) {
-            case 'cafe da manha':
-              this.itemCardapio.CafeDaManha = item.alimento;
-              break;
-            case 'almoco':
-              this.itemCardapio.Almoco = item.alimento;
-              break;
-            case 'janta':
-              this.itemCardapio.Jantar = item.alimento;
-              break;
-            case 'cafe da tarde':
-              this.itemCardapio.CafeDaTarde = item.alimento;
-              break;
-            case 'ceia':
-              this.itemCardapio.Ceia = item.alimento;
-              break;
-          }
-        });
+        if (res.data.code == 1) {
+          data.forEach(item => {
+            switch (item.refeicao) {
+              case 'cafe da manha':
+                this.itemCardapio.CafeDaManha = item.alimento;
+                this.typeRefeicao = 1;
+                
+                break;
+                case 'almoco':
+                  this.itemCardapio.Almoco = item.alimento;
+                  this.typeRefeicao = 2;
+                  break;
+                  case 'janta':
+                    this.itemCardapio.Jantar = item.alimento;
+                    this.typeRefeicao = 3;
+                    break;
+                    case 'cafe da tarde':
+                      this.itemCardapio.CafeDaTarde = item.alimento;
+                      this.typeRefeicao = 4;
+                      break;
+                      case 'ceia':
+                        this.typeRefeicao = 5;
+                        this.itemCardapio.Ceia = item.alimento;
+                        break;
+            }
+          });
+        }
       })
     },
     AbrirModal(args) {
       this.header = args
       console.log(args)
-      // switch (args) {
-      //   case value:
-          
-      //     break;
-      
-      //   default:
-      //     break;
-      // }
-      this.$refs.RefeicaoDialog.show();
+      switch (args) {
+        case 'Café da Manhã':
+            this.tabData = this.itemCardapio.CafeDaManha
+          break;
+        case 'Almoço':
+            this.tabData = this.itemCardapio.Almoco
+          break;
+        case 'Café da Tarde':
+            this.tabData = this.itemCardapio.CafeDaTarde
+          break;
+        case 'Jantar':
+            this.tabData = this.itemCardapio.Jantar
+          break;
+        case 'Ceia':
+            this.tabData = this.itemCardapio.Ceia
+          break;
+      }
+      console.log(this.tabData)
+      this.$refs.alimento_tab.$refs.RefeicaoDialog.show();
     },
     AbrirModalRelatorio(args) {
       this.header = args
@@ -465,7 +470,7 @@ Vue.component('AppVue', {
     },
     dlgBtnClick() {
       console.log('enviando')
-    }
+    },
   },
   mounted: function() {
     this.getInfos()
