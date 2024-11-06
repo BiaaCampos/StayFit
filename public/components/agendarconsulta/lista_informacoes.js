@@ -55,7 +55,6 @@ Vue.component("lista_informacoes", {
     methods: {
         agendarConsulta() {
             const data = {
-                'id_usuario': 1, // Substitua pelo ID do usuário logado
                 'id_nutricionista': this.nutricionistaSelecionado.id,
                 'data_consulta': this.tipoinformacoes.data ? new Date(this.tipoinformacoes.data).toISOString().split('T')[0] : null,
                 'descricao': "Consulta nutricional",
@@ -64,19 +63,19 @@ Vue.component("lista_informacoes", {
     
             axios.post(BASE + '/agendarconsulta/agendarConsulta', data)
                 .then((res) => {
-                    console.log(res)
                     this.resetInput();
-                    alert('Agendamento realizado com sucesso!'); // Mensagem para o usuário
+                    mainLayout.sToast(res.data.msg, "success");
+
+                    window.location.href = "http://localhost/stayfit/perfil_usuario";
                 })
                 .catch((error) => {
                     console.error('Erro ao agendar consulta:', error);
-                    alert('Ocorreu um erro ao agendar a consulta. Tente novamente.'); // Mensagem para o usuário
+                    alert('Ocorreu um erro ao agendar a consulta. Tente novamente.'); 
                 });
         },
         resetInput() {
-            // Lógica para resetar os inputs
-            this.tipoinformacoes.data = ''; // Exemplo de reset
-            this.nutricionistaSelecionado = null; // Exemplo de reset
+            this.tipoinformacoes.data = '';
+            this.nutricionistaSelecionado = null;
         }
     }
     

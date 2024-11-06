@@ -35,16 +35,12 @@ class AgendarConsulta_model extends Model
     public function agendarConsulta() 
     {
         $post = json_decode(file_get_contents('php://input'));
-        $id_usuario = $post->id_usuario ?? null;
+        $id_usuario = session::get('ID');
         $id_nutricionista = $post->id_nutricionista ?? null;
         $data_consulta = $post->data_consulta ?? null;
         $descricao = $post->descricao ?? null;
         $id_status = $post->id_status ?? null;
-    
-        if (empty($id_usuario) || empty($id_nutricionista) || empty($data_consulta) || empty($id_status)) {
-            exit(json_encode(["code" => "0", "msg" => "Todos os campos são obrigatórios."]));
-        }
-    
+        
         if (!DateTime::createFromFormat('Y-m-d', $data_consulta)) {
             exit(json_encode(["code" => "0", "msg" => "Data da consulta inválida."]));
         }
@@ -60,13 +56,10 @@ class AgendarConsulta_model extends Model
         $result = $this->db->insert('stayfit.consultas', $dadosConsulta);
     
         if ($result) {
-            exit(json_encode(["code" => "1", "msg" => "Consulta agendada com sucesso."]));
+            exit(json_encode(["code" => "1", "msg" => "Consulta agendada com sucesso!"]));
         } else {
             exit(json_encode(["code" => "0", "msg" => "Erro ao agendar a consulta."]));
         }
     }
-    
-    
-
     
 }
