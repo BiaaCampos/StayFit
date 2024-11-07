@@ -361,3 +361,87 @@ header .navbar_home ul li a:hover {
     
     }
 }
+
+/**** RESPONSIVIDADE ***/
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .nav-links {
+        display: flex; 
+    }
+
+    .menu-toggle {
+        display: none; 
+    }
+
+    .logo {
+        text-align: center;
+        flex: 1;
+    }
+
+    .first_section {
+        flex-wrap: wrap;
+        margin-top: 4em;
+    }
+
+    .first_section .right {
+        height: auto;
+    }
+
+    .first_section .right h1, .p_first_section {
+        width: 100%;
+        text-align: center;
+    }
+
+    .first_section .left {
+        justify-content: center;
+    }
+
+    .gif_morangos {
+        width: 90%;
+    }
+
+    .div_button_first_section {
+        justify-content: center;
+    }
+
+    .second_section .top .p_second_section {
+        width: 50%;
+    }
+
+    .cards {
+        display: flex;
+        overflow-x: auto; 
+        white-space: nowrap;
+        padding: 10px 0;
+    }
+
+    .card {
+        flex: 0 0 auto; 
+        width: 200px; 
+        margin-right: 15px;
+        border-radius: 8px;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .icon_card_svg {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 10px;
+    }
+
+    .bottom_third .cards .card {
+        width: 190px;
+        height: 140px;
+        padding: 40px 10px;
+        font-size: 12px;
+    }
+
+    .cards-row .card {
+        margin: 8px;
+    }
+
+    .button_first_section {
+        width: 70%;
+    }
+}

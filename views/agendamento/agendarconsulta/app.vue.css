@@ -5,6 +5,14 @@
     box-sizing: border-box; /* Garante que padding e bordas não aumentem o tamanho total do elemento */
 }
 
+html, body, #container {
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    min-height: 400px;
+}
+
 .fundo_agendarConsulta {
     box-shadow: 0px 4px 15.3px 0px rgba(0, 0, 0, 0.25);
     height: 100%;
@@ -63,14 +71,6 @@
     gap: 20px;
 }
 
-html, body, #container {
-    height: 100%;
-    overflow: hidden;
-    width: 100%;
-    position: relative;
-    min-height: 400px;
-}
-
 .text {
     text-transform: capitalize;
 }
@@ -84,13 +84,6 @@ html, body, #container {
 .e-btn {
     padding: 10px 20px;
     cursor: pointer;
-}
-
-#linearsegment {
-    position: fixed;
-    bottom: 20px;
-    left: 0;
-    width: 100%;
 }
 
 ::-webkit-scrollbar {
@@ -109,6 +102,124 @@ html, body, #container {
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 
+
+
+/* CALENDARIO */
+.dias-dispo {
+    color: rgb(0, 0, 0);
+}
+
+.horario-card {
+    width: 18em;
+    height: 19em;
+}
+
+.horarios-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 1em;
+}
+
+.horario-item {
+    flex: 1 1 30%;
+    max-width: 30%;
+}
+
+.button_horario {
+    width: 100%;
+    padding: 8px;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    box-shadow: 0px 4px 15.3px 0px rgba(0, 0, 0, 0.25);
+}
+
+.button_horario:hover {
+    background-color: #32794F;
+    color: white;
+}
+
+.p-div {
+    text-align: center;
+}
+
+.div-agendar {
+    margin-top: 0;
+}
+
+.div-calendario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+
+.e-card-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#linearsegment {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+}
+
+.div-cards{
+    margin-top: 3em;
+}
+.selected {
+    background-color: #007bff; /* Cor do botão selecionado */
+    color: white; /* Cor do texto do botão selecionado */
+}
+
+/* LISTA INFORMAÇÕES */
+.infos_consulta {
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;             
+}
+
+.list-group {
+    max-width: 600px;
+    width: 100%; 
+}
+
+.list-group-item {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+}
+
+.highlight {
+    background-color: #e6e6e65e; 
+
+}
+
+.color-text{
+    color: #32794F;
+}
+
+.h6-info-consulta{
+    color: #32794F;
+    font-size: 20px;
+}
+
+#linearsegment {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+}
+
 /* Responsividade */
 @media (max-width: 1000px) {
     .fundo_agendarConsulta {
@@ -116,4 +227,67 @@ html, body, #container {
         padding: 50px 15px;
     }
 }
+}
+
+/* Responsividade */
+
+@media (max-width: 1000px) {
+    .fundo_historico {
+        height: 80%;
+        padding: 50px 15px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .fundo_agendarConsulta {
+        height: 80%;
+        padding: 50px 15px;
+    }
+    
+    .card-profissionais-container {
+        padding-top: 3em; /* Reduzindo o espaço superior em tablets */
+    }
+
+    .title-agendar {
+        font-size: 24px; /* Ajustando o tamanho da fonte */
+    }
+
+    .card-layout {
+        flex-direction: column; /* Mudando para coluna em tablets */
+        align-items: center; /* Centralizando os itens */
+    }
+
+    .horario-card {
+        width: 100%; /* Ajustando a largura dos cartões para ocupar 100% */
+        height: auto; /* Permitindo altura automática */
+    }
+
+    .horarios-container {
+        justify-content: center; /* Centralizando os horários */
+    }
+
+    .button_horario {
+        padding: 12px; /* Aumentando o padding do botão para melhor acessibilidade */
+        font-size: 16px; /* Aumentando o tamanho da fonte do botão */
+    }
+
+    .list-group-item {
+        flex-direction: column; /* Mudando a direção da lista para coluna */
+        align-items: flex-start; /* Alinhando os itens à esquerda */
+    }
+    
+    .selected {
+        font-weight: bold; /* Destacando o botão selecionado em tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    /* Você pode adicionar mais ajustes específicos para tablets menores aqui */
+    .horarios-container {
+        flex-direction: column; /* Mudando para coluna em dispositivos menores */
+    }
+
+    .button_horario {
+        width: 100%; /* Aumentando o botão para ocupar toda a largura */
+    }
 }
