@@ -24,7 +24,7 @@ Vue.component("modal_concluir", {
     </div>`,
     data() {
         return {
-            isModal: true,
+            isModal: true
         }
     },
     methods: {}
