@@ -1,16 +1,16 @@
 Vue.component("lista_informacoes", {
-    props: ['tipoinformacoes', 'nutricionistaSelecionado'],
-    template: `
+  props: ['tipoinformacoes', 'nutricionistaSelecionado'],
+  template: `
 <div>
     <div class="row">
         <h6 class="h6-info-consulta">Informações da consulta:</h6>
         <div class="infos_consulta col-md-12">
             <ul class="list-group">
                 <li class="list-group-item highlight">
-                    <strong class="color-text">Paciente:</strong> <span class="highlight">{{ pacienteNome }}</span>
+                    <strong class="color-text">Paciente:</strong> <span class="highlight">{{ userData.NOME }}</span>
                 </li>
                 <li class="list-group-item highlight">
-                    <strong class="color-text">Data:</strong> <span class="highlight">{{ tipoinformacoes.data }}</span>
+                    <strong class="color-text">Data:</strong> <span class="highlight">{{ formatarData(tipoinformacoes.data) }}</span>
                 </li>
                 <li class="list-group-item highlight">
                     <strong class="color-text">Horário:</strong> <span class="highlight">{{ tipoinformacoes.horario }}</span>
@@ -45,38 +45,62 @@ Vue.component("lista_informacoes", {
         </div>
     </div>
 </div>`,
-    data: function () {
-        return {
-            tipomodalconcluir: null,
-            pacienteNome: 'Nome do Paciente'
-        };
+  data: function () {
+    return {
+      tipomodalconcluir: null,
+      userData: []
+    };
+  },
+
+  methods: {
+    agendarConsulta() {
+      const data = {
+        'id_nutricionista': this.nutricionistaSelecionado.id,
+        'data_consulta': this.tipoinformacoes.data ? new Date(this.tipoinformacoes.data).toISOString().split('T')[0] : null,
+        'horario': this.tipoinformacoes.horario,
+        'descricao': "Consulta nutricional",
+        'id_status': 1
+      };
+
+      axios.post(BASE + '/agendarconsulta/agendarConsulta', data)
+        .then((res) => {
+          this.resetInput();
+          mainLayout.sToast(res.data.msg, "success");
+          const modalElement = document.getElementById('modalConcluir');
+          if (modalElement) {
+            modalElement.classList.remove('show'); 
+            modalElement.style.display = 'none'; 
+            document.body.classList.remove('modal-open'); 
+            
+            const backdrop = document.querySelector('.modal-backdrop');
+            if (backdrop) {
+              backdrop.remove();
+            }
+          }
+        setTimeout(() => {
+          window.location.href = "http://localhost/stayfit/perfil_usuario";
+        }, 1000);
+        })
+        .catch((error) => {
+          mainLayout.sToast(res.data.msg, "danger");
+        });
     },
-
-    methods: {
-        agendarConsulta() {
-            const data = {
-                'id_nutricionista': this.nutricionistaSelecionado.id,
-                'data_consulta': this.tipoinformacoes.data ? new Date(this.tipoinformacoes.data).toISOString().split('T')[0] : null,
-                'descricao': "Consulta nutricional",
-                'id_status': 1
-            };
-    
-            axios.post(BASE + '/agendarconsulta/agendarConsulta', data)
-                .then((res) => {
-                    this.resetInput();
-                    mainLayout.sToast(res.data.msg, "success");
-
-                    window.location.href = "http://localhost/stayfit/perfil_usuario";
-                })
-                .catch((error) => {
-                    console.error('Erro ao agendar consulta:', error);
-                    alert('Ocorreu um erro ao agendar a consulta. Tente novamente.'); 
-                });
-        },
-        resetInput() {
-            this.tipoinformacoes.data = '';
-            this.nutricionistaSelecionado = null;
-        }
+    resetInput() {
+      this.tipoinformacoes.data = '';
+      this.nutricionistaSelecionado = null;
+    },
+    getInfos() {
+      axios.get(BASE + "/agendarconsulta/getInfos").then((res) => {
+        this.userData = res.data.data[0];
+      })
+    },
+    formatarData(data) {
+      if (!data) return '';
+      const [year, month, day] = data.split('-');
+      return `${day}/${month}/${year}`;
     }
-    
+  },
+  mounted: function () {
+    this.getInfos()
+  }
 });

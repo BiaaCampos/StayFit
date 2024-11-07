@@ -959,18 +959,29 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `PROC_GETSEQUENCIA`(
-	IN p_table_name VARCHAR(100)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `PROC_GETSEQUENCIA`(
+
+	IN p_table_name VARCHAR(100)
+
 )
-BEGIN
-    
-	SET @SQL = CONCAT('SELECT coalesce(MAX(ID), 0) + 1 AS SEQ FROM ', P_TABLE_NAME);
-
-PREPARE stmt FROM @sql;
-
-EXECUTE stmt;
-
-DEALLOCATE PREPARE stmt;
+BEGIN
+
+    
+
+	SET @SQL = CONCAT('SELECT coalesce(MAX(ID), 0) + 1 AS SEQ FROM ', P_TABLE_NAME);
+
+
+
+PREPARE stmt FROM @sql;
+
+
+
+EXECUTE stmt;
+
+
+
+DEALLOCATE PREPARE stmt;
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
