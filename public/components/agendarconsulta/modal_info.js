@@ -7,7 +7,7 @@ Vue.component("modal_info", {
         </button>
 
         <div class="modal fade" id="modalInfo" tabindex="-1" aria-labelledby="modalInfoLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg"> <!-- Adicionado modal-lg para tamanhos maiores -->
+            <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title text-danger text-center w-100" id="modalInfoLabel" style="text-transform: uppercase;">Aviso</h5>
