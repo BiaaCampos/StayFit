@@ -15,6 +15,45 @@
 .fundo_historico .grid_historico {
     margin-top: 3em;
 }
+.status-yellow {
+    background-color: yellow;
+    color: black;
+    padding: 4px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.status-green {
+    background-color: green;
+    color: white;
+    padding: 4px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.status-red {
+    background-color: red;
+    color: white;
+    padding: 4px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.status-default {
+    background-color: gray;
+    color: white;
+    padding: 4px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.status-button {
+    border: none;
+    padding: 5px 10px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
 
 /* Responsividade */
 @media (max-width: 1000px) {

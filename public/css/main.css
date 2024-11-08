@@ -16,7 +16,9 @@ body {
     height: 100vh;
     overflow: hidden;
 }
-
+a:not([href]):not([class]), a:not([href]):not([class]):hover{
+    cursor: pointer;
+}
 /* Container que envolve Sidebar, Navbar e Conteúdo Principal */
 .layout-container {
     display: flex;

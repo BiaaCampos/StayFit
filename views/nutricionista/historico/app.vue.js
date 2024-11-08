@@ -13,16 +13,16 @@ const newLocal = `
                 :allowPaging="true" 
                 :pageSettings='pageSettings' 
                 :allowSorting='true'
-                :allowFiltering='true'
                 :dataSource="data"
                 :allowEditing="false"  
                 :allowAdding="false"   
                 :allowDeleting="false" 
                 :allowSelection="false"
+                :rowDataBound="rowDataBound"
                 >
                 <e-columns>
-                    <e-column clipMode='EllipsisWithTooltip' width="10" field="id_consulta" textAlign="Left" headerText="ID Consulta"></e-column>
-                    <e-column clipMode='EllipsisWithTooltip' width="10" field="nome_usuario" headerText="Nome Usuário"></e-column>
+                    <e-column clipMode='EllipsisWithTooltip' width="5" field="id_consulta" textAlign="Left" headerText="ID Consulta"></e-column>
+                    <e-column clipMode='EllipsisWithTooltip' width="15" field="nome_usuario" headerText="Nome Usuário"></e-column>
                     <e-column clipMode='EllipsisWithTooltip' width="10" field="nome_nutricionista" headerText="Nome Nutricionista"></e-column>
                     <e-column clipMode='EllipsisWithTooltip' width="10" field="data_consulta" headerText="Data da Consulta"></e-column>
                     <e-column clipMode='EllipsisWithTooltip' width="15" field="descricao" headerText="Descrição"></e-column>
@@ -54,6 +54,26 @@ Vue.component('AppVue', {
                 .catch(error => {
                     console.error("Erro ao buscar histórico:", error);
                 });
+        },
+        rowDataBound: function(args) {
+            const status = args.data.nome_status; // Obtém o status da linha
+            switch (status) {
+                case 'agendada':
+                    args.row.style.backgroundColor = '#ffeb3b'; // Amarelo
+                    args.row.style.color = '#000'; // Preto
+                    break;
+                case 'cancelada':
+                    args.row.style.backgroundColor = '#2196f3'; // Azul
+                    args.row.style.color = '#fff'; // Branco
+                    break;
+                case 'realizada':
+                    args.row.style.backgroundColor = '#4caf50'; // Verde
+                    args.row.style.color = '#fff'; // Branco
+                    break;
+                default:
+                    args.row.style.backgroundColor = '#ffffff'; // Branco padrão
+                    args.row.style.color = '#000'; // Preto padrão
+            }
         }
     },
     mounted: function() {
