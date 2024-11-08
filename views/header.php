@@ -63,6 +63,29 @@
             echo ("<script src='" . URL . "$j' type='text/javascript'></script>\n");
         }
     } ?>
+
+    <style>
+      /* Responsividade para a imagem do logo */
+      .responsive-logo {
+        width: 100%;
+        max-width: 200px;
+        height: auto;
+      }
+
+      /* Ajustes adicionais para telas menores */
+      @media (max-width: 768px) {
+        .responsive-logo {
+          max-width: 150px; 
+        }
+      }
+
+      @media (max-width: 480px) {
+        .responsive-logo {
+          max-width: 100px; 
+          margin-top: 3em;
+        }
+      }
+    </style>
 </head>
 <body>
 
@@ -93,7 +116,7 @@
             <div class="nome_nav">Bem-Vindo, <?= $_SESSION['NOME']?></div>
             <div class="cidade_nav">Marília-SP</div>
         </div>
-        <img src="public/images/icons-menu/logopreta.svg" alt="" srcset="" class="icones-sidebar" width="200"/>
+        <img src="public/images/icons-menu/logopreta.svg" alt="Logo" class="icones-sidebar responsive-logo"/>
     </nav>
     <div id="mainLayout"></div>
     <script>
@@ -147,3 +170,4 @@
     </script>
 
 </body>
+</html>

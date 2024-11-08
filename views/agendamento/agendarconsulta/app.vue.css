@@ -101,8 +101,31 @@ html, body, #container {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
 
+.btn-voltar {
+  background-color: #32794F;
+  border: none; 
+  color: white; 
+  padding: 1px 6px; 
+  font-size: 10px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  cursor: pointer; 
+  transition: background-color 0.3s, transform 0.2s;
+}
 
+.btn-voltar:hover {
+  background-color: #27683F;
+  transform: scale(1.05); 
+  color: white;
+}
+
+.btn-voltar span {
+  font-size: 24px; 
+  margin-right: 0; 
+}
 
 /* CALENDARIO */
 .dias-dispo {
@@ -159,7 +182,6 @@ html, body, #container {
     gap: 20px;
 }
 
-
 .e-card-actions {
     display: flex;
     justify-content: center;
@@ -175,10 +197,13 @@ html, body, #container {
 
 .div-cards{
     margin-top: 3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .selected {
-    background-color: #007bff; /* Cor do botão selecionado */
-    color: white; /* Cor do texto do botão selecionado */
+    background-color: #32794F; 
+    color: white; 
 }
 
 /* LISTA INFORMAÇÕES */
@@ -201,7 +226,6 @@ html, body, #container {
 
 .highlight {
     background-color: #e6e6e65e; 
-
 }
 
 .color-text{
@@ -227,16 +251,6 @@ html, body, #container {
         padding: 50px 15px;
     }
 }
-}
-
-/* Responsividade */
-
-@media (max-width: 1000px) {
-    .fundo_historico {
-        height: 80%;
-        padding: 50px 15px;
-    }
-}
 
 @media (max-width: 1024px) {
     .fundo_agendarConsulta {
@@ -249,45 +263,62 @@ html, body, #container {
     }
 
     .title-agendar {
-        font-size: 24px; /* Ajustando o tamanho da fonte */
+        font-size: 24px; 
     }
 
     .card-layout {
-        flex-direction: column; /* Mudando para coluna em tablets */
-        align-items: center; /* Centralizando os itens */
+        flex-direction: column; 
+        align-items: center;
     }
 
     .horario-card {
-        width: 100%; /* Ajustando a largura dos cartões para ocupar 100% */
-        height: auto; /* Permitindo altura automática */
+        width: 100%; 
+        height: auto; 
     }
 
     .horarios-container {
-        justify-content: center; /* Centralizando os horários */
+        justify-content: center; 
     }
 
     .button_horario {
-        padding: 12px; /* Aumentando o padding do botão para melhor acessibilidade */
-        font-size: 16px; /* Aumentando o tamanho da fonte do botão */
+        padding: 12px; 
+        font-size: 16px;
     }
 
     .list-group-item {
-        flex-direction: column; /* Mudando a direção da lista para coluna */
-        align-items: flex-start; /* Alinhando os itens à esquerda */
+        flex-direction: column;
+        align-items: flex-start; 
     }
     
     .selected {
-        font-weight: bold; /* Destacando o botão selecionado em tablets */
+        font-weight: bold;
     }
 }
 
 @media (max-width: 768px) {
-    /* Você pode adicionar mais ajustes específicos para tablets menores aqui */
     .horarios-container {
-        flex-direction: column; /* Mudando para coluna em dispositivos menores */
+        flex-direction: column; 
     }
 
     .button_horario {
-        width: 100%; /* Aumentando o botão para ocupar toda a largura */
+        width: 100%; 
+    }
+
+    .div-calendario {
+        gap: 30px; 
+    }
+
+    .horario-card {
+        width: 100%; 
+    }
+    
+    #container1 {
+        height: 250px; 
+        overflow: hidden;
+    }
+
+    .div-calendario {
+        flex-direction: column;
+        align-items: center;
     }
 }

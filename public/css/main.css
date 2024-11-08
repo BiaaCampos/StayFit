@@ -16,9 +16,11 @@ body {
     height: 100vh;
     overflow: hidden;
 }
-a:not([href]):not([class]), a:not([href]):not([class]):hover{
+
+a:not([href]):not([class]), a:not([href]):not([class]):hover {
     cursor: pointer;
 }
+
 /* Container que envolve Sidebar, Navbar e Conteúdo Principal */
 .layout-container {
     display: flex;
@@ -43,6 +45,7 @@ a:not([href]):not([class]), a:not([href]):not([class]):hover{
 .sidebar:hover {
     width: 250px;
 }
+
 .sidebar:hover .sidebar-menu li {
     display: flex !important;
     justify-content: flex-start !important;
@@ -104,21 +107,55 @@ nav {
     z-index: 999;
 }
 
+.pessoa_nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
 .pessoa_nav .nome_nav, .pessoa_nav .cidade_nav {
     font-weight: 500;
     color: #303030;
+    font-size: 16px;
 }
 
 .pessoa_nav .nome_nav {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .pessoa_nav .cidade_nav {
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .logo {
     width: 200px;
+}
+
+@media (max-width: 768px) {
+
+    .pessoa_nav {
+        align-items: center;
+        text-align: center;
+    }
+
+    .pessoa_nav .nome_nav {
+        font-size: 16px;
+    }
+
+    .pessoa_nav .cidade_nav {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .pessoa_nav .nome_nav {
+        font-size: 14px;
+    }
+
+    .cidade_nav {
+        font-size: 12px;
+    }
 }
 
 /* Main Layout - Ocupa o espaço restante */
@@ -130,7 +167,7 @@ nav {
 }
 
 /* Estilo do Footer */
-#footer-stayfit{
+#footer-stayfit {
     width: 100%;
     position: absolute;
     bottom: 0;
@@ -138,7 +175,6 @@ nav {
 
 @media (max-width: 1000px) {
     nav {
-        height: 180px;
         flex-direction: column-reverse;
         align-items: center;
     }
@@ -150,14 +186,16 @@ nav {
     .container.container-geral {
         padding: 120px 10px 0px;
         display: flex;
-        align-items: center;    
+        align-items: center;
     }
 
-    footer .direitos{
+    footer .direitos {
         margin-left: 80px;
     }
 }
-.error-input-msg{
+
+/* Estilo da Mensagem de Erro */
+.error-input-msg {
     color: red;
     font-size: 13px;
 }
