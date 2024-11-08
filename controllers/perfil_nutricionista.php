@@ -13,7 +13,7 @@ class Perfil_nutricionista extends Controller
 
     function index()
     {
-        $this->view->title = "Login";
+        $this->view->title = "Perfil";
         /*Os array push devem ser feitos antes de instanciar o header e footer.*/
         Auth::verificaNivel(1);
         array_push($this->view->js, "views/telaperfil/perfil_nutricionista/app.vue.js");

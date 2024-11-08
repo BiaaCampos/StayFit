@@ -13,7 +13,7 @@ class Perfil_usuario extends Controller
 
     function index()
     {
-        $this->view->title = "Perfil Usuario";
+        $this->view->title = "Perfil";
         /*Os array push devem ser feitos antes de instanciar o header e footer.*/
         array_push($this->view->js, "public/components/perfil/alimento_tab.js");
         /*

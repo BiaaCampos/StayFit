@@ -407,7 +407,7 @@ Vue.component('AppVue', {
           axios.post(BASE + "/Login/Cadastrar_usuario", this.cadastro).then((res) => {
             if(res.data.code === 1) {
               setTimeout(() => {
-                mainLayout.sToast(res.data.msg);
+                mainLayout.sToast(res.data.msg, "","success");
                 // this.selectedForm = 'login';
                 spinner.style.display = 'none';
               }, 5000);
