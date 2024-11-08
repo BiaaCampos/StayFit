@@ -7,7 +7,7 @@ const newLocal = `
 
         <!-- Botão para voltar à etapa anterior -->
         <div v-if="etapaAtual > 1" style="margin-bottom: 20px;">
-            <button @click="etapaAnterior" class="btn btn-outline-secondary" style="display: flex; align-items: center;">
+            <button @click="etapaAnterior" class="btn btn-voltar">
                 <span style="margin-right: 8px;">⬅</span> Voltar
             </button>
         </div>

@@ -16,7 +16,7 @@ const newLocal = `
     </h3>
   </div>
   <div class="bg_image">
-    <img id="plate" src="public/images/Login.svg" alt="Prato saldavel">
+    <img id="plate" src="public/images/Login.svg" alt="Prato saudavel">
   </div>
   <div class="login-container">
     <div class="btn-group" id="select_group" role="group" aria-label="Basic outlined example">
