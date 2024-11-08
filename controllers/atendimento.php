@@ -13,6 +13,8 @@ class Atendimento extends Controller
 
     function index()
     {
+        // Auth::verificaNivel(1);
+
         $this->view->title = "Atendimento";
         /*Os array push devem ser feitos antes de instanciar o header e footer.*/
         array_push($this->view->js, "public/components/cad_nutricional/modal_atendimento.js");

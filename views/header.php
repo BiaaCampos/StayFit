@@ -65,13 +65,26 @@
     } ?>
 </head>
 <body>
+
     <div class="sidebar">
         <ul class="sidebar-menu">
-            <li><a href="<?= URL ?>atendimento"><img src="public/images/icons-menu/home.svg" alt="" srcset="" class="icones-sidebar"><span>Home</span></a></li>
-            <li><a href="<?= URL ?>perfil_usuario"><img src="public/images/icons-menu/person.svg" alt="" srcset="" class="icones-sidebar"><span>Perfil</span></a></li>
-            <li><a href="<?= URL ?>agendarconsulta"><img src="public/images/icons-menu/calendario.svg" alt="" srcset="" class="icones-sidebar"><span>Agendar consulta</span></a></li>
-            <li><a href="<?= URL ?>relatorio"><img src="public/images/icons-menu/dashboard.svg" alt="" srcset="" class="icones-sidebar"><span>Relatório</span></a></li>
-            <li><a href="<?= URL ?>marmitarias"><img src="public/images/icons-menu/dashboard.svg" alt="" srcset="" class="icones-sidebar"><span>Dashboard</span></a></li>
+            <li><a href="<?= URL ?>"><img src="public/images/icons-menu/home.svg" alt="" srcset="" class="icones-sidebar"><span>Home</span></a></li>
+            <?php if (isset($_SESSION['TIPO_USUARIO']) && $_SESSION['TIPO_USUARIO'] == 2): ?>
+                <li><a href="<?= URL ?>perfil_usuario"><img src="public/images/icons-menu/person.svg" alt="" srcset="" class="icones-sidebar"><span>Perfil</span></a></li>
+                <li>
+                    <a href="<?= URL ?>agendarconsulta">
+                        <img src="public/images/icons-menu/calendario.svg" alt="" srcset="" class="icones-sidebar">
+                        <span>Agendar consulta</span>
+                    </a>
+                </li>
+            <?php endif; ?>
+            <?php if (isset($_SESSION['TIPO_USUARIO']) && $_SESSION['TIPO_USUARIO'] == 1): ?>
+                <li><a href="<?= URL ?>perfil_nutricionista"><img src="public/images/icons-menu/person.svg" alt="" srcset="" class="icones-sidebar"><span>Perfil</span></a></li>
+                <li><a href="<?= URL ?>atendimento"><img src="public/images/icons-menu/dashboard.svg" alt="" srcset="" class="icones-sidebar"><span>Atendimento</span></a></li>
+                <li><a href="<?= URL ?>relatorio"><img src="public/images/icons-menu/dashboard.svg" alt="" srcset="" class="icones-sidebar"><span>Relatório</span></a></li>
+            <?php endif; ?>
+            <li><a href="<?= URL ?>historico"><img src="public/images/icons-menu/dashboard.svg" alt="" srcset="" class="icones-sidebar"><span>Histórico</span></a></li>
+            <li><a href="<?= URL ?>marmitarias"><img src="public/images/icons-menu/dashboard.svg" alt="" srcset="" class="icones-sidebar"><span>Marmitarias</span></a></li>
             <li><a onclick="logout()"><img src="public/images/icons-menu/sair.svg" alt="" srcset="" class="icones-sidebar" onclick="logout()"><span>Sair</span></a></li>
         </ul>
     </div>

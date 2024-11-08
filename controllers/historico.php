@@ -6,7 +6,7 @@ class Historico extends Controller
     function __construct()
     {
         parent::__construct();
-        // Auth::autentica();
+        Auth::autentica();
         $this->view->js = array();
         $this->view->css = array();
     }
@@ -21,4 +21,14 @@ class Historico extends Controller
         $this->view->render('footer');
     }
 
+    function listaHistorico() 
+    {  
+        $this->model->listaHistorico();
+    }
+
+    
+    function listaConsultasNutricionista() 
+    {  
+        $this->model->listaConsultasNutricionista();
+    }
 }

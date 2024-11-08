@@ -11,7 +11,11 @@ Vue.component("lista_calendario", {
                   <div class="col-lg-12 control-section">
                       <div class="control_wrapper calendar-default">
                           <div id="container1" class="d-flex justify-content-center" style="overflow:auto;">
-                              <ejs-calendar id="calendar1" :change="onValueChange"></ejs-calendar>
+                              <ejs-calendar 
+                                  id="calendar1" 
+                                  :change="onValueChange" 
+                                  :min="minDate"> <!-- Adiciona minDate para bloquear datas retroativas -->
+                              </ejs-calendar>
                           </div>
                       </div>
                   </div>
@@ -54,7 +58,8 @@ Vue.component("lista_calendario", {
         horariosDisponiveis: [],
         mensagem: '',
         horarioSelecionado: null,
-        selectedDate: null 
+        selectedDate: null,
+        minDate: new Date() // Define a data mínima como hoje
       };
     },
     methods: {
@@ -93,7 +98,7 @@ Vue.component("lista_calendario", {
         this.$emit('continuar-para-informacoes', {
             horario: this.horarioSelecionado,
             nutricionista: this.nutricionistaSelecionado,
-            data: this.selectedDate // Adiciona a data selecionada
+            data: this.selectedDate
         });
     }
     }
