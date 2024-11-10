@@ -100,8 +100,6 @@ class AgendarConsulta_model extends Model
         } else {
             exit(json_encode(["code" => "0", "msg" => "Erro ao agendar a consulta."]));
         }
-        
-        
     }
     
     
