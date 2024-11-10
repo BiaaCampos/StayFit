@@ -44,4 +44,5 @@ class AgendarConsulta extends Controller
     {
         $this->model->agendarConsulta();
     }
+    
 }

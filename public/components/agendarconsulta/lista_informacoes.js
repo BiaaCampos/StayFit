@@ -18,7 +18,10 @@ Vue.component("lista_informacoes", {
                 <li class="list-group-item">
                     <strong class="color-text">Profissional:</strong> {{ nutricionistaSelecionado.nome }}
                 </li>
-            </ul>            
+                <li class="list-group-item">
+                    <strong class="color-text">Modalidade:</strong> Presencial
+                </li>
+            </ul>
         </div>
     </div>
     <div class="e-card-actions">

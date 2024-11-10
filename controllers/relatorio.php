@@ -22,4 +22,17 @@ class Relatorio extends Controller
         $this->view->render('footer');
     }
 
+    function getmensais()
+    {
+        $this->model->getmensais();
+    }
+    function getstatus()
+    {
+        $this->model->getstatus();
+    }
+    function getgeneros()
+    {
+        $this->model->getgeneros();
+    }
+
 }
