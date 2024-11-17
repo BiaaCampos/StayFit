@@ -5,8 +5,17 @@ const newLocal = `
             <h1>Paciente</h1>
         </div>
         <div class="form_atendimento">
-            <form>
+            <form @submit.prevent="salvarAtendimento">
+                <!-- Dados Pessoais -->
                 <div class="row">
+                    <div class="col-md-4">
+                        <ejs-textbox 
+                            floatLabelType="Auto" 
+                            placeholder="CPF*" 
+                            v-model="cpf" 
+                            @blur="buscarPacientePorCPF">
+                        </ejs-textbox>
+                    </div>
                     <div class="col-md-4">
                         <ejs-textbox floatLabelType="Auto" placeholder="Nome Completo*" v-model="nome_completo"></ejs-textbox>
                     </div>
@@ -16,12 +25,35 @@ const newLocal = `
                     <div class="col-md-1">
                         <ejs-textbox floatLabelType="Auto" placeholder="Idade*" v-model="idade" :enabled="false"></ejs-textbox>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-md-2">
                         <ejs-textbox floatLabelType="Auto" placeholder="Peso (kg)" v-model="peso" @input="atualizarCalculos"></ejs-textbox>
                     </div>
                     <div class="col-md-2">
                         <ejs-textbox floatLabelType="Auto" placeholder="Altura (cm)" v-model="altura" @input="atualizarCalculos"></ejs-textbox>
                     </div>
+                    <div class="col-md-2">
+                        <ejs-dropdownlist 
+                            placeholder="Selecione o sexo" 
+                            v-model="sexo" 
+                            :dataSource="generos" 
+                            :fields="{ text: 'descricao', value: 'id' }">
+                        </ejs-dropdownlist>
+                    </div>
+                    <div class="col-md-2">
+                        <ejs-textbox floatLabelType="Auto" placeholder="IMC" v-model="imc" :enabled="false"></ejs-textbox>
+                    </div>
+                    <div class="col-md-2">
+                        <ejs-textbox floatLabelType="Auto" placeholder="Necessidades Calóricas (kcal)" v-model="necessidades_caloricas" :enabled="false"></ejs-textbox>
+                    </div>
+                    <div class="col-md-2">
+                        <ejs-textbox floatLabelType="Auto" placeholder="Necessidade Hídrica (ml)" v-model="necessidade_hidrica" :enabled="false"></ejs-textbox>
+                    </div>
+                </div>
+
+                <!-- Medidas Corporais -->
+                <div class="row">
                     <div class="col-md-3">
                         <ejs-textbox floatLabelType="Auto" placeholder="Circunferência do Braço (cm)" v-model="circunferencia_braco" @input="atualizarCalculos"></ejs-textbox>
                     </div>
@@ -31,41 +63,12 @@ const newLocal = `
                     <div class="col-md-3">
                         <ejs-textbox floatLabelType="Auto" placeholder="Gordura do Quadril (cm)" v-model="gordura_quadril" @input="atualizarCalculos"></ejs-textbox>
                     </div>
-                </div>
-                <!-- Sexo Input -->
-                <div class="row">
-                    <div class="col-md-3">
-                        <ejs-dropdownlist floatLabelType="Auto" placeholder="Sexo" v-model="sexo" :dataSource="['M', 'F']" @change="atualizarCalculos"></ejs-dropdownlist>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <ejs-textbox floatLabelType="Auto" placeholder="IMC" v-model="imc" :enabled="false"></ejs-textbox>
-                    </div>
-                    <div class="col-md-3">
-                        <ejs-textbox floatLabelType="Auto" placeholder="Necessidades Calóricas (kcal)" v-model="necessidades_caloricas" :enabled="false"></ejs-textbox>
-                    </div>
-                    <div class="col-md-3">
-                        <ejs-textbox floatLabelType="Auto" placeholder="Necessidade Hídrica (ml)" v-model="necessidade_hidrica" :enabled="false"></ejs-textbox>
-                    </div>
                     <div class="col-md-3">
                         <ejs-textbox floatLabelType="Auto" placeholder="TMB (kcal)" v-model="tmb" :enabled="false"></ejs-textbox>
                     </div>
-                    <div class="col-md-3">
-                        <ejs-textbox floatLabelType="Auto" placeholder="Carboidratos (g)" v-model="carboidratos" :enabled="false"></ejs-textbox>
-                    </div>
-                    <div class="col-md-3">
-                        <ejs-textbox floatLabelType="Auto" placeholder="Proteínas (g)" v-model="proteinas" :enabled="false"></ejs-textbox>
-                    </div>
-                    <div class="col-md-3">
-                        <ejs-textbox floatLabelType="Auto" placeholder="Gorduras (g)" v-model="gorduras" :enabled="false"></ejs-textbox>
-                    </div>
-                    <div class="col-md-3">
-                        <ejs-textbox floatLabelType="Auto" placeholder="Relação Cintura-Quadril" v-model="relacao_cintura_quadril" :enabled="false"></ejs-textbox>
-                    </div>
                 </div>
 
-                <!-- Outros dados pessoais -->
+                <!-- Contato e Ocupação -->
                 <div class="row">
                     <div class="col-md-4">
                         <ejs-textbox floatLabelType="Auto" placeholder="Endereço*" v-model="endereco"></ejs-textbox>
@@ -78,34 +81,25 @@ const newLocal = `
                     </div>
                 </div>
 
+                <!-- Objetivos e Modalidade -->
                 <div class="row">
                     <div class="col-md-6">
-                        <ejs-dropdownlist :popupHeight="height" placeholder="Objetivo(s) do atendimento nutricional" v-model="objetivo" :dataSource="['Melhorias na estrutura corporal', 'Estética']"></ejs-dropdownlist>
+                        <ejs-multiselect 
+                            :popupHeight="height" 
+                            placeholder="Objetivo(s) do atendimento nutricional" 
+                            v-model="objetivosSelecionados" 
+                            :dataSource="objetivosNutricionais" 
+                            :fields="{ text: 'descricao', value: 'id' }" 
+                            :mode="'delimiter'" 
+                            :delimiter="', '">
+                        </ejs-multiselect>
                     </div>
                     <div class="col-md-6">
-                        <ejs-multiselect placeholder="Modalidade esportiva" v-model="modalidade" :dataSource="['Musculação', 'Handball']"></ejs-multiselect>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <ejs-textbox floatLabelType="Auto" placeholder="Local de treino" v-model="local_treino"></ejs-textbox>
-                    </div>
-                    <div class="col-md-6">
-                        <ejs-textbox floatLabelType="Auto" placeholder="Especificação (metragem, posição)" v-model="especificacao"></ejs-textbox>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <ejs-textbox floatLabelType="Auto" placeholder="Sensação pós-treino" v-model="sensacao_pos_treino"></ejs-textbox>
-                    </div>
-                    <div class="col-md-4">
-                        <ejs-textbox floatLabelType="Auto" placeholder="Suplementos (quem prescreveu)" v-model="suplementos"></ejs-textbox>
-                    </div>
-                    <div class="col-md-4">
                         <ejs-textbox floatLabelType="Auto" placeholder="Hábitos alimentares" v-model="habitos_alimentares"></ejs-textbox>
                     </div>
                 </div>
 
+                <!-- Ingestão e Sono -->
                 <div class="row">
                     <div class="col-md-3">
                         <ejs-textbox floatLabelType="Auto" placeholder="Ingestão hídrica (L/dia)" v-model="ingestao_hidrica"></ejs-textbox>
@@ -121,6 +115,7 @@ const newLocal = `
                     </div>
                 </div>
 
+                <!-- Hábitos Intestinais e Estresse -->
                 <div class="row">
                     <div class="col-md-3">
                         <ejs-textbox floatLabelType="Auto" placeholder="Hábito intestinal (vezes/dia)" v-model="habito_intestinal"></ejs-textbox>
@@ -132,26 +127,15 @@ const newLocal = `
                         <ejs-textbox floatLabelType="Auto" placeholder="Situação de estresse" v-model="situacao_estresse"></ejs-textbox>
                     </div>
                 </div>
+
+                <!-- Informações Adicionais -->
                 <div class="row">
                     <div class="col-md-12">
                         <ejs-textbox floatLabelType="Auto" placeholder="Comentários adicionais" v-model="comentarios_adicionais"></ejs-textbox>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <ejs-textbox floatLabelType="Auto" placeholder="Endereço*" v-model="endereco"></ejs-textbox>
-                    </div>
-                    <div class="col-md-4">
-                        <ejs-maskedtextbox placeholder="Telefone" mask="(00) 00000-0000" v-model="telefone"></ejs-maskedtextbox>
-                    </div>
-                    <div class="col-md-4">
-                        <ejs-textbox floatLabelType="Auto" placeholder="Ocupação atual" v-model="ocupacao"></ejs-textbox>
-                    </div>
-                    <div class="col-md-4">
-                        <ejs-textbox floatLabelType="Auto" placeholder="Composição familiar" v-model="composicao_familiar"></ejs-textbox>
-                    </div>
-                </div>
+                <!-- Histórico e Diagnóstico -->
                 <div class="row">
                     <div class="col-md-4">
                         <ejs-textbox floatLabelType="Auto" placeholder="Diagnóstico clínico" v-model="diagnostico_clinico"></ejs-textbox>
@@ -163,64 +147,18 @@ const newLocal = `
                         <ejs-multiselect placeholder="História familiar (patologias)" v-model="historico_familiar" :dataSource="['Diabetes', 'Obesidade', 'HAS', 'Dislipidemias', 'Câncer']"></ejs-multiselect>
                     </div>
                 </div>
+
+                <!-- Modal e Botão de Salvar -->
                 <div class="row">
-                    <div class="col-md-6">
-                        <ejs-dropdownlist :popupHeight="height" placeholder="Objetivo(s) do atendimento nutricional" v-model="objetivo" :dataSource="['Melhorias na estrutura corporal', 'Estética']"></ejs-dropdownlist>
-                    </div>
-                    <div class="col-md-6">
-                        <ejs-multiselect placeholder="Modalidade esportiva" v-model="modalidade" :dataSource="['Musculação', 'Handball']"></ejs-multiselect>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <ejs-textbox floatLabelType="Auto" placeholder="Local de treino" v-model="local_treino"></ejs-textbox>
-                    </div>
-                    <div class="col-md-6">
-                        <ejs-textbox floatLabelType="Auto" placeholder="Especificação (metragem, posição)" v-model="especificacao"></ejs-textbox>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <ejs-textbox floatLabelType="Auto" placeholder="Sensação pós-treino" v-model="sensacao_pos_treino"></ejs-textbox>
-                    </div>
-                    <div class="col-md-4">
-                        <ejs-textbox floatLabelType="Auto" placeholder="Suplementos (quem prescreveu)" v-model="suplementos"></ejs-textbox>
-                    </div>
-                    <div class="col-md-4">
-                        <ejs-textbox floatLabelType="Auto" placeholder="Hábitos alimentares" v-model="habitos_alimentares"></ejs-textbox>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <ejs-textbox floatLabelType="Auto" placeholder="Ingestão hídrica (L/dia)" v-model="ingestao_hidrica"></ejs-textbox>
-                    </div>
-                    <div class="col-md-3">
-                        <ejs-textbox floatLabelType="Auto" placeholder="Ingestão de café (L/dia)" v-model="ingestao_cafe"></ejs-textbox>
-                    </div>
-                    <div class="col-md-3">
-                        <ejs-textbox floatLabelType="Auto" placeholder="Qualidade do sono" v-model="qualidade_sono"></ejs-textbox>
-                    </div>
-                    <div class="col-md-3">
-                        <ejs-textbox floatLabelType="Auto" placeholder="Horas de sono" v-model="horas_sono"></ejs-textbox>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <ejs-textbox floatLabelType="Auto" placeholder="Hábito intestinal (vezes/dia)" v-model="habito_intestinal"></ejs-textbox>
-                    </div>
-                    <div class="col-md-3">
-                        <ejs-textbox floatLabelType="Auto" placeholder="Hábito urinário (vezes/dia)" v-model="habito_urinario"></ejs-textbox>
-                    </div>
-                    <div class="col-md-6">
-                        <ejs-textbox floatLabelType="Auto" placeholder="Situação de estresse" v-model="situacao_estresse"></ejs-textbox>
-                    </div>
-                    <div class="col-md-1">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4" style="display:flex; justify-content:center">
                         <modal_atendimento :tipomodalatendimento="tipomodalatendimento"></modal_atendimento>
                     </div>
+                    <div class="col-md-4"></div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 div_botao_atendimento">
-                        <ejs-button class="botao_atendimento">Salvar</ejs-button>
+                        <ejs-button class="botao_atendimento" type="submit">Salvar</ejs-button>
                     </div>
                 </div>
             </form>
@@ -235,20 +173,18 @@ Vue.component('AppVue', {
     data() {
         return {
             tipomodalatendimento: '',
+            cpf: '',
             nome_completo: '',
             data_nascimento: '',
             telefone: '',
-            ocupacao:'',
+            ocupacao: '',
             height: '',
-            composicao_familiar:'',
-            medicamentos:'',
-            diagnostico_clinico:'',
-            historico_familiar:'',
-            composicao_familiar:'',
+            medicamentos: '',
+            diagnostico_clinico: '',
+            historico_familiar: '',
             idade: '',
             peso: null,
             altura: null,
-            sexo: '',
             endereco: '',
             tmb: null,
             necessidades_caloricas: null,
@@ -258,15 +194,11 @@ Vue.component('AppVue', {
             proteinas: null,
             gorduras: null,
             relacao_cintura_quadril: null,
-            circunferencia_braco: null,
-            circunferencia_coxa: null,
-            gordura_quadril: null,
+            circunferencia_braco: null, // Adicionado
+            circunferencia_coxa: null, // Adicionado
+            gordura_quadril: null, // Adicionado
             objetivo: '',
-            modalidade: '',
             local_treino: '',
-            especificacao: '',
-            sensacao_pos_treino: '',
-            suplementos: '',
             habitos_alimentares: '',
             ingestao_hidrica: null,
             ingestao_cafe: null,
@@ -275,7 +207,12 @@ Vue.component('AppVue', {
             habito_intestinal: null,
             habito_urinario: null,
             situacao_estresse: '',
-            comentarios_adicionais: ''
+            comentarios_adicionais: '',
+            objetivosNutricionais: [],
+            sexo: '', 
+            generos: [],
+            id_paciente: null, 
+            objetivosSelecionados: [],
         };
     },
     watch: {
@@ -290,9 +227,6 @@ Vue.component('AppVue', {
         altura(newAltura) {
             this.atualizarCalculos();
         },
-        idade(newIdade) {
-            this.atualizarCalculos();
-        }
     },
     methods: {
         calculaIdade(dataNascimento) {
@@ -305,48 +239,153 @@ Vue.component('AppVue', {
             }
             return idade;
         },
+        atualizarCalculos() {
+            this.calcularIMC();
+            this.calcularNecessidadeHidrica();
+            this.calcularNecessidadeCalorica();
+        },
         calcularIMC() {
             if (this.peso && this.altura) {
                 this.imc = (this.peso / ((this.altura / 100) ** 2)).toFixed(2);
+                
+                // Ajuste das recomendações com base no gênero
+                if (this.sexo) {
+                    if (this.imc < 18.5) {
+                        this.recomendacao = this.sexo === 'Masculino' ? "Aumentar a ingestão calórica." : "Aumentar a ingestão calórica.";
+                    } else if (this.imc >= 18.5 && this.imc < 24.9) {
+                        this.recomendacao = "Peso normal. Manter hábitos saudáveis.";
+                    } else if (this.imc >= 25 && this.imc < 29.9) {
+                        this.recomendacao = this.sexo === 'Masculino' ? "Considerar uma dieta de redução de peso." : "Considerar uma dieta de redução de peso.";
+                    } else {
+                        this.recomendacao = "Consultar um nutricionista para orientação.";
+                    }
+                }
             }
-        },
-        atualizarCalculos() {
-            this.calcularIMC();
-            this.calcularTMB();
-            this.calcularNecessidadeHidrica();
-            this.calcularNecessidadeCalorica();
-            this.calcularMacronutrientes();
-            this.calcularRelacaoCinturaQuadril();
-        },
-        calcularTMB() {
-            if (this.sexo === 'M' && this.peso && this.altura && this.idade) {
-                this.tmb = (10 * this.peso) + (6.25 * this.altura) - (5 * this.idade) + 5;
-            } else if (this.sexo === 'F' && this.peso && this.altura && this.idade) {
-                this.tmb = (10 * this.peso) + (6.25 * this.altura) - (5 * this.idade) - 161;
-            }
-        },
+        },        
         calcularNecessidadeHidrica() {
             if (this.peso) {
                 this.necessidade_hidrica = (this.peso * 35).toFixed(0);
             }
         },
+        // calcularNecessidadeCalorica() {
+        //     if (this.imc) {
+        //         this.necessidades_caloricas = (this.imc * 25).toFixed(0); // Exemplo simples
+        //     }
+        // },
+        calcularTMB() {
+            if (this.peso && this.altura && this.idade && this.sexo) {
+                if (this.sexo === 'masculino') {
+                    this.tmb = (10 * this.peso) + (6.25 * this.altura) - (5 * this.idade) + 5;
+                } else {
+                    this.tmb = (10 * this.peso) + (6.25 * this.altura) - (5 * this.idade) - 161;
+                }
+            }
+        },
+        
         calcularNecessidadeCalorica() {
+            this.calcularTMB(); // Chame primeiro para garantir que a TMB esteja calculada
             if (this.tmb) {
-                // Exemplo de cálculo
-                this.necessidades_caloricas = (this.tmb * 1.55).toFixed(0); // Atividade moderada
+                // Exemplo de fator de atividade: 1.2 (sedentário), 1.375 (atividade leve), etc.
+                const fatorAtividade = 1.2; // Ajuste conforme necessário
+                this.necessidades_caloricas = (this.tmb * fatorAtividade).toFixed(0);
             }
         },
-        calcularMacronutrientes() {
-            if (this.necessidades_caloricas) {
-                this.carboidratos = ((this.necessidades_caloricas * 0.55) / 4).toFixed(0);
-                this.proteinas = ((this.necessidades_caloricas * 0.15) / 4).toFixed(0);
-                this.gorduras = ((this.necessidades_caloricas * 0.30) / 9).toFixed(0);
+        formatarData(data) {
+            if (!data) return '';
+            const partes = data.split('-');
+            return `${partes[2]}/${partes[1]}/${partes[0]}`; // Formato dd/mm/aaaa
+        },
+        buscarPacientePorCPF() {
+            if (this.cpf) {
+                axios.post(BASE + '/atendimento/getPacientePorCPF', { cpf: this.cpf })
+                    .then(response => {
+                        if (response.data.code === "1") {
+                            const paciente = response.data.data[0];
+                            this.nome_completo = paciente.NOME;
+                            this.data_nascimento = paciente.DATA_NASCIMENTO;
+                            this.telefone = paciente.TELEFONE;
+                            this.ocupacao = paciente.OCUPACAO;
+                            this.peso = paciente.peso;
+                            this.altura = paciente.altura;
+                            this.sexo = paciente.sexo; // Adapte conforme necessário
+                            this.endereco = paciente.ENDERECO; // Se existir
+                            this.id_paciente = paciente.ID; 
+                        } else {
+                            alert(response.data.msg);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Erro ao buscar paciente:", error);
+                        alert("Erro ao buscar paciente.");
+                    });
             }
         },
-        calcularRelacaoCinturaQuadril() {
-            if (this.circunferencia_coxa && this.circunferencia_braco) {
-                this.relacao_cintura_quadril = (this.circunferencia_coxa / this.circunferencia_braco).toFixed(2);
-            }
+        buscarGeneros() {
+            axios.get(BASE + '/atendimento/getGeneros')
+                .then((response) => {
+                    this.generos = response.data;
+                })
+                .catch((error) => {
+                    console.error("Erro ao buscar gêneros:", error);
+                });
+        },
+        buscarObjetivosNutricionais() {
+            axios.get(BASE + '/atendimento/getObjetivosNutricionais')
+                .then((response) => {
+                    this.objetivosNutricionais = response.data;
+                })
+                .catch((error) => {
+                    console.error("Erro ao buscar objetivos nutricionais:", error);
+                });
+        },  
+
+        salvarAtendimento() {
+            const dados = {
+                id_paciente: this.id_paciente, // Passa o ID do paciente
+                cpf: this.cpf,
+                nome_completo: this.nome_completo,
+                data_nascimento: this.data_nascimento,
+                telefone: this.telefone,
+                ocupacao: this.ocupacao,
+                peso: this.peso,
+                altura: this.altura,
+                sexo: this.sexo,
+                endereco: this.endereco,
+                objetivo: this.objetivosSelecionados.join(','),
+                habitos_alimentares: this.habitos_alimentares,
+                ingestao_hidrica: this.ingestao_hidrica,
+                ingestao_cafe: this.ingestao_cafe,
+                qualidade_sono: this.qualidade_sono,
+                horas_sono: this.horas_sono,
+                habito_intestinal: this.habito_intestinal,
+                habito_urinario: this.habito_urinario,
+                situacao_estresse: this.situacao_estresse,
+                comentarios_adicionais: this.comentarios_adicionais,
+                diagnostico_clinico: this.diagnostico_clinico,
+                medicamentos: this.medicamentos,
+                historico_familiar: this.historico_familiar.join(','),
+                circunferencia_braco: this.circunferencia_braco,
+                circunferencia_coxa: this.circunferencia_coxa,
+                gordura_quadril: this.gordura_quadril
+            };
+
+            axios.post(BASE + '/atendimento/salvarAtendimento', dados)
+                .then(response => {
+                    if (response.data.code === "1") {
+                        alert("Atendimento salvo com sucesso!");
+                        // Limpar os campos ou redirecionar, se necessário
+                    } else {
+                        alert("Erro ao salvar atendimento: " + response.data.msg);
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                    alert("Erro ao salvar atendimento.");
+                });
         }
+    },
+    mounted() {
+        this.buscarObjetivosNutricionais();
+        this.buscarGeneros();
     }
 });
