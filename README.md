@@ -92,16 +92,16 @@ A estrutura de pastas do projeto é organizada da seguinte forma:
 │
 ├── /node_modules
 │
-├── /public
-├── /util
-├── /views
-├── .htaccess
-├── builder.php
-├── config.php
-├── index.php
-├── LICENSE
-├── package-lock.json
-├── package.json
+├── /public               # Diretório público para arquivos acessíveis via web, como CSS e JS.
+├── /util                 # Diretório para funções utilitárias e auxiliares da aplicação.
+├── /views                # Diretório para as views (páginas) da aplicação.
+├── .htaccess             # Configurações do servidor Apache, incluindo regras de reescrita de URL.
+├── builder.php           # Script para gerar automaticamente arquivos de modelos e controladores.
+├── config.php            # Arquivo de configuração com constantes de conexão e outras definições.
+├── index.php             # Ponto de entrada da aplicação, inicializa o sistema.
+├── LICENSE               # Arquivo de licença do projeto, especificando os direitos de uso.
+├── package-lock.json     # Arquivo gerado automaticamente que bloqueia as versões das dependências do projeto.
+├── package.json          # Arquivo de configuração do npm, listando dependências e informações do projeto.
 └── README.md             # Documentação do projeto
 ```
 
