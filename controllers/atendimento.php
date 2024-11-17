@@ -6,14 +6,14 @@ class Atendimento extends Controller
     function __construct()
     {
         parent::__construct();
-        // Auth::autentica();
+        Auth::autentica();
         $this->view->js = array();
         $this->view->css = array();
     }
 
     function index()
     {
-        // Auth::verificaNivel(1);
+        Auth::verificaNivel(1);
 
         $this->view->title = "Atendimento";
         /*Os array push devem ser feitos antes de instanciar o header e footer.*/
@@ -23,6 +23,30 @@ class Atendimento extends Controller
         array_push($this->view->css, "views/nutricionista/atendimento/app.vue.css");
         $this->view->render('header');
         $this->view->render('footer');
+    }
+
+    function salvarAtendimento() 
+    {  
+        $this->model->salvarAtendimento();
+    }
+
+    function buscarPacientePorCPF() 
+    {  
+        $this->model->buscarPacientePorCPF();
+    }
+
+    function getPacientePorCPF() 
+    {  
+        $this->model->getPacientePorCPF();
+    }
+    function getObjetivosNutricionais() 
+    {  
+        $this->model->getObjetivosNutricionais();
+    }
+
+    function getGeneros() 
+    {  
+        $this->model->getGeneros();
     }
 
 }
