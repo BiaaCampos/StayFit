@@ -19,6 +19,9 @@ const newLocal = `
     <img id="plate" src="public/images/Login.svg" alt="Prato saudavel">
   </div>
   <div class="login-container">
+    <div class="logo-mobile">
+      <img src="public/images/icons-menu/logopreta.svg" alt="" srcset="" class="icones-sidebar" width="200">
+    </div>
     <div class="btn-group" id="select_group" role="group" aria-label="Basic outlined example">
       <button type="button" class="btn btn-outline-primary" id="login" @click="selectBtn('login')">Login</button>
       <button type="button" class="btn btn-outline-primary" id="cadastro" @click="selectBtn('cadastro')">Cadastra-se</button>
@@ -27,7 +30,7 @@ const newLocal = `
     <div id="login-form">
       <div v-show="selectedForm === 'login'" style="display: flex; flex-direction: column; align-items: center;">
         <h1>Login</h1>
-        <div id="login" style="width: 40rem;">
+        <div id="login" style="width: 100%;">
           <div class="input-group mb-3">
             <ejs-dropdownlist 
               id='tipoLogin'
@@ -89,9 +92,9 @@ const newLocal = `
         </div>
       </div>
       <!-- Cadastro -->
-      <div v-show="selectedForm === 'cadastro'" style="display: flex; flex-direction: column; align-items: center;">
+      <div v-show="selectedForm === 'cadastro'" style="display: flex; flex-direction: column; align-items: center; padding: 0 20px">
         <h1>Cadastro</h1>
-        <div id="cadastro" style="width: 40rem;">
+        <div id="cadastro" style="width: 100%;">
           <div class="input-group mb-3">
             <ejs-textbox 
                 floatLabelType="Auto"

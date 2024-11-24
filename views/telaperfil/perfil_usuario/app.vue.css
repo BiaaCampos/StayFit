@@ -1,16 +1,19 @@
-.body-div{
+.perfil-container {
     display: flex;
-    position: relative;
-    left: 7rem;
-    top: 7rem;
-    flex-direction: column;
-    gap: 2rem;
-    width: 60vw;
+    flex-direction: row;
+    width: calc(100% - 80px);
+    height: 100%;
+    margin-left: 80px;
+}
+
+.body-div{
+    width: 70%;
+    height: 100vh;
+    padding: 120px 20px 0;
 }
 .div-head-card{
     display: flex;
     gap: 2rem;
-    /* align-content: center; */
     align-items: center;
     margin-bottom: 1rem;
 }
@@ -42,18 +45,27 @@
 }
 .perfil_info{
     background-color: #32794F;
-    width: 40vw;
-    height: 103vh;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 2rem 0 0 2rem;
+    padding: 20px;
+    width: 30%;
+}
+.body-div button{
+    border: 0 !important;
 }
 .perfil_card{
     display: flex;
-    width: 41rem !important;
-    height: 83vh;
-    top: 41px;
+    width: 100%;
+    height: 80%;
+    margin-top: 60px;
+}
+.h5-size{
+    font-size: 16px;
+}
+.size-text{
+    font-size: 12px;
 }
 .card_header{
     display: flex;
@@ -85,13 +97,18 @@
         background-color: #4d841d;
     }
 }
+.button-infos{
+display: none;
+}
 
 .list-group-item {
     display: flex;
     align-items: center;
     font-size: 16px;
 }
-
+#footer-stayfit{
+    display: none;
+}
 .item-name {
     white-space: nowrap;
 }
@@ -105,15 +122,27 @@
 .item-quantity {
     white-space: nowrap;
 }
+.central::-webkit-scrollbar {
+    width: 8px;
+}
 
+.central::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.central::-webkit-scrollbar-thumb {
+    background-color: #ffffff00;
+    border-radius: 10px;
+}
 .central {
     overflow-x: hidden;
-    overflow-y: scroll;
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    height: 80vh;
-    width: 54vw;
+    height: 100%;
+    width: 100%;
+    scrollbar-width: thin;
+    scrollbar-color: #ffffff00 #f1f1f1;
 }
 
 .tab_content{
@@ -123,14 +152,12 @@
     position: absolute;
     width: 58vw;
     height: 50vh;
-    /* z-index: 1000; */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 .lds-ring {
-    /* change color here */
     color: #32794f
   }
 .lds-ring,
@@ -172,4 +199,54 @@
     transform: rotate(360deg);
   }
 }
+.menu-lateral {
+    position: fixed;
+    top: 0;
+    right: -320px;
+    width: 320px;
+    height: 100%;
+    background-color: white;
+    box-shadow: 1px 0 5px rgba(0, 0, 0, 0.5);
+    transition: right 0.3s ease;
+    z-index: 1000;
+}
 
+.menu-lateral.show {
+    right: 0;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #000;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+  
+@media screen and (max-width: 768px) {
+    .button-infos{
+        border-radius: 20px;
+        padding: 1rem;
+        display: flex;
+        height: 3rem;
+        color: #fff;
+        background-color: #4d841d;
+        align-items: center;
+        justify-content: center;
+    }
+    .perfil_info {
+        display: none;
+    }
+    .perfil-container {
+        display: block;
+    }
+    .body-div{
+        width: 100%;
+    }
+    .central{
+        gap: 0;
+    }
+}

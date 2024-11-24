@@ -7,11 +7,10 @@ Vue.component("header_home", {
                     <img src="public/images/icons-menu/logopreta.svg" alt="" srcset="" class="icones-sidebar" width="200">
                 </a>
                 <ul class="nav-links">
-                    <li><a href="#home">Home</a></li>
+                    <li><a href="/">Home</a></li>
                     <li><a href="#servicos">Serviços</a></li>
-                    <li><a href="#nutricionistas">Nutricionistas</a></li>
-                    <li><a href="#sobre">Sobre</a></li>
-                    <li><a href="#faleconosco">Fale conosco</a></li>
+                    <li><a href="#nutricionista">Nutricionistas</a></li>
+                    <li><a href="https://wa.me/5514999999999">Fale conosco</a></li>
                 </ul>
                 <div class="auth-buttons">
                     <a href="login" class="register">Entrar/Cadastrar</a>
@@ -24,11 +23,10 @@ Vue.component("header_home", {
             <div class="mobile-menu" id="mobileMenu">
                 <div class="close-icon" @click="toggleMenu">✖</div>
                 <ul>
-                    <li><a href="#home">Home</a></li>
+                    <li><a href="/">Home</a></li>
                     <li><a href="#servicos">Serviços</a></li>
                     <li><a href="#nutricionistas">Nutricionistas</a></li>
-                    <li><a href="#sobre">Sobre</a></li>
-                    <li><a href="#faleconosco">Fale conosco</a></li>
+                    <li><a href="https://wa.me/5514999999999">Fale conosco</a></li>
                 </ul>
                 <div class="mobile-auth-buttons">
                     <button class="login" @click="toggleMenu">Entrar</button>

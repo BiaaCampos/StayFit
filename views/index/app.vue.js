@@ -15,8 +15,8 @@ const newLocal = `
                         a partir da nutrição.
                     </p>
                     <div class="div_button_first_section">
-                        <a href="#" class="button_first_section">
-                            Veja nossos planos
+                        <a href="#nutricionista" class="button_first_section">
+                            Veja nossos nutricionistas
                         </a>
                     </div>
                     
@@ -25,7 +25,7 @@ const newLocal = `
                     <img src="public/images/gif_morangos.gif" alt="" srcset="" class="gif_morangos"/>
                 </div>
             </section>        
-            <section class="second_section" data-aos="fade-in">
+            <section id="servicos" class="second_section" data-aos="fade-in">
                 <div class="top">
                     <h1>
                         Nossos Serviços
@@ -57,7 +57,7 @@ const newLocal = `
                     </div>
                 </div>
             </section>
-            <section class="third_section" data-aos="fade-left">
+            <section id="nutricionista" class="third_section" data-aos="fade-left">
                 <div class="top">
                     <h1>
                         Conheça nossos Nutricionistas
@@ -65,46 +65,14 @@ const newLocal = `
                 </div>
                 <div class="bottom_third">
                     <div class="row cards cards-row">
-                        <div class="card col-md-6">
+                        <div v-for="nutricionista in data" :key="nutricionista.id" class="card col-md-6">
                             <div class="nutri_card">
                                 <p>
-                                    Dr(a) Lívia de Andrade
+                                    {{ nutricionista.nome }}
                                 </p>
                             </div>
                             <p>
-                                CRN: 00000 - RQE N°
-                            </p>
-                        </div>
-                        <div class="card col-md-6">
-                            <div class="nutri_card">
-                                <p>
-                                    Dr(a) Lívia de Andrade
-                                </p>
-                            </div>
-                            <p>
-                                CRN: 00000 - RQE N°
-                            </p>
-                        </div>
-                    </div>
-                    <div class="row cards cards-row">
-                        <div class="card col-md-6">
-                            <div class="nutri_card">
-                                <p>
-                                    Dr(a) Lívia de Andrade
-                                </p>
-                            </div>
-                            <p>
-                                CRN: 00000 - RQE N°
-                            </p>
-                        </div>
-                        <div class="card col-md-6">
-                            <div class="nutri_card">
-                                <p>
-                                    Dr(a) Lívia de Andrade
-                                </p>
-                            </div>
-                            <p>
-                                CRN: 00000 - RQE N°
+                                CRN: {{ nutricionista.crn }}
                             </p>
                         </div>
                     </div>
@@ -131,8 +99,24 @@ Vue.component('AppVue', {
     template: AppTemplate,
     data() {
         return {
+            data: [],
             tipoheaderhome: null,
             tipofooterhome: null,
         };
+    },
+    mounted() {
+        this.fetchNutricionistas();
+    },
+    methods: {
+        fetchNutricionistas() {
+            axios
+                .get(BASE + '/agendarconsulta/listaNutricionista')
+                .then((response) => {
+                    this.data = response.data;
+                })
+                .catch((error) => {
+                    console.error("Erro ao buscar nutricionistas:", error);
+                });
+        },
     },
 });

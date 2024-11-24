@@ -31,7 +31,6 @@
 .fundo_historico .grid_historico {
     margin-top: 3em;
 }
-
 .e-dashboardlayout {
     padding: 20px;
     z-index: 0;
@@ -66,5 +65,13 @@
     .fundo_historico {
         height: 80%;
         padding: 50px 15px;
+    }
+    .relatorio{
+        width: 100vw;
+    }
+    .graficos{
+        overflow-y: scroll;
+        width: 100%;
+        justify-content: flex-start;
     }
 }

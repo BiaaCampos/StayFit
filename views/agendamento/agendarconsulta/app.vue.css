@@ -249,6 +249,7 @@ html, body, #container {
     .fundo_agendarConsulta {
         height: 80%;
         padding: 50px 15px;
+        width: 100%;
     }
 }
 
