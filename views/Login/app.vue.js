@@ -406,7 +406,6 @@ Vue.component('AppVue', {
             var crn = this.cadastro.crn.substring(1)
             this.cadastro.crn = crn
           }
-          console.log(this.cadastro)
           axios.post(BASE + "/Login/Cadastrar_usuario", this.cadastro).then((res) => {
             if(res.data.code === 1) {
               setTimeout(() => {

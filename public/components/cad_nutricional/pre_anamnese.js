@@ -277,7 +277,7 @@ Vue.component("pre_anamnese", {
                         window.location.href="/stayfit/Perfil_usuario"
                     },200)
                 } else {
-                    console.log('Erro ao salvar respostas: ' + res.data.msg);
+                    console.error('Erro ao salvar respostas: ' + res.data.msg);
                 }
             })
             .catch((error) => {

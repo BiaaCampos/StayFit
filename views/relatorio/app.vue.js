@@ -83,7 +83,7 @@ Vue.component('AppVue', {
                     };
                     this.chartData.labels = data.map(item => monthMap[item.Mes] || item.Mes);
                     this.chartData.values = data.map(item => item.Total_Consultas);
-                    this.totalConsultas = this.chartData.values.reduce((sum, value) => sum + value, 0); // Calcula a soma total
+                    this.totalConsultas = this.chartData.values.reduce((sum, value) => sum + value, 0);
                     this.updateHasData();
                     this.drawBarChart();
                 })
@@ -98,8 +98,7 @@ Vue.component('AppVue', {
                     const data = response.data;
                     this.pieData.labels = data.map(item => item.Status); 
                     this.pieData.values = data.map(item => item.Total_Consultas);
-                    this.statusConsultas = data.map(item => `${item.Status}: ${item.Total_Consultas}`).join(', '); // Formata o status das consultas
-                    this.updateHasData();
+                    this.statusConsultas = data.map(item => `${item.Status}: ${item.Total_Consultas}`).join(', ');
                     this.drawPieChart();
                 })
                 .catch((error) => {
@@ -123,7 +122,6 @@ Vue.component('AppVue', {
         },
         
         updateHasData: function() {
-            // Verifica se há dados em pelo menos um dos gráficos
             this.hasData = this.chartData.values.length > 0 || this.pieData.values.length > 0 || this.genderChartData.values.length > 0;
         },
         
@@ -138,27 +136,24 @@ Vue.component('AppVue', {
             var barSpacing = 20;
             var chartHeight = 300;
         
-            // Desenhar as barras
             for (var i = 0; i < data.values.length; i++) {
-                var barHeight = data.values[i] * 3; // Ajuste a escala conforme necessário
+                var barHeight = data.values[i] * 3;
                 var x = (i * (barWidth + barSpacing)) + 50;
                 var y = chartHeight - barHeight;
         
-                ctx.fillStyle = '#4CAF50'; // Cor das barras
+                ctx.fillStyle = '#4CAF50';
                 ctx.fillRect(x, y, barWidth, barHeight);
         
                 ctx.fillStyle = '#000';
                 ctx.font = '18px Arial';
 
-                // Centraliza o valor acima da barra
                 var valueText = data.values[i].toString();
                 var valueTextWidth = ctx.measureText(valueText).width;
-                ctx.fillText(valueText, x + (barWidth / 2) - (valueTextWidth / 2), y - 10); // Centraliza o valor
+                ctx.fillText(valueText, x + (barWidth / 2) - (valueTextWidth / 2), y - 10);
         
-                // Centraliza a legenda abaixo da barra
                 var labelText = data.labels[i];
                 var labelTextWidth = ctx.measureText(labelText).width;
-                ctx.fillText(labelText, x + (barWidth / 2) - (labelTextWidth / 2), chartHeight + 20); // Centraliza a legenda
+                ctx.fillText(labelText, x + (barWidth / 2) - (labelTextWidth / 2), chartHeight + 20);
             }
         },        
         
@@ -166,16 +161,14 @@ Vue.component('AppVue', {
             var canvas = document.getElementById('barChart');
             var ctx = canvas.getContext('2d');
             
-            // Limpa o canvas
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
             var data = this.chartData;
-            var barWidth = 50; // Largura das barras
-            var barSpacing = 40; // Aumentado para mais espaçamento
+            var barWidth = 50;
+            var barSpacing = 40; 
             var chartHeight = 300;
         
-            // Animação
-            let animationDuration = 1000; // Duração da animação em ms
+            let animationDuration = 1000;
             let startTime = null;
         
             const animateBars = (timestamp) => {
@@ -184,24 +177,22 @@ Vue.component('AppVue', {
         
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 for (var i = 0; i < data.values.length; i++) {
-                    var barHeight = data.values[i] * 3 * progress; // Ajuste a escala conforme necessário
+                    var barHeight = data.values[i] * 3 * progress;
                     var x = (i * (barWidth + barSpacing)) + 50;
                     var y = chartHeight - barHeight;
         
                     ctx.fillStyle = '#4CAF50';
                     ctx.fillRect(x, y, barWidth, barHeight);
         
-                    // Desenha o valor acima da barra
                     ctx.fillStyle = '#000';
                     ctx.font = '18px Arial';
                     var valueText = data.values[i].toString();
                     var valueTextWidth = ctx.measureText(valueText).width;
-                    ctx.fillText(valueText, x + (barWidth / 2) - (valueTextWidth / 2), y - 10); // Centraliza o valor
+                    ctx.fillText(valueText, x + (barWidth / 2) - (valueTextWidth / 2), y - 10); 
         
-                    // Desenha a legenda abaixo da barra
                     var labelText = data.labels[i];
                     var labelTextWidth = ctx.measureText(labelText).width;
-                    ctx.fillText(labelText, x + (barWidth / 2) - (labelTextWidth / 2), chartHeight + 20); // Centraliza a legenda
+                    ctx.fillText(labelText, x + (barWidth / 2) - (labelTextWidth / 2), chartHeight + 20);
                 }
         
                 if (progress < 1) {
@@ -216,7 +207,6 @@ Vue.component('AppVue', {
             var canvas = document.getElementById('pieChart');
             var ctx = canvas.getContext('2d');
             
-            // Limpa o canvas
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
             var data = this.pieData;
@@ -224,8 +214,7 @@ Vue.component('AppVue', {
             var startAngle = 0;
             var colors = ['#FF5733', '#33FF57', '#3357FF', '#F5A623'];
         
-            // Animação
-            let animationDuration = 1000; // Duração da animação em ms
+            let animationDuration = 1000;
             let startTime = null;
         
             const animatePieSlices = (timestamp) => {
@@ -245,14 +234,13 @@ Vue.component('AppVue', {
                     ctx.closePath();
                     ctx.fill();
         
-                    // Adiciona as legendas
                     var middleAngle = currentStartAngle + sliceAngle / 2;
                     var x = canvas.width / 2 + Math.cos(middleAngle) * 100;
                     var y = canvas.height / 2 + Math.sin(middleAngle) * 100;
                     ctx.fillStyle = '#000';
                     ctx.fillText(data.labels[i], x - 30, y);
-                    ctx.fillText(data.values[i], x - 30, y + 20); // Coloca a quantidade abaixo do nome
-                    ctx.font = '18px Arial'; // Define o tamanho da fonte
+                    ctx.fillText(data.values[i], x - 30, y + 20);
+                    ctx.font = '18px Arial';
 
                     currentStartAngle += sliceAngle;
                 }

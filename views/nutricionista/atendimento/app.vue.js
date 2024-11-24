@@ -370,7 +370,7 @@ Vue.component('AppVue', {
         },
         salvarAtendimento() {
             const dados = {
-                id_paciente: this.id_paciente, // Passa o ID do paciente
+                id_paciente: this.id_paciente,
                 cpf: this.cpf,
                 nome_completo: this.nome_completo,
                 data_nascimento: this.data_nascimento,

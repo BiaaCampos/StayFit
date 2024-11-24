@@ -47,7 +47,6 @@ Vue.component("header_home", {
         },
     },
     mounted() {
-        console.log('oi')
         const menu = document.getElementById('mobileMenu');
         menu.style.display = 'none';
     }

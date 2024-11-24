@@ -458,7 +458,6 @@ Vue.component('AppVue', {
   methods: {
     toggleMenu() {
       this.menuVisible = !this.menuVisible;
-      console.log("Menu visível:", this.menuVisible);
     },
     getInfos(){
       axios.get(BASE + "/perfil_usuario/getInfos").then((res) => {
@@ -477,7 +476,6 @@ Vue.component('AppVue', {
       }
 
       axios.post(BASE + "/perfil_usuario/addAgua", agua).then((res) => {
-        console.log(res)
         if (res.data.code == 1) {
           mainLayout.sToast(res.data.msg, "","success");
           this.getAgua();
@@ -521,7 +519,6 @@ Vue.component('AppVue', {
     },
     AbrirModal(args) {
       this.header = args
-      console.log(args)
       switch (args) {
         case 'Café da Manhã':
             this.tabData = this.itemCardapio.CafeDaManha
@@ -539,7 +536,6 @@ Vue.component('AppVue', {
             this.tabData = this.itemCardapio.Ceia
           break;
       }
-      console.log(this.tabData)
       this.$refs.alimento_tab.$refs.RefeicaoDialog.show();
     },
     AbrirModalRelatorio(args) {
@@ -547,7 +543,6 @@ Vue.component('AppVue', {
       this.$refs.RelatorioDialog.show();
     },
     dlgBtnClick() {
-      console.log('enviando')
     },
   },
   mounted: function() {

@@ -22,7 +22,6 @@ Vue.component('AppVue', {
     },
     methods: {
         getReturn() {
-            // console.log("ness");
             axios.get(BASE + "/telaErro/ReturnType").then((res) => {
                 if (res.data.data == 0) {
                     window.location.href = BASE + '/'

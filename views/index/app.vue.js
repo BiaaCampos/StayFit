@@ -110,7 +110,7 @@ Vue.component('AppVue', {
     methods: {
         fetchNutricionistas() {
             axios
-                .get(BASE + '/agendarconsulta/listaNutricionista')
+                .get(BASE + '/index/listaNutricionista')
                 .then((response) => {
                     this.data = response.data;
                 })
