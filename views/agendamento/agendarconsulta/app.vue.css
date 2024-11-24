@@ -250,6 +250,15 @@ html, body, #container {
         padding: 50px 15px;
         width: 100%;
     }
+    .container-mobile-agenda{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .div-calendario, .card-horarios{
+        width: 100%;
+    }
 }
 
 @media (max-width: 1024px) {
@@ -296,9 +305,6 @@ html, body, #container {
 }
 
 @media (max-width: 768px) {
-    .horarios-container {
-        flex-direction: column; 
-    }
 
     .button_horario {
         width: 100%; 

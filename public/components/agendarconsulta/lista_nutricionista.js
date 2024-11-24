@@ -1,9 +1,9 @@
 Vue.component("lista_nutricionista", {
-  props: ['tiponutricionista'],
-  template: `
+    props: ['tiponutricionista'],
+    template: `
 <div class="row">
         <div v-if="data.length === 0" class="col-md-12 text-center">
-            <h6>Nenhum nutricionista cadastrado no momento.</h6>
+            <h6>Nenhum nutricionista com disponibilidade no momento.</h6>
         </div>
         <div 
             v-for="nutricionista in data" 
@@ -53,40 +53,39 @@ Vue.component("lista_nutricionista", {
             </div>
         </div>
     </div>`,
-  data: function () {
-    return {
-      data: [],
-      tipomodalinfo: 'Você está prestes a selecionar um nutricionista.',
-    };
-  },
-  mounted: function () {
-    this.fetchNutricionistas();
-  },
-  methods: {
-    fetchNutricionistas() {
-        axios.get(BASE + '/agendarconsulta/listaNutricionista')
-            .then((response) => {
-                this.data = response.data;
-            })
-            .catch((error) => {
-                console.error("Erro ao buscar nutricionistas:", error);
-            });
+    data: function () {
+        return {
+            data: [],
+            tipomodalinfo: 'Você está prestes a selecionar um nutricionista.',
+        };
     },
-    
-    selecionarNutricionista(nutricionista) {
-        this.nutricionista = nutricionista;
+    mounted: function () {
+        this.fetchNutricionistas();
     },
-    
-    emitirAgendamento() {
-        if (this.nutricionista) {
-            this.$emit('continuar-agendamento', this.nutricionista);
-        } else {
-            alert("Por favor, selecione um nutricionista.");
-        }
-    },
-    goToCalendar() {
-        this.emitirAgendamento();
-    }
-}
+    methods: {
+        fetchNutricionistas() {
+            axios.get(BASE + '/agendarconsulta/listaNutricionista')
+                .then((response) => {
+                    this.data = response.data;
+                })
+                .catch((error) => {
+                    console.error("Erro ao buscar nutricionistas:", error);
+                });
+        },
 
+        selecionarNutricionista(nutricionista) {
+            this.nutricionista = nutricionista;
+        },
+
+        emitirAgendamento() {
+            if (this.nutricionista) {
+                this.$emit('continuar-agendamento', this.nutricionista);
+            } else {
+                alert("Por favor, selecione um nutricionista.");
+            }
+        },
+        goToCalendar() {
+            this.emitirAgendamento();
+        }
+    }
 });
