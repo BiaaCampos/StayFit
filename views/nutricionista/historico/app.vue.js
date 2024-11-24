@@ -57,23 +57,23 @@ Vue.component('AppVue', {
                 });
         },
         rowDataBound: function(args) {
-            const status = args.data.nome_status; // Obtém o status da linha
+            const status = args.data.nome_status;
             switch (status) {
                 case 'agendada':
-                    args.row.style.backgroundColor = '#ffeb3b'; // Amarelo
-                    args.row.style.color = '#000'; // Preto
+                    args.row.style.backgroundColor = '#ffeb3b';
+                    args.row.style.color = '#000';
                     break;
                 case 'cancelada':
-                    args.row.style.backgroundColor = '#2196f3'; // Azul
-                    args.row.style.color = '#fff'; // Branco
+                    args.row.style.backgroundColor = '#2196f3';
+                    args.row.style.color = '#fff';
                     break;
                 case 'realizada':
-                    args.row.style.backgroundColor = '#4caf50'; // Verde
-                    args.row.style.color = '#fff'; // Branco
+                    args.row.style.backgroundColor = '#4caf50';
+                    args.row.style.color = '#fff';
                     break;
                 default:
-                    args.row.style.backgroundColor = '#ffffff'; // Branco padrão
-                    args.row.style.color = '#000'; // Preto padrão
+                    args.row.style.backgroundColor = '#ffffff';
+                    args.row.style.color = '#000';
             }
         }
     },

@@ -1,7 +1,6 @@
 <?php
 
 require_once("util/param.php");
-// $post = json_decode(file_get_contents('php://input'));
 class Perfil_usuario_model extends Model
 {
     public function __construct()
@@ -204,7 +203,6 @@ class Perfil_usuario_model extends Model
                         $cardapio[] = $cardapio_item;
                         break;
                 }
-                // var_dump(empty($cardapio));
             }
 
             if(empty($cardapio)) {
@@ -218,7 +216,6 @@ class Perfil_usuario_model extends Model
     }
 
     public function getAgua(){
-        // $post = json_decode(file_get_contents('php://input'));
         $id = session::get('ID');
 
         $dados = array(

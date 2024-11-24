@@ -74,7 +74,7 @@ Vue.component("lista_nutricionista", {
     },
     
     selecionarNutricionista(nutricionista) {
-        this.nutricionista = nutricionista; // Salva o nutricionista selecionado
+        this.nutricionista = nutricionista;
     },
     
     emitirAgendamento() {
@@ -85,7 +85,7 @@ Vue.component("lista_nutricionista", {
         }
     },
     goToCalendar() {
-        this.emitirAgendamento(); // Chama o método que emite o nutricionista
+        this.emitirAgendamento();
     }
 }
 

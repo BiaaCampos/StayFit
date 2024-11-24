@@ -2,7 +2,7 @@
 
 * {
     max-width: 100%;
-    box-sizing: border-box; /* Garante que padding e bordas não aumentem o tamanho total do elemento */
+    box-sizing: border-box;
 }
 
 html, body, #container {
@@ -244,7 +244,6 @@ html, body, #container {
     width: 100%;
 }
 
-/* Responsividade */
 @media (max-width: 1000px) {
     .fundo_agendarConsulta {
         height: 80%;
@@ -260,7 +259,7 @@ html, body, #container {
     }
     
     .card-profissionais-container {
-        padding-top: 3em; /* Reduzindo o espaço superior em tablets */
+        padding-top: 3em;
     }
 
     .title-agendar {

@@ -44,7 +44,6 @@ Vue.component('AppVue', {
     },
     computed: {
         duplicatedLogos() {
-            // Duplicamos automaticamente as imagens para preencher o espaço e criar o loop contínuo
             return [...this.logos, ...this.logos];
         },
         logosContainerStyle() {

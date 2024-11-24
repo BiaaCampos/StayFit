@@ -67,7 +67,7 @@ Vue.component("lista_calendario", {
         mensagem: '',
         horarioSelecionado: null,
         selectedDate: null,
-        minDate: new Date() // Define a data mínima como hoje
+        minDate: new Date()
       };
     },
     methods: {

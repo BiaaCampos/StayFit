@@ -30,10 +30,6 @@ footer{
     display: flex;
     align-content: center;
     flex-wrap: wrap;
-    /* & #plate {
-        position: relative;
-        left: 11rem;
-    } */
 }
 .login-container{
     background-color: #ffffff;
@@ -105,7 +101,6 @@ input[type=number] {
 
 /* Spinning load art */
 .lds-ellipsis {
-    /* change color here */
     color: #3dae4b
 }
 .lds-ellipsis,

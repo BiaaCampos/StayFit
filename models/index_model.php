@@ -20,4 +20,10 @@ class Index_Model extends Model
         echo("OK");
     }
 
+    public function listaNutricionista() {
+        $sql="select id, nome, crn from stayfit.nutricionistas order by id";
+        $result=$this->db->select($sql);	
+		echo(json_encode($result));
+    }
+
 }

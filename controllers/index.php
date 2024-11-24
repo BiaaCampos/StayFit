@@ -24,4 +24,8 @@ class Index extends Controller
         $this->view->render('footer');
     }
 
+    function listaNutricionista() 
+    {  
+        $this->model->listaNutricionista();
+    }
 } 
