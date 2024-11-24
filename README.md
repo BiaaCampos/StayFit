@@ -116,12 +116,12 @@ A estrutura de pastas do projeto é organizada da seguinte forma:
 
 2. **Execução**: Inicie o servidor de desenvolvimento, ligando o apache e o mysql.
 
-3. **Acessar a Aplicação**: Abra o navegador e acesse `http://localhost/stayfit/atendimento`.
+3. **Acessar a Aplicação**: Abra o navegador e acesse `http://localhost/stayfit`.
 
 
 ## Imagens/Vídeos estrutura das páginas
 Acesse esse link para o vídeo do projeto rodando: 
-Acesse esse link para ver as páginas através de imagens: 
+Acesse esse link para ver as páginas através de imagens: https://www.notion.so/Documenta-o-de-p-ginas-stayfit-148a6ca0c12a80a4b832fad2d4669342?pvs=4
 
 
 ## Licença
