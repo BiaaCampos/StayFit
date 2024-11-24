@@ -42,6 +42,24 @@
     height: 45px;
     color: white;
 }
+.btn-salvar {
+    background-color: #32794F;
+    color: white;
+}
+.btn-fechar{
+    background-color: transparent;
+    border: 1px solid #32794F;
+}
+.modal-dialog-2{
+    background: #41414147;
+}
+.modal-content-2 {
+    height: 40% !important;
+    width: 50%;
+}
+.modal-content{
+    height: 65%;
+}
 .modal-header, .modal-footer{
     border: 0;
 }
@@ -120,6 +138,12 @@
   }
 
 @media (max-width: 1000px) {
+    .modal-content-2 {
+        width: 80%;
+    }
+    .modal-dialog {
+        max-width: 90%;
+    }
     .fundo_atendimento{
         height: 80%;
         padding: 50px 15px;
