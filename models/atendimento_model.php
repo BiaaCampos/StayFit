@@ -65,7 +65,9 @@ class Atendimento_Model extends Model
         if (!isset($_SESSION['ID'])) {
             exit(json_encode(["code" => "0", "msg" => "Usuário não autenticado."]));
         }
+
         $id_nutricionista = $_SESSION['ID'];
+
         if (!isset($post->id_paciente)) {
             echo json_encode(["code" => "0", "msg" => "ID do paciente não fornecido."]);
             return;
@@ -98,10 +100,33 @@ class Atendimento_Model extends Model
             'historico_familiar' => $post->historico_familiar ?? null,
         ];
     
-        $result = $this->db->insert('atendimento', $dados);
-    
+        $result = $this->db->insert('stayfit.atendimento', $dados);
+        
         if ($result) {
-            echo json_encode(["code" => "1", "msg" => "Atendimento salvo com sucesso."]);
+            $stmt = $this->db->prepare("
+                SELECT id 
+                FROM stayfit.consultas 
+                WHERE id_usuario = ? 
+                AND id_nutricionista = ? 
+                AND id_status != 2
+                ORDER BY data_consulta DESC 
+                LIMIT 1
+            ");
+            $stmt->execute([$post->id_paciente, $id_nutricionista]);
+            
+            $ultima_consulta = $stmt->fetch();
+
+            if ($ultima_consulta) {
+                $stmt = $this->db->prepare("
+                    UPDATE stayfit.consultas 
+                    SET id_status = 2 
+                    WHERE id = ?
+                ");
+                $stmt->execute([$ultima_consulta['id']]);
+
+                echo json_encode(["code" => "1", "msg" => "Atendimento salvo com sucesso."]);
+            }
+
         } else {
             echo json_encode(["code" => "0", "msg" => "Erro ao salvar atendimento."]);
         }
@@ -221,7 +246,6 @@ class Atendimento_Model extends Model
         }
     }
 
-    
     public function listaRecomendacao() {
         $post = json_decode(file_get_contents('php://input'));
     
@@ -257,6 +281,4 @@ class Atendimento_Model extends Model
             echo(json_encode(["code" => "0", "msg" => "Nenhum dado encontrado."]));
         }
     }
-   
-    
 }
