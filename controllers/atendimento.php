@@ -57,11 +57,14 @@ class Atendimento extends Controller
     {  
         $this->model->loadAlimentos();
     }
-
-    function salvarRegimeUsuario() 
+    function listaRecomendacao() 
+    {  
+        $this->model->listaRecomendacao();
+    }
+    function salvarRecomendacao() 
     {
         $post = json_decode(file_get_contents('php://input'));
-        if ($this->model->salvarRegimeUsuario($post)) {
+        if ($this->model->salvarRecomendacao($post)) {
             echo json_encode(["code" => "1", "msg" => "Registro salvo com sucesso."]);
         } else {
             echo json_encode(["code" => "0", "msg" => "Erro ao salvar registro."]);
@@ -78,13 +81,10 @@ class Atendimento extends Controller
         }
     }
 
-    function excluirRegimeUsuario() 
+    function excluirRegimeUsuario()
     {
         $post = json_decode(file_get_contents('php://input'));
-        if (isset($post->id) && $this->model->excluirRegimeUsuario($post->id)) {
-            echo json_encode(["code" => "1", "msg" => "Registro excluído com sucesso."]);
-        } else {
-            echo json_encode(["code" => "0", "msg" => "Erro ao excluir registro."]);
-        }
+        $this->model->excluirRegimeUsuario();
     }
+    
 }

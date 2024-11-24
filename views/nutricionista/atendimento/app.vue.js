@@ -144,7 +144,7 @@ const newLocal = `
                         <ejs-textbox floatLabelType="Auto" placeholder="Medicamentos com prescrição" v-model="medicamentos"></ejs-textbox>
                     </div>
                     <div class="col-md-4">
-                        <ejs-multiselect placeholder="História familiar (patologias)" v-model="historico_familiar" :dataSource="['Diabetes', 'Obesidade', 'HAS', 'Dislipidemias', 'Câncer']"></ejs-multiselect>
+                        <ejs-multiselect placeholder="Histórico familiar (patologias)" v-model="historico_familiar" :dataSource="['Diabetes', 'Obesidade', 'HAS', 'Dislipidemias', 'Câncer']"></ejs-multiselect>
                     </div>
                 </div>
 
@@ -153,6 +153,7 @@ const newLocal = `
                     <div class="col-md-4"></div>
                     <div class="col-md-4" style="display:flex; justify-content:center">
                         <modal_atendimento 
+                            v-if="id_paciente"
                             :tipomodalatendimento="tipomodalatendimento" 
                             :id-paciente="id_paciente">
                         </modal_atendimento>
@@ -365,7 +366,7 @@ Vue.component('AppVue', {
             this.situacao_estresse = '';
             this.comentarios_adicionais = '';
             this.objetivosSelecionados = [];
-            this.sexo = '';
+            this.sexo = [];
             this.id_paciente = null;
         },
         salvarAtendimento() {

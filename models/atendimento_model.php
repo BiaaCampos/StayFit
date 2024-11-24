@@ -119,19 +119,144 @@ class Atendimento_Model extends Model
 		echo(json_encode($result));
     }
 
-    public function salvarRegimeUsuario($dados) {
-        $sql = "INSERT INTO regime_usuario (id_usuario, id_alimento, quantidade) VALUES (:id_usuario, :id_alimento, :quantidade)";
-        return $this->db->insert($sql, $dados);
+    public function salvarRecomendacao()
+    {
+        $post = json_decode(file_get_contents('php://input'));
+
+        if (!isset($_SESSION['ID'])) {
+            exit(json_encode(["code" => "0", "msg" => "Usuário não autenticado."]));
+        }
+    
+        $id_usuario = $post->id_paciente;
+        $id_alimento = $post->alimento ?? null;
+        $id_refeicao = $post->refeicao ?? null;
+        $quantidade = $post->quantidade ?? null;
+
+
+        if (!$id_usuario || !$id_alimento || !$id_refeicao || !$quantidade) {
+            exit(json_encode(["code" => "0", "msg" => "Todos os campos são obrigatórios."]));
+        }
+    
+        $dados = [
+            'id_usuario' => $id_usuario,
+            'id_alimento' => $id_alimento,
+            'id_refeicao' => $id_refeicao,
+            'quantidade' => $quantidade
+        ];
+    
+        $result = $this->db->insert('stayfit.regime_usuario', $dados);
+    
+        if ($result) {
+            exit(json_encode(["code" => "1", "msg" => "Recomendação salva com sucesso!"]));
+        } else {
+            exit(json_encode(["code" => "0", "msg" => "Erro ao salvar a recomendação."]));
+        }
+    }
+    public function editarRegimeUsuario()
+    {
+        $post = json_decode(file_get_contents('php://input'));
+        
+        if (!isset($_SESSION['ID'])) {
+            exit(json_encode(["code" => "0", "msg" => "Usuário não autenticado."]));
+        }
+    
+        $id = $post->id ?? null;
+        $id_usuario = $post->id_paciente;  
+        $id_alimento = $post->alimento ?? null; 
+        $id_refeicao = $post->refeicao ?? null; 
+        $quantidade = $post->quantidade ?? null;
+    
+        if (!$id || !$id_usuario || !$id_alimento || !$id_refeicao || !$quantidade) {
+            exit(json_encode(["code" => "0", "msg" => "Todos os campos são obrigatórios."]));
+        }
+        $dadosAtualizacao = [
+            'id_usuario' => $id_usuario,
+            'id_alimento' => $id_alimento,
+            'quantidade' => $quantidade,
+            'id_refeicao' => $id_refeicao
+        ];
+    
+        $conditions = "id = $id";
+    
+        $updateResult = $this->db->update('stayfit.regime_usuario', $dadosAtualizacao, $conditions);
+    
+        if ($updateResult) {
+            exit(json_encode(["code" => "1", "msg" => "Recomendação atualizada com sucesso!"]));
+        } else {
+            exit(json_encode(["code" => "0", "msg" => "Erro ao atualizar a recomendação."]));
+        }
     }
     
-    public function editarRegimeUsuario($dados) {
-        $sql = "UPDATE regime_usuario SET id_alimento = :id_alimento, quantidade = :quantidade WHERE id = :id";
-        return $this->db->update($sql, $dados);
-    }
+    public function excluirRegimeUsuario()
+    {
+        $post = json_decode(file_get_contents('php://input'));
+        if (!isset($_SESSION['ID'])) {
+            exit(json_encode(["code" => "0", "msg" => "Usuário não autenticado."]));
+        }
     
-    public function excluirRegimeUsuario($id) {
-        $sql = "DELETE FROM regime_usuario WHERE id = :id";
-        return $this->db->delete($sql, ['id' => $id]);
+        $id = $post->id ?? null;
+        $id_usuario = $post->id_paciente;
+    
+        if (!$id) {
+            exit(json_encode(["code" => "0", "msg" => "ID do registro é obrigatório."]));
+        }
+    
+        $dados = [
+            ':id' => $id,
+            ':id_usuario' => $id_usuario
+        ];
+    
+        $sql = "DELETE FROM stayfit.regime_usuario 
+                WHERE id = :id AND id_usuario = :id_usuario";
+    
+        try {
+            $stmt = $this->db->prepare($sql);
+            if ($stmt->execute($dados)) {
+                exit(json_encode(["code" => "1", "msg" => "Registro excluído com sucesso!"]));
+            } else {
+                exit(json_encode(["code" => "0", "msg" => "Erro ao excluir o registro."]));
+            }
+        } catch (PDOException $e) {
+            exit(json_encode(["code" => "0", "msg" => "Erro: " . $e->getMessage()]));
+        }
     }
+
+    
+    public function listaRecomendacao() {
+        $post = json_decode(file_get_contents('php://input'));
+    
+        if (!isset($_SESSION['ID'])) {
+            exit(json_encode(["code" => "0", "msg" => "Usuário não autenticado."]));
+        }
+    
+        $id_paciente = $post->id_paciente ?? null;
+    
+        if (!$id_paciente) {
+            exit(json_encode(["code" => "0", "msg" => "ID do paciente não fornecido."]));
+        }
+    
+        $sql = "SELECT 
+                    ru.id AS regime_id, 
+                    a.nome AS alimento_nome, 
+                    r.nome AS refeicao_nome, 
+                    ru.quantidade 
+                FROM 
+                    stayfit.regime_usuario ru 
+                JOIN 
+                    stayfit.alimentos a ON ru.id_alimento = a.id 
+                JOIN 
+                    stayfit.refeicoes r ON ru.id_refeicao = r.id 
+                WHERE 
+                    ru.id_usuario = :id_paciente";
+    
+        $result = $this->db->select($sql, ['id_paciente' => $id_paciente]);
+        
+        if ($result) {
+            echo(json_encode(["code" => "1", "data" => $result])); 
+        } else {
+            echo(json_encode(["code" => "0", "msg" => "Nenhum dado encontrado."]));
+        }
+    }
+   
     
 }
