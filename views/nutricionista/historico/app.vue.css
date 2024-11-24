@@ -5,6 +5,7 @@
     padding: 30px 0.3px;
     height: 100%;
     border-radius: 20px;
+    width: 100%;
 }
 
 .fundo_historico div h1 {
@@ -98,3 +99,28 @@
         margin-bottom: 10px; /* Espaçamento entre os itens */
     }
 }
+.grid-scroll{
+    width: 100% !important;
+}
+@media (max-width: 768px) {
+    /* Adicionando rolagem horizontal para a grid */
+    .grid_historico {
+        width: 100%;
+        overflow-x: auto; /* Rolagem horizontal */
+        -webkit-overflow-scrolling: touch; /* Suaviza a rolagem no iOS */
+    }
+    .ejs-grid .e-columnheader, 
+    .ejs-grid .e-rowcell {
+        font-size: 14px; /* Reduzindo o tamanho da fonte */
+        padding: 8px; /* Ajuste do padding */
+    }
+
+    /* Ajuste da largura das colunas para se adaptar melhor em telas pequenas */
+    .ejs-grid .e-column {
+        width: auto; /* Faz com que as colunas se ajustem automaticamente */
+    }
+    .ejs-grid .e-columnheader, .ejs-grid .e-rowcell {
+        min-width: 100px; /* Definindo um tamanho mínimo para as células */
+    }
+}
+

@@ -1,11 +1,14 @@
 Vue.component("lista_nutricionista", {
   props: ['tiponutricionista'],
   template: `
-     <div class="row">
+<div class="row">
         <div v-if="data.length === 0" class="col-md-12 text-center">
             <h6>Nenhum nutricionista cadastrado no momento.</h6>
         </div>
-        <div class="col-md-6 mb-3" v-for="nutricionista in data" :key="nutricionista.id">
+        <div 
+            v-for="nutricionista in data" 
+            :key="nutricionista.id" 
+            :class="data.length === 1 ? 'col-md-12 mb-3' : 'col-md-6 mb-3'">
             <div class="card-profissionais-container">
                 <div tabindex="0" class="e-card card-profissionais" role="button">
                     <div class="e-card-header">

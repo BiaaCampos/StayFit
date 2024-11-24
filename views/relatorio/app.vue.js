@@ -8,11 +8,11 @@ const newLocal = `
             <div class="graficos" v-if="hasData">
                 <div>
                     <h2>Gráfico de Consultas Mensais</h2>
-                    <canvas id="barChart" width="600" height="400"></canvas>
+                    <canvas id="barChart" width="500" height="400"></canvas>
                 </div>
                 <div>
                     <h2>Gráfico de Gêneros</h2>
-                    <canvas id="genderBarChart" width="600" height="400"></canvas>
+                    <canvas id="genderBarChart" width="500" height="400"></canvas>
                 </div>
                 <div>
                     <h2>Gráfico de Status das Consultas</h2>
@@ -51,7 +51,7 @@ Vue.component('AppVue', {
                 values: [] 
             },
             hasData: true,
-            totalConsultas: null, // Adiciona a variável para total de consultas
+            totalConsultas: null,
             statusConsultas: null 
         };
     },
@@ -68,18 +68,18 @@ Vue.component('AppVue', {
                 .then((response) => {
                     const data = response.data;
                     const monthMap = {
-                        'January': 'Janeiro',
-                        'February': 'Fevereiro',
-                        'March': 'Março',
-                        'April': 'Abril',
-                        'May': 'Maio',
-                        'June': 'Junho',
-                        'July': 'Julho',
-                        'August': 'Agosto',
-                        'September': 'Setembro',
-                        'October': 'Outubro',
-                        'November': 'Novembro',
-                        'December': 'Dezembro'
+                        'January': 'Jan',
+                        'February': 'Fev',
+                        'March': 'Mar',
+                        'April': 'Abr',
+                        'May': 'Mai',
+                        'June': 'Jun',
+                        'July': 'Jul',
+                        'August': 'Ago',
+                        'September': 'Set',
+                        'October': 'Out',
+                        'November': 'Nov',
+                        'December': 'Dez'
                     };
                     this.chartData.labels = data.map(item => monthMap[item.Mes] || item.Mes);
                     this.chartData.values = data.map(item => item.Total_Consultas);
@@ -170,8 +170,8 @@ Vue.component('AppVue', {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
             var data = this.chartData;
-            var barWidth = 50;
-            var barSpacing = 20;
+            var barWidth = 50; // Largura das barras
+            var barSpacing = 40; // Aumentado para mais espaçamento
             var chartHeight = 300;
         
             // Animação

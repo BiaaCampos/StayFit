@@ -1,11 +1,80 @@
 const newLocal = `
-<div style="display: flex; flex-direction: row;">
+<div class="perfil-container">
   <div class="body-div">
     <div class="central">
-      <div class="row" style="gap: 2rem; margin-top: 2rem;">
+      <button class="button-infos" @click="toggleMenu">Ver Minhas Informações</button>
+      <div class="menu-lateral" :class="{ show: menuVisible }">
+        <button @click="toggleMenu" class="close-button">X</button> <!-- Botão para fechar -->
+        <div class="row card-body card-size">
+          <div class="col-md-12 mb-2">
+            <div class="card_header">
+              <h1 class="card-title">Perfil</h1>
+            </div>
+          </div>
+          
+          <div class="col-md-12 size-text">
+            <h5 class="h5-size">NOME</h5>
+            <p>{{ userData[0].NOME }}</p>
+          </div>
+
+          <div class="col-md-12 size-text">
+            <h5 class="h5-size">CELULAR</h5>
+            <p>{{ userData[0].TELEFONE }}</p>
+          </div>
+
+          <div class="col-md-12 size-text">
+            <h5 class="h5-size">EMAIL</h5>
+            <p>{{ userData[0].EMAIL }}</p>
+          </div>
+
+          <div class="col-md-12 size-text">
+            <h5 class="h5-size">DATA DE NASCIMENTO</h5>
+            <p>{{ userData[0].NASCIMENTO }}</p>
+          </div>
+
+          <div class="col-md-12 size-text">
+            <h5 class="h5-size">GÊNERO</h5>
+            <p>{{ userData[0].GENERO }}</p>
+          </div>
+
+          <div class="col-md-12 size-text">
+            <h5 class="h5-size">PESO ATUAL</h5>
+            <p>{{ userData[0].PESO_ATUAL }}</p>
+          </div>
+
+          <div class="col-md-12 size-text">
+            <h5 class="h5-size">PESO DESEJADO</h5>
+            <p>{{ userData[0].PESO_IDEAL }}</p>
+          </div>
+
+          <div class="col-md-12 size-text">
+            <h5 class="h5-size">ALTURA</h5>
+            <p>{{ userData[0].ALTURA }}</p>
+          </div>
+
+          <div class="col-md-12 size-text">
+            <h5 class="h5-size">IDENTIFICAÇÃO</h5>
+            <p>{{ userData[0].ID }}</p>
+          </div>
+
+          <div class="col-md-12 size-text mb-2">
+            <h5 class="h5-size">METAS</h5>
+            <p>{{ userData[0].OBJETIVO }}</p>
+          </div>
+
+          <div class="col-md-12 size-text" style="display: flex; justify-content: center; align-items: center;">
+            <ejs-button 
+              id="editBtn"
+              cssClass="e-success">
+              Editar informações
+            </ejs-button>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 2rem;">
         <!-- Água -->
-        <div class="col-md-auto">
-          <div class="card col" style="width: 18rem;">
+        <div class="col-md-4 mb-2">
+          <div class="card col" >
             <div class="card-body">
               <div class="div-head-card">
                 <img src="public/images/agua-icon.svg" alt="">
@@ -55,8 +124,8 @@ const newLocal = `
           </div>
         </div>
         <!-- Café da Manhã -->
-        <div class="col-md-auto">
-          <div class="card col" style="width: 18rem;">
+        <div class="col-md-4 mb-2">
+          <div class="card col" >
             <div class="card-body">
               <div class="div-head-card">
                 <img src="public/images/Cafe_da_manha.svg">
@@ -93,8 +162,8 @@ const newLocal = `
           </div>
         </div>
         <!-- Almoço -->
-        <div class="col-md-auto">
-          <div class="card col" style="width: 18rem;">
+        <div class="col-md-4 mb-2">
+          <div class="card col" >
             <div class="card-body">
               <div class="div-head-card">
                 <img src="public/images/Almoco.svg">
@@ -130,11 +199,10 @@ const newLocal = `
             </div>
           </div>
         </div>
-      </div>
-      <div class="row" style="gap: 2rem">
+        
         <!-- Café da tarde -->
-        <div class="col-md-auto">
-          <div class="card" style="width: 18rem;">
+        <div class="col-md-4 mb-2">
+          <div class="card" >
             <div class="card-body">
               <div class="div-head-card">
                 <img src="public/images/Cafe_da_tarde.svg">
@@ -170,9 +238,10 @@ const newLocal = `
             </div>
           </div>
         </div>
+
         <!-- Jantar -->
-        <div class="col-md-auto">
-          <div class="card col" style="width: 18rem;">
+        <div class="col-md-4 mb-2">
+          <div class="card col" >
             <div class="card-body">
               <div class="div-head-card">
                 <img src="public/images/Janta.svg">
@@ -209,8 +278,8 @@ const newLocal = `
           </div>
         </div>
         <!-- Ceia -->
-        <div class="col-md-auto">
-          <div class="card col" style="width: 18rem;">
+        <div class="col-md-4 mb-2">
+          <div class="card col">
             <div class="card-body">
               <div class="div-head-card">
                 <img src="public/images/Ceia.svg">
@@ -248,13 +317,13 @@ const newLocal = `
         </div>
       </div>
       <div style="gap: 2rem; display: flex; flex-direction: column; padding-bottom: 2rem;">
-        <div class="card" style="width: 61rem; display: flex; flex-direction: row; align-items: center;">
+        <div class="card" style="display: flex; flex-direction: row; align-items: center;">
           <div class="card-body" style="52rem">
             <h5 class="card-title">Histórico Médico</h5>
           </div>
           <i class="fas fa-eye" @click="AbrirModalRelatorio('Histórico Médico')" style="font-size: 3rem;margin: 0 2rem;color: #0fa958; cursor: pointer;"></i>
         </div>
-        <div class="card" style="width: 61rem; display: flex; flex-direction: row; align-items: center;">
+        <div class="card" style="display: flex; flex-direction: row; align-items: center;">
           <div class="card-body">
             <h5 class="card-title">Avaliação Nutricional</h5>
           </div>
@@ -265,60 +334,64 @@ const newLocal = `
   </div>
   <div class="perfil_info">
     <div class="card perfil_card">
-      <div class="card-body">
-        <div class="card_header">
-          <h1 class="card-title">Perfil</h1>
-          <img src="public/images/PLATINUM_LOGO.svg" alt="tipo plano">
+      <div class="row card-body card-size">
+        <div class="col-md-12 mb-2">
+          <div class="card_header">
+            <h1 class="card-title">Perfil</h1>
+          </div>
         </div>
-        <div>
-          <h5>NOME</h5>
+        
+        <div class="col-md-6 size-text">
+          <h5 class="h5-size">NOME</h5>
           <p>{{ userData[0].NOME }}</p>
         </div>
-        <div class="divisor">
-          <div>
-            <h5>CELULAR</h5>
-            <p>{{ userData[0].TELEFONE }}</p>
-          </div>
-          <div style="display: flex; right: 88px; position: relative; flex-direction: column;">
-            <h5>EMAIL</h5>
-            <p>{{ userData[0].EMAIL }}</p>
-          </div>
+
+        <div class="col-md-6 size-text">
+          <h5 class="h5-size">CELULAR</h5>
+          <p>{{ userData[0].TELEFONE }}</p>
         </div>
-        <div class="divisor">
-          <div>
-            <h5>DATA DE NASCIMENTO</h5>
-            <p>{{ userData[0].NASCIMENTO }}</p>
-          </div>
-          <div style="display: flex; right: 144px; position: relative; flex-direction: column;">
-            <h5>GÊNERO</h5>
-            <p>{{ userData[0].GENERO }}</p>
-          </div>
+
+        <div class="col-md-6 size-text">
+          <h5 class="h5-size">EMAIL</h5>
+          <p>{{ userData[0].EMAIL }}</p>
         </div>
-        <div class="divisor">
-          <div>
-            <h5>PESO ATUAL</h5>
-            <p>{{ userData[0].PESO_ATUAL }}</p>
-          </div>
-          <div style="display: flex; right: 68px; position: relative; flex-direction: column;">
-            <h5>PESO DESEJADO</h5>
-            <p>{{ userData[0].PESO_IDEAL }}</p>
-          </div>
+
+        <div class="col-md-6 size-text">
+          <h5 class="h5-size">DATA DE NASCIMENTO</h5>
+          <p>{{ userData[0].NASCIMENTO }}</p>
         </div>
-        <div class="divisor">
-          <div>
-            <h5>ALTURA</h5>
-            <p>{{ userData[0].ALTURA }}</p>
-          </div>
-          <div style="display: flex; right: 77px; position: relative; flex-direction: column;">
-            <h5>IDENTIFICAÇÃO</h5>
-            <p>{{ userData[0].ID }}</p>
-          </div>
+
+        <div class="col-md-6 size-text">
+          <h5 class="h5-size">GÊNERO</h5>
+          <p>{{ userData[0].GENERO }}</p>
         </div>
-        <div>
-          <h5>METAS</h5>
+
+        <div class="col-md-6 size-text">
+          <h5 class="h5-size">PESO ATUAL</h5>
+          <p>{{ userData[0].PESO_ATUAL }}</p>
+        </div>
+
+        <div class="col-md-6 size-text">
+          <h5 class="h5-size">PESO DESEJADO</h5>
+          <p>{{ userData[0].PESO_IDEAL }}</p>
+        </div>
+
+        <div class="col-md-6 size-text">
+          <h5 class="h5-size">ALTURA</h5>
+          <p>{{ userData[0].ALTURA }}</p>
+        </div>
+
+        <div class="col-md-6 size-text">
+          <h5 class="h5-size">IDENTIFICAÇÃO</h5>
+          <p>{{ userData[0].ID }}</p>
+        </div>
+
+        <div class="col-md-6 size-text mb-2">
+          <h5 class="h5-size">METAS</h5>
           <p>{{ userData[0].OBJETIVO }}</p>
         </div>
-        <div style="display: flex; justify-content: center; align-items: center; margin-top: 15vh;">
+
+        <div class="col-md-12 size-text" style="display: flex; justify-content: center; align-items: center;">
           <ejs-button 
             id="editBtn"
             cssClass="e-success">
@@ -353,6 +426,7 @@ Vue.component('AppVue', {
   template: AppTemplate,
   data: function() {
     return {
+      menuVisible: false,
       min: 0,
       max: 1000,
       step: 50,
@@ -382,6 +456,10 @@ Vue.component('AppVue', {
     }
   },
   methods: {
+    toggleMenu() {
+      this.menuVisible = !this.menuVisible;
+      console.log("Menu visível:", this.menuVisible);
+    },
     getInfos(){
       axios.get(BASE + "/perfil_usuario/getInfos").then((res) => {
         this.userData = res.data.data;

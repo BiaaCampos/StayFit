@@ -65,9 +65,7 @@ class Atendimento_Model extends Model
         if (!isset($_SESSION['ID'])) {
             exit(json_encode(["code" => "0", "msg" => "Usuário não autenticado."]));
         }
-        $id_nutricionista = $_SESSION['ID']; // Captura o ID do nutricionista da sessão
-        // var_dump($id_nutricionista);exit;
-        // Verifique se os campos obrigatórios estão presentes
+        $id_nutricionista = $_SESSION['ID'];
         if (!isset($post->id_paciente)) {
             echo json_encode(["code" => "0", "msg" => "ID do paciente não fornecido."]);
             return;
@@ -75,8 +73,8 @@ class Atendimento_Model extends Model
     
         $dados = [
             'id_paciente' => $post->id_paciente,
-            'id_nutricionista' => $id_nutricionista, // Adiciona o ID do nutricionista
-            'data_atendimento' => date('Y-m-d H:i:s'), // Data atual
+            'id_nutricionista' => $id_nutricionista,
+            'data_atendimento' => date('Y-m-d H:i:s'),
             'cpf' => $post->cpf ?? null,
             'nome_completo' => $post->nome_completo ?? null,
             'peso' => $post->peso ?? null,
@@ -100,7 +98,6 @@ class Atendimento_Model extends Model
             'historico_familiar' => $post->historico_familiar ?? null,
         ];
     
-        // Insira os dados no banco
         $result = $this->db->insert('atendimento', $dados);
     
         if ($result) {
@@ -110,6 +107,31 @@ class Atendimento_Model extends Model
         }
     }
     
+    public function loadAlimentos(){
+        $sql="SELECT id, nome FROM stayfit.alimentos";
+        $result=$this->db->select($sql);	
+		echo(json_encode($result));
+    }
+    
+    public function loadRefeicoes(){
+        $sql="SELECT id, nome FROM stayfit.refeicoes";
+        $result=$this->db->select($sql);	
+		echo(json_encode($result));
+    }
 
+    public function salvarRegimeUsuario($dados) {
+        $sql = "INSERT INTO regime_usuario (id_usuario, id_alimento, quantidade) VALUES (:id_usuario, :id_alimento, :quantidade)";
+        return $this->db->insert($sql, $dados);
+    }
+    
+    public function editarRegimeUsuario($dados) {
+        $sql = "UPDATE regime_usuario SET id_alimento = :id_alimento, quantidade = :quantidade WHERE id = :id";
+        return $this->db->update($sql, $dados);
+    }
+    
+    public function excluirRegimeUsuario($id) {
+        $sql = "DELETE FROM regime_usuario WHERE id = :id";
+        return $this->db->delete($sql, ['id' => $id]);
+    }
     
 }

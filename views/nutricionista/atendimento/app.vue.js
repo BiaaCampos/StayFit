@@ -152,7 +152,10 @@ const newLocal = `
                 <div class="row">
                     <div class="col-md-4"></div>
                     <div class="col-md-4" style="display:flex; justify-content:center">
-                        <modal_atendimento :tipomodalatendimento="tipomodalatendimento"></modal_atendimento>
+                        <modal_atendimento 
+                            :tipomodalatendimento="tipomodalatendimento" 
+                            :id-paciente="id_paciente">
+                        </modal_atendimento>
                     </div>
                     <div class="col-md-4"></div>
                 </div>
@@ -194,9 +197,9 @@ Vue.component('AppVue', {
             proteinas: null,
             gorduras: null,
             relacao_cintura_quadril: null,
-            circunferencia_braco: null, // Adicionado
-            circunferencia_coxa: null, // Adicionado
-            gordura_quadril: null, // Adicionado
+            circunferencia_braco: null,
+            circunferencia_coxa: null, 
+            gordura_quadril: null,
             objetivo: '',
             local_treino: '',
             habitos_alimentares: '',
@@ -247,8 +250,7 @@ Vue.component('AppVue', {
         calcularIMC() {
             if (this.peso && this.altura) {
                 this.imc = (this.peso / ((this.altura / 100) ** 2)).toFixed(2);
-                
-                // Ajuste das recomendações com base no gênero
+
                 if (this.sexo) {
                     if (this.imc < 18.5) {
                         this.recomendacao = this.sexo === 'Masculino' ? "Aumentar a ingestão calórica." : "Aumentar a ingestão calórica.";
@@ -267,11 +269,6 @@ Vue.component('AppVue', {
                 this.necessidade_hidrica = (this.peso * 35).toFixed(0);
             }
         },
-        // calcularNecessidadeCalorica() {
-        //     if (this.imc) {
-        //         this.necessidades_caloricas = (this.imc * 25).toFixed(0); // Exemplo simples
-        //     }
-        // },
         calcularTMB() {
             if (this.peso && this.altura && this.idade && this.sexo) {
                 if (this.sexo === 'masculino') {
@@ -283,17 +280,16 @@ Vue.component('AppVue', {
         },
         
         calcularNecessidadeCalorica() {
-            this.calcularTMB(); // Chame primeiro para garantir que a TMB esteja calculada
+            this.calcularTMB();
             if (this.tmb) {
-                // Exemplo de fator de atividade: 1.2 (sedentário), 1.375 (atividade leve), etc.
-                const fatorAtividade = 1.2; // Ajuste conforme necessário
+                const fatorAtividade = 1.2;
                 this.necessidades_caloricas = (this.tmb * fatorAtividade).toFixed(0);
             }
         },
         formatarData(data) {
             if (!data) return '';
             const partes = data.split('-');
-            return `${partes[2]}/${partes[1]}/${partes[0]}`; // Formato dd/mm/aaaa
+            return `${partes[2]}/${partes[1]}/${partes[0]}`;
         },
         buscarPacientePorCPF() {
             if (this.cpf) {
@@ -301,15 +297,15 @@ Vue.component('AppVue', {
                     .then(response => {
                         if (response.data.code === "1") {
                             const paciente = response.data.data[0];
-                            this.nome_completo = paciente.NOME;
-                            this.data_nascimento = paciente.DATA_NASCIMENTO;
-                            this.telefone = paciente.TELEFONE;
-                            this.ocupacao = paciente.OCUPACAO;
-                            this.peso = paciente.peso;
-                            this.altura = paciente.altura;
-                            this.sexo = paciente.sexo; // Adapte conforme necessário
-                            this.endereco = paciente.ENDERECO; // Se existir
-                            this.id_paciente = paciente.ID; 
+                            this.nome_completo = paciente.NOME || '';
+                            this.data_nascimento = paciente.DATA_NASCIMENTO || '';
+                            this.telefone = paciente.TELEFONE || '';
+                            this.ocupacao = paciente.OCUPACAO || '';
+                            this.peso = paciente.peso || '';
+                            this.altura = paciente.altura || '';
+                            this.sexo = paciente.sexo || '';
+                            this.endereco = paciente.ENDERECO || '';
+                            this.id_paciente = paciente.ID || null; 
                         } else {
                             alert(response.data.msg);
                         }
@@ -319,7 +315,7 @@ Vue.component('AppVue', {
                         alert("Erro ao buscar paciente.");
                     });
             }
-        },
+        },        
         buscarGeneros() {
             axios.get(BASE + '/atendimento/getGeneros')
                 .then((response) => {
@@ -337,8 +333,41 @@ Vue.component('AppVue', {
                 .catch((error) => {
                     console.error("Erro ao buscar objetivos nutricionais:", error);
                 });
-        },  
-
+        },
+        resetarCampos() {
+            this.tipomodalatendimento = '';
+            this.cpf = '';
+            this.nome_completo = '';
+            this.data_nascimento = '';
+            this.telefone = '';
+            this.ocupacao = '';
+            this.medicamentos = '';
+            this.diagnostico_clinico = '';
+            this.historico_familiar = [];
+            this.idade = '';
+            this.peso = null;
+            this.altura = null;
+            this.endereco = '';
+            this.tmb = null;
+            this.necessidades_caloricas = null;
+            this.necessidade_hidrica = null;
+            this.imc = null;
+            this.circunferencia_braco = null;
+            this.circunferencia_coxa = null;
+            this.gordura_quadril = null;
+            this.habitos_alimentares = '';
+            this.ingestao_hidrica = null;
+            this.ingestao_cafe = null;
+            this.qualidade_sono = '';
+            this.horas_sono = '';
+            this.habito_intestinal = null;
+            this.habito_urinario = null;
+            this.situacao_estresse = '';
+            this.comentarios_adicionais = '';
+            this.objetivosSelecionados = [];
+            this.sexo = '';
+            this.id_paciente = null;
+        },
         salvarAtendimento() {
             const dados = {
                 id_paciente: this.id_paciente, // Passa o ID do paciente
@@ -368,22 +397,23 @@ Vue.component('AppVue', {
                 circunferencia_coxa: this.circunferencia_coxa,
                 gordura_quadril: this.gordura_quadril
             };
-
             axios.post(BASE + '/atendimento/salvarAtendimento', dados)
                 .then(response => {
                     if (response.data.code === "1") {
-                        alert("Atendimento salvo com sucesso!");
-                        // Limpar os campos ou redirecionar, se necessário
+                        
+                        mainLayout.sToast(response.data.msg, "success");
+                        this.resetarCampos();
                     } else {
-                        alert("Erro ao salvar atendimento: " + response.data.msg);
+                        mainLayout.sToast(response.data.msg, "warning");
                     }
                 })
                 .catch(error => {
                     console.error('Erro:', error);
-                    alert("Erro ao salvar atendimento.");
+                    alert("Erro ao finalizar consulta.");
                 });
         }
     },
+    
     mounted() {
         this.buscarObjetivosNutricionais();
         this.buscarGeneros();

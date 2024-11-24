@@ -19,14 +19,15 @@ const newLocal = `
                 :allowDeleting="false" 
                 :allowSelection="false"
                 :rowDataBound="rowDataBound"
+                class="grid-scroll"
                 >
-                <e-columns>
-                    <e-column clipMode='EllipsisWithTooltip' width="5" field="id_consulta" textAlign="Left" headerText="ID Consulta"></e-column>
-                    <e-column clipMode='EllipsisWithTooltip' width="15" field="nome_usuario" headerText="Nome Usuário"></e-column>
-                    <e-column clipMode='EllipsisWithTooltip' width="10" field="nome_nutricionista" headerText="Nome Nutricionista"></e-column>
-                    <e-column clipMode='EllipsisWithTooltip' width="10" field="data_consulta" headerText="Data da Consulta"></e-column>
-                    <e-column clipMode='EllipsisWithTooltip' width="15" field="descricao" headerText="Descrição"></e-column>
-                    <e-column clipMode='EllipsisWithTooltip' width="6" field="nome_status" headerText="Status"></e-column>
+                <e-columns class="grid-scroll">
+                    <e-column clipMode='EllipsisWithTooltip' width="80" field="id_consulta" textAlign="Left" headerText="ID Consulta"></e-column>
+                    <e-column clipMode='EllipsisWithTooltip' width="150" field="nome_usuario" headerText="Nome Usuário"></e-column>
+                    <e-column clipMode='EllipsisWithTooltip' width="120" field="nome_nutricionista" headerText="Nome Nutricionista"></e-column>
+                    <e-column clipMode='EllipsisWithTooltip' width="120" field="data_consulta" headerText="Data da Consulta"></e-column>
+                    <e-column clipMode='EllipsisWithTooltip' width="180" field="descricao" headerText="Descrição"></e-column>
+                    <e-column clipMode='EllipsisWithTooltip' width="80" field="nome_status" headerText="Status"></e-column>
                 </e-columns>
             </ejs-grid>
         </div>
