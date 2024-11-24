@@ -1,7 +1,7 @@
 Vue.component("lista_calendario", {
     props: ['tipocalendario', 'nutricionistaSelecionado'],
     template: `
-    <div class="container">
+    <div class="container container-mobile-agenda">
     <div class="row mt-2 div-cards justify-content-center">
         <div class="col-md-8 mb-3 div-cards d-flex flex-column flex-md-row justify-content-between">
         
@@ -24,24 +24,24 @@ Vue.component("lista_calendario", {
         </div>
         
         <!-- Horários -->
-        <div class="div-calendario flex-fill">
+        <div class="div-calendario div-calendario-horario flex-fill">
             <div class="p-div text-center">
             <p class="dias-dispo">Horários disponíveis</p>
             </div>
-            <div class="col-lg-12 control-section">
-            <div class="card col-md-12 horario-card mx-auto">
-                <div class="horarios-container d-flex flex-wrap justify-content-center">
-                <div class="horario-item m-2" v-for="horario in horariosDisponiveis" :key="horario">
-                    <button 
-                    class="button_horario" 
-                    @click="selecionarHorario(horario)" 
-                    :class="{ 'selected': horarioSelecionado === horario }">
-                    {{ horario }}
-                    </button>
+            <div class="col-lg-12 control-section card-horarios">
+                <div class="card col-md-12 horario-card mx-auto">
+                    <div class="horarios-container d-flex flex-wrap justify-content-center">
+                    <div class="horario-item m-2" v-for="horario in horariosDisponiveis" :key="horario">
+                        <button 
+                        class="button_horario" 
+                        @click="selecionarHorario(horario)" 
+                        :class="{ 'selected': horarioSelecionado === horario }">
+                        {{ horario }}
+                        </button>
+                    </div>
+                    </div>
+                    <div v-if="mensagem" class="alert alert-warning text-center mt-3">{{ mensagem }}</div>
                 </div>
-                </div>
-                <div v-if="mensagem" class="alert alert-warning text-center mt-3">{{ mensagem }}</div>
-            </div>
             </div>
         </div>
 

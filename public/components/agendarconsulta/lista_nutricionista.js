@@ -3,7 +3,7 @@ Vue.component("lista_nutricionista", {
   template: `
 <div class="row">
         <div v-if="data.length === 0" class="col-md-12 text-center">
-            <h6>Nenhum nutricionista cadastrado no momento.</h6>
+            <h6>Nenhum nutricionista com disponibilidade no momento.</h6>
         </div>
         <div 
             v-for="nutricionista in data" 
