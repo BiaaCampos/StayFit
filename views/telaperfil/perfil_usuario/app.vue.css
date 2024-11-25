@@ -5,11 +5,10 @@
     height: 100%;
     margin-left: 80px;
 }
-
-.body-div{
-    width: 70%;
-    height: 100vh;
-    padding: 120px 20px 0;
+.dialog{
+    max-height: 80vh !important;
+    width: 80vw !important;
+    height: 70vh !important;
 }
 .div-head-card{
     display: flex;
@@ -51,6 +50,11 @@
     border-radius: 2rem 0 0 2rem;
     padding: 20px;
     width: 30%;
+}
+.body-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .body-div button{
     border: 0 !important;
@@ -119,6 +123,10 @@ display: none;
     margin: 0 10px;
 }
 
+#subList{
+    border: none;
+}
+
 .item-quantity {
     white-space: nowrap;
 }
@@ -140,7 +148,9 @@ display: none;
     flex-direction: column;
     gap: 2rem;
     height: 100%;
-    width: 100%;
+    width: 95%;
+    top: 62px;
+    position: relative;
     scrollbar-width: thin;
     scrollbar-color: #ffffff00 #f1f1f1;
 }
@@ -150,9 +160,11 @@ display: none;
 }
 #spinner{
     position: absolute;
-    width: 58vw;
-    height: 50vh;
-    display: flex;
+    max-height: 60vh !important;
+    width: 77vw !important;
+    height: 60vh !important;
+    z-index: 1000;
+    display: none;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -249,4 +261,13 @@ display: none;
     .central{
         gap: 0;
     }
+}
+#cCheio{
+    color: red;
+    display: flex;
+    font-size: 22px;
+}
+#cVazio{
+    display: flex;
+    font-size: 22px;
 }

@@ -61,7 +61,7 @@ class AgendarConsulta_model extends Model
         if (!isset($_SESSION['ID'])) {
             exit(json_encode(["code" => "0", "msg" => "Usuário não autenticado."]));
         }
-    
+        
         $id_usuario = $_SESSION['ID'];
         $id_nutricionista = $post->id_nutricionista ?? null;
         $data_consulta = $post->data_consulta ?? null;
@@ -72,11 +72,12 @@ class AgendarConsulta_model extends Model
         if (!DateTime::createFromFormat('Y-m-d', $data_consulta)) {
             exit(json_encode(["code" => "0", "msg" => "Data da consulta inválida."]));
         }
-    
+        
         $dadosConsulta = [
             'id_usuario' => $id_usuario,
             'id_nutricionista' => $id_nutricionista,
             'data_consulta' => $data_consulta,
+            'hora_consulta' => $horario,
             'descricao' => $descricao,
             'id_status' => $id_status
         ];

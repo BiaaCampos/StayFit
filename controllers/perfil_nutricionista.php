@@ -22,4 +22,22 @@ class Perfil_nutricionista extends Controller
         $this->view->render('footer');
     }
 
+    function getDrops()
+    {
+        $this->model->getDrops();
+    }
+    function recebeData()
+    {
+        $this->model->recebeData();
+    }
+    function getDropHorario()
+    {
+        $this->model->getDropHorario();
+    }
+    function enviaForm()
+    {
+        $this->model->enviaForm();
+    }
+
+
 }

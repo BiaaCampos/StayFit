@@ -74,8 +74,8 @@ const newLocal = `
       <div class="row" style="margin-top: 2rem;">
         <!-- Água -->
         <div class="col-md-4 mb-2">
-          <div class="card col" >
-            <div class="card-body">
+          <div class="card col" style="height: 100%;">
+            <div class="card-body" style="display: flex; gap: 20px; flex-direction: column;">
               <div class="div-head-card">
                 <img src="public/images/agua-icon.svg" alt="">
                 <div>
@@ -85,10 +85,9 @@ const newLocal = `
               </div>
               <div class="water-count">
                 <div>
-                  <h1 style="font-size: 38px;">{{ consumoAgua[0].TOTAL_CONSUMIDO }}L</h1>
-                  <h3 style="font-size: 24px;">({{ consumoAgua[0].PORCENTAGEM_CONSUMO }})</h3>
+                  <h1 style="font-size: 38px;">{{ consumoAgua[0]?.TOTAL_CONSUMIDO }}L</h1>
+                  <h3 style="font-size: 24px;">({{ consumoAgua[0]?.PORCENTAGEM_CONSUMO }})</h3>
                 </div>
-                <p>espaço reservado</p>
               </div>
               <div class="add-center">
                 <ejs-button
@@ -137,10 +136,10 @@ const newLocal = `
               <div class="food-list">
                 <ul class="list-group">
                   <template v-if="itemCardapio.CafeDaManha.length > 0">
-                      <li v-for="item in itemCardapio.CafeDaManha.slice(0, 2)" :key="item.id" class="list-group-item">
-                          <span class="item-name">{{ item.ALIMENTO }}</span>
-                          <span class="separator"></span>
-                          <span class="item-quantity">{{ item.QUANTIDADE }}</span>
+                      <li v-for="item in itemCardapio.CafeDaManha.slice(0, 3)" :key="item.id" class="list-group-item">
+                        <span class="item-name">{{ item.ALIMENTO }}</span>
+                        <span class="separator"></span>
+                        <span class="item-quantity">{{ item.QUANTIDADE }}</span>
                       </li>
                   </template>
                   
@@ -175,7 +174,7 @@ const newLocal = `
               <div class="food-list">
                 <ul class="list-group">
                   <template v-if="itemCardapio.Almoco.length > 0">
-                      <li v-for="item in itemCardapio.Almoco.slice(0, 2)" :key="item.id" class="list-group-item">
+                      <li v-for="item in itemCardapio.Almoco.slice(0, 3)" :key="item.id" class="list-group-item">
                           <span class="item-name">{{ item.ALIMENTO }}</span>
                           <span class="separator"></span>
                           <span class="item-quantity">{{ item.QUANTIDADE }}</span>
@@ -214,7 +213,7 @@ const newLocal = `
             <div class="food-list">
                 <ul class="list-group">
                   <template v-if="itemCardapio.CafeDaTarde.length > 0">
-                      <li v-for="item in itemCardapio.CafeDaTarde.slice(0, 2)" :key="item.id" class="list-group-item">
+                      <li v-for="item in itemCardapio.CafeDaTarde.slice(0, 3)" :key="item.id" class="list-group-item">
                           <span class="item-name">{{ item.ALIMENTO }}</span>
                           <span class="separator"></span>
                           <span class="item-quantity">{{ item.QUANTIDADE }}</span>
@@ -253,7 +252,7 @@ const newLocal = `
               <div class="food-list">
                 <ul class="list-group">
                   <template v-if="itemCardapio.Jantar.length > 0">
-                      <li v-for="item in itemCardapio.Jantar.slice(0, 2)" :key="item.id" class="list-group-item">
+                      <li v-for="item in itemCardapio.Jantar.slice(0, 3)" :key="item.id" class="list-group-item">
                           <span class="item-name">{{ item.ALIMENTO }}</span>
                           <span class="separator"></span>
                           <span class="item-quantity">{{ item.QUANTIDADE }}</span>
@@ -291,7 +290,7 @@ const newLocal = `
               <div class="food-list">
                 <ul class="list-group">
                   <template v-if="itemCardapio.Ceia.length > 0">
-                      <li v-for="item in itemCardapio.Ceia.slice(0, 2)" :key="item.id" class="list-group-item">
+                      <li v-for="item in itemCardapio.Ceia.slice(0, 3)" :key="item.id" class="list-group-item">
                           <span class="item-name">{{ item.ALIMENTO }}</span>
                           <span class="separator"></span>
                           <span class="item-quantity">{{ item.QUANTIDADE }}</span>
@@ -317,18 +316,18 @@ const newLocal = `
         </div>
       </div>
       <div style="gap: 2rem; display: flex; flex-direction: column; padding-bottom: 2rem;">
-        <div class="card" style="display: flex; flex-direction: row; align-items: center;">
+        <!-- <div class="card" style="display: flex; flex-direction: row; align-items: center;">
           <div class="card-body" style="52rem">
             <h5 class="card-title">Histórico Médico</h5>
           </div>
           <i class="fas fa-eye" @click="AbrirModalRelatorio('Histórico Médico')" style="font-size: 3rem;margin: 0 2rem;color: #0fa958; cursor: pointer;"></i>
-        </div>
-        <div class="card" style="display: flex; flex-direction: row; align-items: center;">
+        </div> -->
+        <!-- <div class="card" style="display: flex; flex-direction: row; align-items: center;">
           <div class="card-body">
             <h5 class="card-title">Avaliação Nutricional</h5>
           </div>
           <i class="fas fa-eye" @click="AbrirModalRelatorio('Avaliação Nutricional')" style="font-size: 3rem;margin: 0 2rem;color: #0fa958; cursor: pointer;"></i>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -341,75 +340,67 @@ const newLocal = `
           </div>
         </div>
         
-        <div class="col-md-6 size-text">
-          <h5 class="h5-size">NOME</h5>
-          <p>{{ userData[0].NOME }}</p>
+        
+        <div class="col-md-6 size-text" class="col-md-6 size-text">
+          <h5 class="h5-size" class="h5-size">NOME</h5>
+          <p>{{ userData[0]?.NOME }}</p>
         </div>
 
         <div class="col-md-6 size-text">
           <h5 class="h5-size">CELULAR</h5>
-          <p>{{ userData[0].TELEFONE }}</p>
+          <p>{{ userData[0]?.TELEFONE }}</p>
         </div>
 
         <div class="col-md-6 size-text">
           <h5 class="h5-size">EMAIL</h5>
-          <p>{{ userData[0].EMAIL }}</p>
+          <p>{{ userData[0]?.EMAIL }}</p>
         </div>
 
         <div class="col-md-6 size-text">
           <h5 class="h5-size">DATA DE NASCIMENTO</h5>
-          <p>{{ userData[0].NASCIMENTO }}</p>
+          <p>{{ userData[0]?.NASCIMENTO }}</p>
         </div>
 
         <div class="col-md-6 size-text">
           <h5 class="h5-size">GÊNERO</h5>
-          <p>{{ userData[0].GENERO }}</p>
+          <p>{{ userData[0]?.GENERO }}</p>
         </div>
 
         <div class="col-md-6 size-text">
           <h5 class="h5-size">PESO ATUAL</h5>
-          <p>{{ userData[0].PESO_ATUAL }}</p>
+          <p>{{ userData[0]?.PESO_ATUAL }}</p>
         </div>
 
         <div class="col-md-6 size-text">
           <h5 class="h5-size">PESO DESEJADO</h5>
-          <p>{{ userData[0].PESO_IDEAL }}</p>
+          <p>{{ userData[0]?.PESO_IDEAL }}</p>
         </div>
 
         <div class="col-md-6 size-text">
           <h5 class="h5-size">ALTURA</h5>
-          <p>{{ userData[0].ALTURA }}</p>
+          <p>{{ userData[0]?.ALTURA }}</p>
         </div>
 
         <div class="col-md-6 size-text">
           <h5 class="h5-size">IDENTIFICAÇÃO</h5>
-          <p>{{ userData[0].ID }}</p>
+          <p>{{ userData[0]?.ID }}</p>
         </div>
-
-        <div class="col-md-6 size-text mb-2">
-          <h5 class="h5-size">METAS</h5>
-          <p>{{ userData[0].OBJETIVO }}</p>
-        </div>
-
-        <div class="col-md-12 size-text" style="display: flex; justify-content: center; align-items: center;">
-          <ejs-button 
-            id="editBtn"
-            cssClass="e-success">
-            Editar informações
-          </ejs-button>
+        <div>
+          <h5>METAS</h5>
+          <p>{{ userData[0]?.OBJETIVO }}</p>
         </div>
       </div>
     </div>
   </div>
 
-  <alimento_tab ref="alimento_tab" :data="tabData" :header="header" :refeicao="typeRefeicao"></alimento_tab>
+  <alimento_tab ref="alimento_tab" :data="tabData" :header="header" :refeicao="codRefeicao"></alimento_tab>
 
   <ejs-dialog 
     ref="RelatorioDialog"
-    :buttons='dlgButtons'
     :header='header'
     isModal='true'
     v-bind:visible="false"
+    :buttons='dlgButtons'
     :animarionSettings="{ effect: 'None' }"
     :showCloseIcon='true'
     :closeOnEscape='false'
@@ -436,6 +427,7 @@ Vue.component('AppVue', {
       consumoAgua: [],
       tabData: [],
       typeRefeicao: '',
+      codRefeicao: '',
       itemCardapio: {
         CafeDaManha: [],
         Almoco: [],
@@ -477,10 +469,10 @@ Vue.component('AppVue', {
 
       axios.post(BASE + "/perfil_usuario/addAgua", agua).then((res) => {
         if (res.data.code == 1) {
-          mainLayout.sToast(res.data.msg, "","success");
+          mainLayout.sToast(res.data.msg, '', "success");
           this.getAgua();
         } else {
-          mainLayout.sToast(res.data.msg, "","warning");
+          mainLayout.sToast(res.data.msg, '', "warning");
         }
       })
     },
@@ -519,24 +511,32 @@ Vue.component('AppVue', {
     },
     AbrirModal(args) {
       this.header = args
+
       switch (args) {
         case 'Café da Manhã':
             this.tabData = this.itemCardapio.CafeDaManha
-          break;
-        case 'Almoço':
-            this.tabData = this.itemCardapio.Almoco
-          break;
-        case 'Café da Tarde':
-            this.tabData = this.itemCardapio.CafeDaTarde
-          break;
-        case 'Jantar':
-            this.tabData = this.itemCardapio.Jantar
-          break;
-        case 'Ceia':
-            this.tabData = this.itemCardapio.Ceia
-          break;
+            this.codRefeicao = 1;
+            break;
+            case 'Almoço':
+              this.tabData = this.itemCardapio.Almoco
+              this.codRefeicao = 2;
+              break;
+              case 'Café da Tarde':
+                this.tabData = this.itemCardapio.CafeDaTarde
+                this.codRefeicao = 3;
+                break;
+                case 'Jantar':
+                  this.tabData = this.itemCardapio.Jantar
+                  this.codRefeicao = 4;
+                  break;
+                  case 'Ceia':
+                    this.tabData = this.itemCardapio.Ceia
+                    this.codRefeicao = 5;
+                    break;
       }
+
       this.$refs.alimento_tab.$refs.RefeicaoDialog.show();
+      this.$refs.alimento_tab.getInfoAlimentos(this.codRefeicao);
     },
     AbrirModalRelatorio(args) {
       this.header = args

@@ -402,10 +402,10 @@ Vue.component('AppVue', {
                 .then(response => {
                     if (response.data.code === "1") {
                         
-                        mainLayout.sToast(response.data.msg, "success");
+                        mainLayout.sToast(response.data.msg, '', "success");
                         this.resetarCampos();
                     } else {
-                        mainLayout.sToast(response.data.msg, "warning");
+                        mainLayout.sToast(response.data.msg, '', "warning");
                     }
                 })
                 .catch(error => {

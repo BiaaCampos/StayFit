@@ -8,7 +8,8 @@ class Perfil_usuario_model extends Model
         parent::__construct();
     }
 
-    public function getInfos(){
+    public function getInfos()
+    {
         $post = json_decode(file_get_contents('php://input'));
         $id = session::get('ID');
         
@@ -72,61 +73,50 @@ class Perfil_usuario_model extends Model
         echo($msg);
     }
 
-    public function getInfoAlimentos(){
+    public function getInfoAlimentos()
+    {
         $post = json_decode(file_get_contents('php://input'));
         $id = session::get('ID');
-        var_dump($post); die;
         
         $dados = array(
-            ':PAR_ID' => $id,
-            // ':PAR_REFEICAO' => 
+            ':PAR_ID' => $id
         );
 
-        $result = $this->db->select("
+        $resultFav = $this->db->select("
             SELECT
+                A.ID,
                 A.NOME AS ALIMENTO,
-                R.NOME AS REFEICAO,
-                CONCAT(RU.QUANTIDADE, 'g') AS QUANTIDADE,
                 A.CALORIAS,
                 A.PROTEINAS,
                 A.CARBOIDRATOS,
                 A.GORDURAS,
                 A.FIBRAS,
-                GA.NOME AS 'GRUPO_ALIMENTAR'
+                GA.NOME AS 'GRUPO_ALIMENTAR',
+                FA.FAVORITO
             FROM
-                STAYFIT.USUARIOS U
-            JOIN
-                STAYFIT.REGIME_USUARIO RU
-                ON U.ID = RU.ID_USUARIO
+                STAYFIT.FAVORITOS_ALIMENTOS FA 
             JOIN 
                 STAYFIT.ALIMENTOS A 
-                ON RU.ID_ALIMENTO = A.ID
-            JOIN 
-                STAYFIT.ALIMENTOS_REFEICOES AR 
-                ON A.ID = AR.ID_ALIMENTO
-            JOIN 
-                STAYFIT.REFEICOES R 
-                ON AR.ID_REFEICAO = R.ID
+                ON FA.ALIMENTO_ID = A.ID
             JOIN 
                 STAYFIT.GRUPOS_ALIMENTARES GA 
-                ON A.ID_GRUPO = GA.ID
+                ON A.ID_GRUPO_ALIMENTICIO = GA.ID
             WHERE 
-                U.ID = :PAR_ID
-                AND R.ID = :PAR_REFEICAO
-            ORDER BY 
-                r.id;", $dados);
-        
+                FA.USUARIO_ID = :PAR_ID
+                AND FA.FAVORITO = 'S'", $dados);
+            
 
-        if(empty($cardapio)) {
-            $msg = json_encode(array("code" => "0", "msg" => "Não foi possivel fazer a seleção"));
+        if(count($resultFav) > 0) {
+            $msg = json_encode(array("code" => "1", "msg" => "Seleção concluida", 'data' => $resultFav));
         } else {
-            $msg = json_encode(array("code" => "1", "msg" => "Seleção concluida", 'data' => $cardapio));
+            $msg = json_encode(array("code" => "0", "msg" => "Não foi possivel fazer a seleção"));
         }
 
         echo($msg);
     }
 
-    public function getRefeicoes(){
+    public function getRefeicoes()
+    {
         $id = session::get('ID');
         
         $cardapio = [];
@@ -139,6 +129,7 @@ class Perfil_usuario_model extends Model
 
             $result = $this->db->select("
                 SELECT
+                    A.ID,
                     A.NOME AS ALIMENTO,
                     R.NOME AS REFEICAO,
                     CONCAT(RU.QUANTIDADE, 'g') AS QUANTIDADE,
@@ -147,27 +138,30 @@ class Perfil_usuario_model extends Model
                     A.CARBOIDRATOS,
                     A.GORDURAS,
                     A.FIBRAS,
-                    GA.NOME AS 'GRUPO_ALIMENTAR'
+                    GA.NOME AS 'GRUPO_ALIMENTAR',
+                    CASE 
+                        WHEN FA.FAVORITO = 'S' THEN 'S'
+                        ELSE 'N'
+                    END AS 'FAVORITO'
                 FROM
-                    STAYFIT.USUARIOS U
+                    USUARIOS U
                 JOIN
-                    STAYFIT.REGIME_USUARIO RU
-                    ON U.ID = RU.ID_USUARIO
+                    REGIME_USUARIO RU 
+                    ON RU.ID_USUARIO = U.ID
                 JOIN 
-                    STAYFIT.ALIMENTOS A 
+                    ALIMENTOS A 
                     ON RU.ID_ALIMENTO = A.ID
                 JOIN 
-                    STAYFIT.ALIMENTOS_REFEICOES AR 
-                    ON A.ID = AR.ID_ALIMENTO
-                JOIN 
-                    STAYFIT.REFEICOES R 
-                    ON AR.ID_REFEICAO = R.ID
-                JOIN 
-                    STAYFIT.GRUPOS_ALIMENTARES GA 
-                    ON A.ID_GRUPO = GA.ID
+                    REFEICOES R 
+                    ON RU.ID_REFEICAO = R.ID
+                JOIN GRUPOS_ALIMENTARES GA 
+                    ON A.ID_GRUPO_ALIMENTICIO = GA.ID
+                LEFT JOIN 
+                    STAYFIT.FAVORITOS_ALIMENTOS FA 
+                    ON A.ID = FA.ALIMENTO_ID 
                 WHERE 
                     U.ID = :PAR_ID
-                    AND R.ID = :PAR_REFEICAO
+                    AND R.ID = :PAR_REFEICAO    
                 ORDER BY 
 	                r.id;", $dados);
             if (count($result) > 0) {
@@ -186,17 +180,17 @@ class Perfil_usuario_model extends Model
                         break;
                     
                     case 3:
-                        $cardapio_item->refeicao = "janta";
-                        $cardapio_item->alimento = $result;
-                        $cardapio[] = $cardapio_item;
-                        break;
-                            
-                    case 4:
                         $cardapio_item->refeicao = "cafe da tarde";
                         $cardapio_item->alimento = $result;
                         $cardapio[] = $cardapio_item;
                         break;
-                    
+                        
+                    case 4:
+                        $cardapio_item->refeicao = "janta";
+                        $cardapio_item->alimento = $result;
+                        $cardapio[] = $cardapio_item;
+                        break;
+
                     case 5:
                         $cardapio_item->refeicao = "ceia";
                         $cardapio_item->alimento = $result;
@@ -214,8 +208,142 @@ class Perfil_usuario_model extends Model
 
         echo($msg);
     }
+    
+    public function getSubs()
+    {
+        $post = json_decode(file_get_contents('php://input'));
+        $id = session::get('ID');
+        
+        $dados = array(
+            ':PAR_ID' => $id,
+            ':PAR_ALIMENTO' => $post->alimentoSub,
+        );
+        
+        $result = $this->db->select("
+            SELECT
+                A.ID,
+                A.NOME AS ALIMENTO,
+                R.NOME AS REFEICAO,
+                CONCAT(RU.QUANTIDADE, 'g') AS QUANTIDADE,
+                A.CALORIAS,
+                A.PROTEINAS,
+                A.CARBOIDRATOS,
+                A.GORDURAS,
+                A.FIBRAS,
+                GA.ID AS 'ID_GRUPO',
+                GA.NOME AS 'GRUPO_ALIMENTAR'
+            FROM
+                STAYFIT.USUARIOS U
+            JOIN
+                STAYFIT.REGIME_USUARIO RU 
+                ON RU.ID_USUARIO = U.ID
+            JOIN 
+                STAYFIT.ALIMENTOS A 
+                ON RU.ID_ALIMENTO = A.ID
+            JOIN 
+                STAYFIT.REFEICOES R 
+                ON RU.ID_REFEICAO = R.ID
+            JOIN 
+                STAYFIT.GRUPOS_ALIMENTARES GA 
+                ON A.ID_GRUPO_ALIMENTICIO = GA.ID
+            WHERE 
+                U.ID = :PAR_ID
+                AND GA.ID = (
+                    SELECT
+                        A2.ID_GRUPO_ALIMENTICIO AS GRUPO
+                    FROM
+                        STAYFIT.ALIMENTOS A2
+                    WHERE 
+                        A2.ID = :PAR_ALIMENTO
+                )
+            GROUP BY 
+                A.ID 
+            ORDER BY 
+                A.ID;", $dados);
 
-    public function getAgua(){
+        if (count($result) > 0) {
+            $msg = json_encode(array("code" => "1", "msg" => "Seleção concluida", 'data' => $result));
+        } else {
+            $msg = json_encode(array("code" => "0", "msg" => "Não foi possivel fazer a seleção"));
+        }
+
+        echo($msg);
+    }
+
+    public function favoritar()
+    {
+        $post = json_decode(file_get_contents('php://input'));
+        $id = session::get('ID');
+        // var_dump($post); die;
+        
+        if ($post->curtiu == 's') {
+            try {
+                // Tenta inserir o registro na tabela
+                $result = $this->db->insert(
+                    'stayfit.favoritos_alimentos',
+                    array(
+                        "usuario_id" => $id,
+                        "alimento_id" => $post->ID
+                    )
+                );
+        
+                if ($result) {
+                    // Sucesso na inserção
+                    $msg = json_encode(array("code" => "1", "msg" => "Favorito Adicionado"));
+                } else {
+                    // Falha na execução (caso raro, apenas para consistência)
+                    $msg = json_encode(array("code" => "0", "msg" => "Não foi possível favoritar o item"));
+                }
+            } catch (PDOException $e) {
+                // Verifica se o erro é devido a duplicidade (SQLSTATE 23000 para UNIQUE/PRIMARY KEY)
+                if ($e->getCode() == '45000') {
+                    try {
+                        // Faz o update para alternar o estado de favorito no registro existente
+                        $updateResult = $this->db->update(
+                            'stayfit.favoritos_alimentos',
+                            array(
+                                "favorito" => 'S',
+                                "data_favorito" => date('Y-m-d H:i:s')
+                            ),
+                            "usuario_id = $id and alimento_id = $post->ID"
+                        );
+        
+                        if ($updateResult) {
+                            $msg = json_encode(array("code" => "1", "msg" => "Favorito Atualizado"));
+                        } else {
+                            $msg = json_encode(array("code" => "0", "msg" => "Não foi possível atualizar o favorito"));
+                        }
+                    } catch (PDOException $updateError) {
+                        // Caso ocorra algum erro na atualização
+                        $msg = json_encode(array("code" => "0", "msg" => "Erro ao atualizar favorito: " . $updateError->getMessage()));
+                    }
+                } else {
+                    // Outros erros do banco de dados
+                    $msg = json_encode(array("code" => "0", "msg" => "Erro ao inserir favorito: " . $e->getMessage()));
+                }
+            }
+        } elseif ($post->curtiu == 'n'){
+            $result = $this->db->update(
+                'stayfit.favoritos_alimentos',
+                array('favorito' => 'N'),
+                "usuario_id = $id and alimento_id = $post->ID"
+            );
+
+            if ($result) {
+                $msg = json_encode(array("code" => "1", "msg" => "Favorito removido"));
+            } else {
+                $msg = json_encode(array("code" => "0", "msg" => "Não foi possivel desfavoritar o item"));
+            }
+        }
+
+       
+
+        echo($msg);
+    }
+
+    public function getAgua()
+    {
+        // $post = json_decode(file_get_contents('php://input'));
         $id = session::get('ID');
 
         $dados = array(
@@ -248,7 +376,8 @@ class Perfil_usuario_model extends Model
         echo($msg);
     }
 
-    public function addAgua(){
+    public function addAgua()
+    {
         $post = json_decode(file_get_contents('php://input'));
         $id = session::get('ID');
 
