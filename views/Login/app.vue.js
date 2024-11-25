@@ -292,15 +292,23 @@ Vue.component('AppVue', {
       this.$refs.nutriInfos.hide();
     },
     selectBtn(args) {
-      
       this.selectedForm = args;
+      console.log(args)
 
       if (args === 'login'){
         const last = document.getElementById("cadastro");
         last.classList = "btn btn-outline-primary";
+        LimpaInput(this.cadastro.nome, this.$refs.nome);
+        LimpaInput(this.cadastro.cel, this.$refs.celular);
+        LimpaInput(this.cadastro.email, this.$refs.cadEmail);
+        LimpaInput(this.cadastro.cpf, this.$refs.CPF);
+        LimpaInput(this.cadastro.crn, this.$refs.CRN);
+        LimpaInput(this.cadastro.senha, this.$refs.cadSenha);
+        LimpaInput(this.cadastro.confirmaSenha, this.$refs.cadConfirmaSenha);
       } else if (args === 'cadastro') {
         const last = document.getElementById("login");
         last.classList = "btn btn-outline-primary";
+        this.LimpaInput();
       }
 
       const btn = document.getElementById(args);
@@ -342,7 +350,6 @@ Vue.component('AppVue', {
           spinner.style.display = 'none';
         }
       }
-
       if (args = 'cadastro'){
         if (
           validarInput(this.cadastro.nome, this.$refs.nome) &&
@@ -397,11 +404,7 @@ Vue.component('AppVue', {
       axios.get(BASE + "/Login/confirmaSession").then((res) => {
         if(res.data.code == 1) {
           setTimeout(() => {
-            if (res.data.TIPO_USUARIO == 1) {
-              window.location.href = BASE + '/perfil_nutricionista'
-            } else {
-              window.location.href = BASE + '/perfil_usuario'
-            }
+            
             spinner.style.display = 'none';
           }, 3000);
         } else {
