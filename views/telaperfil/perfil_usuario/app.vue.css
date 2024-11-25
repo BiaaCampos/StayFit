@@ -4,12 +4,32 @@
     width: calc(100% - 80px);
     height: 100%;
     margin-left: 80px;
+    overflow-y: auto;
 }
 .dialog{
     max-height: 80vh !important;
     width: 80vw !important;
     height: 70vh !important;
+    overflow-y: auto;
 }
+
+::-webkit-scrollbar {
+    width: 4px; 
+}
+
+::-webkit-scrollbar-track {
+    background: #ffffff; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: #32794F; 
+    border-radius: 10px; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 .div-head-card{
     display: flex;
     gap: 2rem;
