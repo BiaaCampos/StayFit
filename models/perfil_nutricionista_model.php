@@ -157,7 +157,32 @@ class Perfil_nutricionista_model extends Model
     
         echo($msg);
     }
-    
+    public function enviaFormDisp()
+    {
+        $post = json_decode(file_get_contents('php://input'));
+        $id = session::get('ID');
+        $dataFormatada = $dataFormatada = date('Y-m-d', strtotime($post->DATA_CONSULTA));
+        $dataHoraUtc = new DateTime($post->HORA_CONSULTA, new DateTimeZone('UTC')); 
+        $dataHoraLocal = $dataHoraUtc->setTimezone(new DateTimeZone('America/Sao_Paulo'));
+        $horaConsulta = $dataHoraLocal->format('H:i:00');
+        
+        $result = $this->db->insert(
+            'stayfit.disponibilidade_nutricionistas', 
+            array(
+                'id_nutricionista' => $id,
+                'data' => $dataFormatada, 
+                'horario' => $horaConsulta,
+            )
+        );
+
+        if($result > 0) {
+            $msg = json_encode(array("code" => "1", "msg" => "Horário adicionado com sucesso"));
+        } else {
+            $msg = json_encode(array("code" => "0", "msg" => "Não foi possivel adicionar o horário"));
+        }
+
+        echo($msg);
+    }
     public function enviaForm()
     {
         $post = json_decode(file_get_contents('php://input'));

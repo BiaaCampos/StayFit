@@ -246,3 +246,4 @@ function logout(){
     window.location.href = BASE + '/login'
   })
 }
+

@@ -68,3 +68,24 @@
 .e-dialog .e-dlg-header-content+.e-dlg-content {
   padding-top: 1rem;
 }
+
+.button_modal_atendimento {
+  position: fixed; 
+  bottom: 30px; 
+  right: 30px;
+  z-index: 9999;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.button_modal_atendimento:hover {
+  transform: scale(1.1);
+}
+
+.img_button_modal_atendimento {
+  width: 3vw;
+  height: auto;
+}

@@ -1,7 +1,7 @@
 const newLocal = `
 <div class="container container-geral" style="max-width: 100%;">
-  <div class="div-nutri-perfil">
-    <div class="card" >
+  <div id='div-nutri' class="div-nutri-perfil">
+    <div class="card" style="height: 100%;">
       <ejs-calendar 
         style="height: 19rem; margin: 2rem 0 0 2rem;" 
         id="calendar" 
@@ -17,20 +17,27 @@ const newLocal = `
       :dataSource="dataSource"
       :allowSelection="true"
       :toolbar='toolbar'
+      autoFit='false'
       :toolbarClick="toolbarFunc"
       v-model='selectedRow'
       >
         <e-columns>
-          <e-column field="NOME" headerText="Paciente" textAlign="Center"></e-column>
-          <e-column field='DESCRICAO' headerText='Consulta' textAlign='Center'></e-column>
-          <e-column field='DATA_CONSULTA' headerText='Data da Consulta' textAlign='Center'></e-column>
-          <e-column field='HORA_CONSULTA' headerText='Hora da Consulta' textAlign='Center'></e-column>
-          <e-column field='SITUACAO' headerText='Situação da Consulta' textAlign='Center'></e-column>
+          <e-column field="NOME" headerText="Paciente" textAlign="Center" minWidth='60' width='60'></e-column>
+          <e-column field='DESCRICAO' headerText='Consulta' textAlign='Center' minWidth='60' width='60'></e-column>
+          <e-column field='DATA_CONSULTA' headerText='Data da Consulta' textAlign='Center' minWidth='60' width='60'></e-column>
+          <e-column field='HORA_CONSULTA' headerText='Hora da Consulta' textAlign='Center' minWidth='60' width='60'></e-column>
+          <e-column field='SITUACAO' headerText='Situação da Consulta' textAlign='Center' minWidth='60' width='60'></e-column>
         </e-columns>
       </ejs-grid>
+
+      <ejs-tooltip ref="tooltip" position="LeftCenter" content="Adicionar disponibilidade" cssClass="tooltip-custom" style="position: fixed; bottom: 150px; right: 95px;">
+          <button type="button" class="button_modal_atendimento" @click="abrirModalDisp">
+            <img src="public/images/images-cadastros/plus.svg" alt="" class="img_button_modal_atendimento radial" />
+          </button>
+      </ejs-tooltip>
+      
     </div>
   </div>
-
   <ejs-dialog 
     ref="dialog"
     :header='header'
@@ -107,6 +114,49 @@ const newLocal = `
       <span class='error-input-msg'></span>
     </div>
   </ejs-dialog>
+  <ejs-dialog 
+    ref="dialogDisp"
+    header='Adicionar horarios disponiveis'
+    isModal='true'
+    v-bind:visible="false"
+    :animarionSettings="{ effect: 'None' }"
+    :closeOnEscape='false'
+    :buttons='dispBtn'
+    target="body"
+    class="dialog"
+  >
+    <div style="display: flex; gap: 4rem;">
+      <div class="input-group mb-3">
+        <ejs-datepicker 
+            ref="dataDisponivel" 
+            cssClass="e-outline"
+            floatLabelType="Auto"
+            :change='getDropHorario'
+            format="dd/MM/yyyy"
+            fullScreenMode="true"
+            openOnFocus="true"
+            placeholder="Data disponivel *"
+            v-model="dataDisp.DATA_CONSULTA">
+          </ejs-datepicker>
+        <span class='error-input-msg'></span>
+      </div> 
+      <div class="input-group mb-3">
+        <ejs-timepicker 
+          ref="horaDisponivel"  
+          placeholder="Informe um horario *" 
+          cssClass="e-outline"
+          floatLabelType="Auto"
+          :value='value' 
+          :step='interval'
+          openOnFocus="true"
+          :format='customFormat'
+          v-model='dataDisp.HORA_CONSULTA'>
+        </ejs-timepicker>
+        <span class='error-input-msg'></span>
+      </div> 
+    </div>
+  </ejs-dialog>
+
 </div>
 `;
 
@@ -133,6 +183,9 @@ Vue.component('AppVue', {
       dropSituacao: [],
       dataSource: [],
       dataCalendar: new Date(),
+      value: new Date(),
+      interval: 30,
+      customFormat: "HH:mm",
       header: '',
       data: {
         NOME: '',
@@ -140,6 +193,10 @@ Vue.component('AppVue', {
         DATA_CONSULTA: '',
         HORA_CONSULTA: null,
         SITUACAO: '',
+      },
+      dataDisp: {
+        DATA_CONSULTA: '',
+        HORA_CONSULTA: null,
       },
       filterSettings: { type: 'Menu' },
       dlgButtons: [
@@ -152,6 +209,22 @@ Vue.component('AppVue', {
         },
         {
           click: this.fecharModal,
+          buttonModel: {
+            isPrimary:'true',
+            content: 'Fechar'
+          }
+        },
+      ],
+      dispBtn: [
+        {
+          click: this.enviaFormDisp,
+          buttonModel: {
+            isPrimary:'true',
+            content: 'Salvar'
+          }
+        },
+        {
+          click: this.fecharModalDisp,
           buttonModel: {
             isPrimary:'true',
             content: 'Fechar'
@@ -231,6 +304,28 @@ Vue.component('AppVue', {
       LimpaInput(this.data.DATA_CONSULTA, this.$refs.dataConsulta);
       LimpaInput(this.data.HORA_CONSULTA, this.$refs.horario);
       LimpaInput(this.data.SITUACAO, this.$refs.sitConsulta);
+    },
+    abrirModalDisp(){
+      this.$refs.dialogDisp.show()
+    },
+    fecharModalDisp(){
+      this.$refs.dialogDisp.hide()
+      LimpaInput(this.dataDisp.DATA_CONSULTA, this.$refs.dataDisponivel);
+      LimpaInput(this.dataDisp.HORA_CONSULTA, this.$refs.horaDisponivel);
+    },
+    enviaFormDisp(){
+      if (
+        validarInput(this.dataDisp.DATA_CONSULTA, this.$refs.dataDisponivel) &&
+        validarInput(this.dataDisp.HORA_CONSULTA, this.$refs.horaDisponivel)
+      ) {
+        axios.post(BASE + "/perfil_nutricionista/enviaFormDisp", this.dataDisp).then((res) => {
+        if (res.data.code == 1) {
+          mainLayout.sToast(res.data.msg, '', "success");
+          this.fecharModalDisp();
+          this.recebeData(new Date());
+        }
+      })
+      }
     },
     limpadados(){
       this.data.NOME = null
