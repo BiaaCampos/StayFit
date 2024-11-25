@@ -116,11 +116,9 @@ class login_Model extends Model
         
         try {
             if ($tipo == "1") {
-                $seq = $this->db->select("CALL stayfit.PROC_GETSEQUENCIA('nutricionistas')");
                 $result = $this->db->insert(
                     'stayfit.nutricionistas', 
                     array(
-                        'ID' => $seq[0]->SEQ,
                         'NOME' => $nome, 
                         'EMAIL' => $email, 
                         'SENHA' => $senha_hash, 
@@ -131,11 +129,9 @@ class login_Model extends Model
                     )
                 );
             } else {
-                $seq = $this->db->select("CALL stayfit.PROC_GETSEQUENCIA('usuarios')");
                 $result = $this->db->insert(
                     'stayfit.usuarios', 
                     array(
-                        'ID' => $seq[0]->SEQ,
                         'NOME' => $nome, 
                         'SENHA' => $senha_hash, 
                         'ID_GENERO' => $genero,

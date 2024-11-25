@@ -38,6 +38,10 @@ class Perfil_nutricionista extends Controller
     {
         $this->model->enviaForm();
     }
+    function enviaFormDisp()
+    {
+        $this->model->enviaFormDisp();
+    }
 
 
 }
