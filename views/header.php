@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $this->title; ?></title>
+    
+    <!-- Core theme CSS (includes Bootstrap) PROBLEMA AQUI -->
+    <link rel="stylesheet" href="<?= URL ?>public/css/main.css">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="<?= URL ?>public/assets/favstayfit.png">
@@ -14,11 +17,8 @@
     <!-- BOX ICONS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
 
-    <!-- Core theme CSS (includes Bootstrap) -->
-    <link rel="stylesheet" href="<?= URL ?>public/css/main.css">
 
     <!-- Essentail JS2 for Vue  (All components Styles) -->
-    <link href="https://cdn.syncfusion.com/ej2/20.1.55/material.css" rel="stylesheet" type="text/css" />
     <link href="<?= URL ?>public/plugins/essentialui/styles/material.min.css" rel="stylesheet">
     <link href="<?= URL ?>public/plugins/fontawesome-free/css/all.css" rel="stylesheet">
     <link href="<?= URL ?>public/mdb/mdb.min.css" rel="stylesheet">
@@ -33,7 +33,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.min.js" type="text/javascript"></script>
     <!-- Essential JS 2 for Vue  global script -->
     </script>
-    <script src="https://cdn.syncfusion.com/ej2/20.1.55/ej2-vue-es5/dist/ej2-vue.min.js" type="text/javascript">
+    <script src="https://cdn.syncfusion.com/ej2/20.1.55/ej2-vue-es5/dist/ej2-vue.min.js" type="text/javascript"></script>
     <script src="<?= URL ?>public/plugins/essentialui/scripts/ej2-vue.min.js" type="text/javascript"></script>
     <script src="<?= URL ?>public/plugins/essentialui/scripts/internationalization/traducaoComponentes.js" type="text/javascript"></script>
     <script src="<?= URL ?>public/plugins/essentialui/scripts/internationalization/currencyData.js" type="text/javascript"></script>
@@ -123,7 +123,7 @@
         const mainLayout = new Vue({
             el: '#mainLayout',
             template: `
-            <div>
+            <div style="height: 100vh;">
                 <ejs-toast ref='toastRef' title='' content='' :position='position'></ejs-toast>
                 <AppVue ref="AppVue"></AppVue>
             </div>

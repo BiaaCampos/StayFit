@@ -68,7 +68,7 @@ Vue.component("lista_informacoes", {
       axios.post(BASE + '/agendarconsulta/agendarConsulta', data)
         .then((res) => {
           this.resetInput();
-          mainLayout.sToast(res.data.msg, "success");
+          mainLayout.sToast(res.data.msg, '', "success");
           const modalElement = document.getElementById('modalConcluir');
           if (modalElement) {
             modalElement.classList.remove('show'); 
@@ -82,10 +82,10 @@ Vue.component("lista_informacoes", {
           }
         setTimeout(() => {
           window.location.href = "http://localhost/stayfit/perfil_usuario";
-        }, 1000);
+        }, 4000);
         })
         .catch((error) => {
-          mainLayout.sToast(res.data.msg, "danger");
+          mainLayout.sToast(res.data.msg,'', "danger");
         });
     },
     resetInput() {

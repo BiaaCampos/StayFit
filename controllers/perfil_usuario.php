@@ -36,6 +36,16 @@ class Perfil_usuario extends Controller
     {
         $this->model->getRefeicoes();
     }
+
+    function getSubs()
+    {
+        $this->model->getSubs();
+    }
+
+    function favoritar()
+    {
+        $this->model->favoritar();
+    }
     
     function getInfoAlimentos()
     {

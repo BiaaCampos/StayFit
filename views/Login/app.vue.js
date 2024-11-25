@@ -243,32 +243,6 @@ const newLocal = `
       </div>
     </div>
   </div>
-  <ejs-dialog 
-    ref="nutriInfos"
-    :buttons='dlgButtons'
-    :header='header'
-    isModal='true'
-    v-bind:visible="false"
-    :animarionSettings="{ effect: 'None' }"
-    :showCloseIcon='false'
-    :closeOnEscape='false'
-    target="body"
-    width="1000px"
-  >
-    <div class="input-group mb-3">
-      <ejs-multiselect 
-        ref='especializacoes'
-        id='especializacoes' 
-        cssClass="e-outline"
-        :dataSource='especializacoes' 
-        placeholder='Especializações' 
-        :fields='Fields'
-        mode='CheckBox'
-        :showDropDownIcon='true' 
-        :showSelectAll='true'>
-      </ejs-multiselect>
-    </div>
-  </ejs-dialog>
 </div>
 `;
 
@@ -301,22 +275,6 @@ Vue.component('AppVue', {
         cpf: "",
         dataNascimento: ""
       },
-      header: 'Nos conte mais sobre você!',
-      dlgButtons: [
-        {
-          click: this.redirecionaNutri(false),
-          buttonModel: {
-            content: 'Agora não'
-          }
-        },
-        {
-          click: this.redirecionaNutri(true, ""),
-          buttonModel: {
-            isPrimary:'true',
-            content: 'Enviar'
-          }
-        },
-      ],
     }
   },
   methods: {
@@ -329,9 +287,6 @@ Vue.component('AppVue', {
     },
     abrirModal() {
       this.$refs.nutriInfos.show();
-    },
-    redirecionaNutri(){
-
     },
     fecharModal() {
       this.$refs.nutriInfos.hide();
@@ -376,14 +331,14 @@ Vue.component('AppVue', {
               }, 5000);
             } else {
               setTimeout(() => {
-                mainLayout.sToast(res.data.msg, "","danger");
+                mainLayout.sToast(res.data.msg, '', "danger");
                 spinner.style.display = 'none';
               }, 5000);
             }
           })
 
         } else {
-          mainLayout.sToast(`Preencha os campos obricatórios(*)`, "","warning");
+          mainLayout.sToast(`Preencha os campos obricatórios(*)`, '', "warning");
           spinner.style.display = 'none';
         }
       }
@@ -409,13 +364,13 @@ Vue.component('AppVue', {
           axios.post(BASE + "/Login/Cadastrar_usuario", this.cadastro).then((res) => {
             if(res.data.code === 1) {
               setTimeout(() => {
-                mainLayout.sToast(res.data.msg, "","success");
+                mainLayout.sToast(res.data.msg, '', "success");
                 // this.selectedForm = 'login';
                 spinner.style.display = 'none';
               }, 5000);
             }else{
               setTimeout(() => {
-                mainLayout.sToast(res.data.msg, "","danger");
+                mainLayout.sToast(res.data.msg, '', "danger");
                 spinner.style.display = 'none';
               }, 5000);
             }

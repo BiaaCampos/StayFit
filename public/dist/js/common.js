@@ -216,7 +216,7 @@ function validarInput(inputModel, inputRef, tipoValidacao = null, quandidadeDeCa
 
 function verificaSenha(senhaModel, confirmaModel, senhaRef, confirmaRef){
   if(senhaModel != confirmaModel){
-    mainLayout.sToast(`As senhas não são as mesmas`, "","danger");
+    mainLayout.sToast(`As senhas não são as mesmas`, '', "danger");
     senhaRef.cssClass += ' e-error';
     confirmaRef.cssClass += ' e-error';
     return false;
@@ -229,7 +229,7 @@ function verificaSenha(senhaModel, confirmaModel, senhaRef, confirmaRef){
 
 function validaTermos(model){
     if(model === false){
-      mainLayout.sToast(`Você precisa aceitar os termos de uso`, "", "danger");
+      mainLayout.sToast(`Você precisa aceitar os termos de uso`, '', "danger");
       return false;
     }
 
