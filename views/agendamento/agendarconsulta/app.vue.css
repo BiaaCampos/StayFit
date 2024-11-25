@@ -91,17 +91,18 @@ html, body, #container {
 }
 
 ::-webkit-scrollbar-track {
-    background: #32794F; 
+    background: #ffffff; 
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #888; 
+    background: #32794F; 
     border-radius: 10px; 
 }
 
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
 
 .btn-voltar {
   background-color: #32794F;
