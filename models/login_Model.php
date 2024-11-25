@@ -145,11 +145,8 @@ class login_Model extends Model
             }
     
             // Consultar usuário cadastrado para verificar sucesso
-            $dados = array(':par_id' => $seq[0]->SEQ);
-            $res = $this->db->select("SELECT * FROM " . ($tipo == "1" ? "STAYFIT.nutricionistas" : "STAYFIT.usuarios") . " WHERE id = :par_id", $dados);
-    
-            if ($res > 0) {
-                $msg = json_encode(array("code" => "1", "msg" => "Cadastro realizado com sucesso.", "SEQ" => $seq[0]->SEQ));
+            if ($result) {
+                $msg = json_encode(array("code" => "1", "msg" => "Cadastro realizado com sucesso."));
             } else {
                 $msg = json_encode(array("code" => "0", "msg" => "Erro ao inserir."));
             }
