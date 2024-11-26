@@ -47,7 +47,9 @@ A estrutura de pastas do projeto é organizada da seguinte forma:
 │
 ├── /banco-dump
 │   ├── /bdstayfitgi.sql                     # Para teste mas nao utilizado mais
-│   ├── /dump-stayfit-05-11-2024.sql         # Último feito 
+|   ├── /dump-stayfit-26-11-2024.sql         # Versão final do banco
+|   ├── /dump-stayfit-25-11-2024.sql         # Não completo
+│   ├── /dump-stayfit-05-11-2024.sql         # Não completo
 │   ├── /dump-stayfit-29-10-2024.sql         # Não completo
 │   ├── /dump-stayfit-202409041214.sql       # Não completo
 │   └── /ER-diagram.png                      # Visão do banco de dados
