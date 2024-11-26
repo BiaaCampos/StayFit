@@ -84,8 +84,7 @@ const newLocal = `
                 placeholder="Senha *">
             </ejs-textbox>
             <span class='error-input-msg'></span>
-          </div>     
-          <h6 id="forgot" href="/">Esqueceu sua senha?</h6>
+          </div>
           <div class="login-btns">
             <button class="btn" style="width: 25rem;" @click="enviaForm('login')">Entrar</button>
           </div>
@@ -293,22 +292,15 @@ Vue.component('AppVue', {
     },
     selectBtn(args) {
       this.selectedForm = args;
-      console.log(args)
 
       if (args === 'login'){
         const last = document.getElementById("cadastro");
         last.classList = "btn btn-outline-primary";
-        LimpaInput(this.cadastro.nome, this.$refs.nome);
-        LimpaInput(this.cadastro.cel, this.$refs.celular);
-        LimpaInput(this.cadastro.email, this.$refs.cadEmail);
-        LimpaInput(this.cadastro.cpf, this.$refs.CPF);
-        LimpaInput(this.cadastro.crn, this.$refs.CRN);
-        LimpaInput(this.cadastro.senha, this.$refs.cadSenha);
-        LimpaInput(this.cadastro.confirmaSenha, this.$refs.cadConfirmaSenha);
+        this.LimpaInputCad();
       } else if (args === 'cadastro') {
         const last = document.getElementById("login");
         last.classList = "btn btn-outline-primary";
-        this.LimpaInput();
+        this.LimpaInputLog();
       }
 
       const btn = document.getElementById(args);
@@ -324,9 +316,11 @@ Vue.component('AppVue', {
           (validarInput(this.login.cpf, this.$refs.loginCPF) || validarInput(this.login.crn, this.$refs.loginCRN)) &&
           validarInput(this.login.senha, this.$refs.senha) 
         ){
+          this.LimpaInputCad();
           var crn = this.login.crn.substring(1)
           this.login.crn = crn
 
+          console.log('login')
           axios.post(BASE + "/Login/login", this.login).then((res) => {
             if (res.data.code == 1) {
               setTimeout(() => {
@@ -338,10 +332,8 @@ Vue.component('AppVue', {
                 }
               }, 5000);
             } else {
-              setTimeout(() => {
-                mainLayout.sToast(res.data.msg, '', "danger");
-                spinner.style.display = 'none';
-              }, 5000);
+              mainLayout.sToast(res.data.msg, '', "danger");
+              spinner.style.display = 'none';
             }
           })
 
@@ -350,7 +342,7 @@ Vue.component('AppVue', {
           spinner.style.display = 'none';
         }
       }
-      if (args = 'cadastro'){
+      if (args === 'cadastro'){
         if (
           validarInput(this.cadastro.nome, this.$refs.nome) &&
           validarInput(this.cadastro.cel, this.$refs.celular) &&
@@ -364,28 +356,35 @@ Vue.component('AppVue', {
           verificaSenha(this.cadastro.senha, this.cadastro.confirmaSenha, this.$refs.cadSenha, this.$refs.cadConfirmaSenha) &&
           validaTermos(this.cadastro.conf)
         ){
+          this.LimpaInputLog()
           if (this.cadastro.tipo == "1") {
             var crn = this.cadastro.crn.substring(1)
             this.cadastro.crn = crn
           }
+          console.log('cadastro')
           axios.post(BASE + "/Login/Cadastrar_usuario", this.cadastro).then((res) => {
             if(res.data.code === 1) {
               setTimeout(() => {
-                mainLayout.sToast(res.data.msg, '', "success");
-                // this.selectedForm = 'login';
+                mainLayout.sToast(res.data.msg);
+                this.selectedForm = 'login';
                 spinner.style.display = 'none';
               }, 5000);
             }else{
-              setTimeout(() => {
-                mainLayout.sToast(res.data.msg, '', "danger");
-                spinner.style.display = 'none';
-              }, 5000);
+              mainLayout.sToast(res.data.msg, '', "danger");
+              spinner.style.display = 'none';
             }
           })
+        } else {
+          spinner.style.display = 'none';
         }
       }
     },
-    LimpaInput(){
+    LimpaInputLog(){
+      LimpaInput(this.login.cpf, this.$refs.loginCPF);
+      LimpaInput(this.login.crn, this.$refs.loginCRN);
+      LimpaInput(this.login.senha, this.$refs.senha);
+    },
+    LimpaInputCad(){
       LimpaInput(this.cadastro.nome, this.$refs.nome);
       LimpaInput(this.cadastro.cel, this.$refs.celular);
       LimpaInput(this.cadastro.email, this.$refs.cadEmail);
@@ -393,9 +392,6 @@ Vue.component('AppVue', {
       LimpaInput(this.cadastro.crn, this.$refs.CRN);
       LimpaInput(this.cadastro.senha, this.$refs.cadSenha);
       LimpaInput(this.cadastro.confirmaSenha, this.$refs.cadConfirmaSenha);
-      LimpaInput(this.login.cpf, this.$refs.loginCPF);
-      LimpaInput(this.login.crn, this.$refs.loginCRN);
-      LimpaInput(this.login.senha, this.$refs.senha);
     },
     confirmaSession() {
       const spinner = document.getElementById('spinner');
@@ -404,7 +400,11 @@ Vue.component('AppVue', {
       axios.get(BASE + "/Login/confirmaSession").then((res) => {
         if(res.data.code == 1) {
           setTimeout(() => {
-            
+            if (res.data.TIPO_USUARIO == 1) {
+              window.location.href = BASE + '/perfil_nutricionista'
+            } else {
+              window.location.href = BASE + '/perfil_usuario'
+            }
             spinner.style.display = 'none';
           }, 3000);
         } else {

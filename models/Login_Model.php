@@ -75,11 +75,10 @@ class login_Model extends Model
         $nascimento = date_format(new DateTimeImmutable($post->dataNascimento), 'Y/m/d');
 
         /* VALIDAR E-MAIL */
-        if(filter_var($email, FILTER_VALIDATE_EMAIL)){
-            true;
-        } else{
-            $msg = json_encode(array("code" => "0", "msg" => "O E-mail está inválido!!"));
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            exit(json_encode(array("code" => "0", "msg" => "O E-mail está inválido!!")));
         }
+        
 
         /* VALIDAR CPF */
         if ($tipo == "2"){$valid_cpf = validaCPF($cpf);
@@ -88,8 +87,8 @@ class login_Model extends Model
         }}
 
         /* VALIDAR SENHA */
-        if($senha != $confirma_senha){
-            $msg = json_encode(array("code" => "0", "msg" => "Senha diferentes, Por favor, digite novamente."));
+        if ($senha != $confirma_senha) {
+            exit(json_encode(array("code" => "0", "msg" => "Senhas diferentes, Por favor, digite novamente.")));
         }
 
         /* DECODIFICAÇAO DA SENHA */
@@ -111,7 +110,6 @@ class login_Model extends Model
             $msg = json_encode(array("code" => "0", "msg" => "Por favor, insira o CRN."));
         }
 
-        $nome = strtoupper($nome);
         $email = strtolower($email);
         
         try {
@@ -160,6 +158,10 @@ class login_Model extends Model
             }
 
             $msg = json_encode(array("code" => "0", "sqlstate" => $sqlState, "msg" => "Erro ao inserir: $errorMsg"));
+        }
+
+        if (!isset($msg)) {
+            $msg = json_encode(array("code" => "0", "msg" => "Erro inesperado no cadastro."));
         }
 
         echo($msg);
