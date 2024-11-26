@@ -141,18 +141,18 @@
             methods: {
                 sToast: function (titleMsg, contentMsg = '', type = 'success') {
                     types = {
-                    danger: {
-                        css: 'e-toast-danger',
-                        icon: 'fas fa-exclamation-triangle'
-                    },
-                    warning: {
-                        css: 'e-toast-warning',
-                        icon: 'fas fa-exclamation-triangle'
-                    },
-                    success: {
-                        css: 'e-toast-success',
-                        icon: 'fas fa-check'
-                    },
+                        danger: {
+                            css: 'e-toast-danger',
+                            icon: 'fas fa-exclamation-triangle'
+                        },
+                        warning: {
+                            css: 'e-toast-warning',
+                            icon: 'fas fa-exclamation-triangle'
+                        },
+                        success: {
+                            css: 'e-toast-success',
+                            icon: 'fas fa-check'
+                        },
                     }
 
                     this.$refs.toastRef.show({
