@@ -4,15 +4,9 @@ class Controller {
 
     function __construct()
     {
-        // Controller principal
         $this->view = new View();
     }
     
-    /**
-     * 
-     * @param string $name nome do model
-     * @param string $path local dos models
-     */
     public function loadModel($name, $modelPath = 'models/') {
 
         $path = $modelPath . $name . '_model.php';
